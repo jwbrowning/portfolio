@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Chess } from 'chess.js';
+
 import Piece from './Piece'
-import '../App.css';
+import Square from './Square'
+
 import chessboard from '../Images/chessboard.png';
 import bB from '../Images/BBishop.png';
 import bK from '../Images/BKing.png';
@@ -15,6 +17,8 @@ import wN from '../Images/WKnight.png';
 import wP from '../Images/WPawn.png';
 import wQ from '../Images/WQueen.png';
 import wR from '../Images/WRook.png';
+
+import '../App.css';
 
 const pieceSize = 64;
 
@@ -113,11 +117,21 @@ function GetSquare(flipped, x, y) {
     return GetFile(x) + GetRank(y);
 }
 
+function GetCords(flipped, square) {
+    var x = cord[square.charAt(0)];
+    var y = cord[square.charAt(1)];
+    if (flipped) {
+        x = 7 - x;
+        y = 7 - y;
+    }
+    return [x, y]
+}
+
 function Board(props) {
     const [chess, setChess] = useState(new Chess());
 
-    var startSq = ""
-    var endSq = ""
+    const [startSq, setStartSq] = useState('');
+    var endSq = ''
     var startX = 0
     var startY = 0
 
@@ -125,7 +139,7 @@ function Board(props) {
 
     const [pieces, setPieces] = useState(GetPieces(chess.board(), flipped));
 
-    const [highlightedSquares, setHighlightedSquares] = useState([])
+    const [squares, setSquares] = useState([])
 
     const UpdatePieces = (f=flipped) => {
         setPieces(GetPieces(chess.board(), f));
@@ -136,17 +150,34 @@ function Board(props) {
         UpdatePieces(!flipped)
     }
 
+    const updateSquares = (sq) => {
+        const sqs = [];
+        if (sq != '') {
+            const sCords = GetCords(flipped, sq);
+            sqs.push({ type: 'start', x: sCords[0] * pieceSize, y: sCords[1] * pieceSize, key: 0 });
+            const moves = chess.moves({ verbose: true, square: sq });
+            for (var i = 0; i < moves.length; i++) {
+                const cords = GetCords(flipped, moves[i].to);
+                if (chess.get(moves[i].to)) {
+                    sqs.push({ type: 'capture', x: cords[0] * pieceSize, y: cords[1] * pieceSize, key: i + 1 });
+                } else {
+                    sqs.push({ type: 'move', x: cords[0] * pieceSize, y: cords[1] * pieceSize, key: i + 1 });
+                }
+            }
+        }
+        setSquares(sqs);
+    }
+
     const DragStart = (e, x, y) => {
-        // e.preventDefault();
         e.dataTransfer.effectAllowed = 'move'
-        startSq = GetSquare(flipped, x, y);
-        // highlightedSquares = [startSq]
-        // setHighlightedSquares(highlightedSquares)
-        console.log('start ' + startSq)
+        var startSqu = GetSquare(flipped, x, y);
+        setStartSq(startSqu);
+        console.log('start ' + startSqu)
         const size = pieceSize * 8;
         startX = Math.floor((e.nativeEvent.offsetX / size) * 8) * pieceSize;
         startY = Math.floor((e.nativeEvent.offsetY / size) * 8) * pieceSize;
         endSq = "";
+        updateSquares(startSqu);
     }
 
     const handleDragLeave = event => {
@@ -182,16 +213,16 @@ function Board(props) {
         e.dataTransfer.effectAllowed = 'move'
         e.preventDefault()
         endSq = GetSquare(flipped, x, y);
-        console.log('end ' + endSq)
+        console.log('end ' + endSq + ' from ' + startSq)
         if (startSq != "") {
+            console.log('move')
             chess.move({ from: startSq, to: endSq })
             setChess(chess);
             UpdatePieces();
         }
-        startSq = "";
+        setStartSq("");
         endSq = "";
-        // highlightedSquares = []
-        // setHighlightedSquares(highlightedSquares)
+        updateSquares("");
     }
 
     const Click = (e, x, y) => {
@@ -199,19 +230,20 @@ function Board(props) {
         console.log("click " + sq);
         if (startSq == "") {
             // console.log("start")
-            startSq = sq;
-            // highlightedSquares = [startSq]
-            // setHighlightedSquares(highlightedSquares)
+            setStartSq(sq);
+            updateSquares(sq);
+        } else if (startSq == sq) {
+            setStartSq("");
+            endSq = "";
+            updateSquares("");
         } else {
             // console.log("end")
-            endSq = sq;
-            chess.move({ from: startSq, to: endSq })
+            chess.move({ from: startSq, to: sq })
             setChess(chess);
             UpdatePieces();
-            startSq = "";
-            // highlightedSquares = []
-            // setHighlightedSquares(highlightedSquares)
+            setStartSq(sq);
             endSq = "";
+            updateSquares(sq);
         }
     }
 
@@ -247,6 +279,9 @@ function Board(props) {
                     src={chessboard}
                     height='100%'
                     width='100%'/>
+                {squares.map((square) => (
+                    <Square type={square.type} x={square.x} y={square.y} key={square.key}/>
+                ))}
                 {pieces.map((piece) => (
                     <Piece type={piece.type} x={piece.x} y={piece.y} key={piece.key} 
                     onDragStart={DragStart}
