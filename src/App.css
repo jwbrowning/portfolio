@@ -1,6 +1,167 @@
+:root {
+  /* --primary: #B21A17; */
+  --accent: #c9c045;
+  --text: rgb(198, 198, 198);
+  --text-hover: rgb(255, 255, 255);
+  --text2: rgb(0, 0, 0);
+  --background: #36352e;
+  --dark-background: #21201C;
+  --light-background: #696558;
+  /* D3DFB8 */
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: var(--background);
+}
+
+h1 {
+  text-align: left;
+  font-size: 45px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text2);
+  padding: 40px;
+}
+
+/* .list {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.list ul li {
+  list-style: none;
+  margin: 42px;
+  text-align: center;
+  /* justify-content: space-evenly;
+}*/
+
+a {
+  text-decoration: none;
+  /* color: rgb(0, 0, 0); */
+  color: var(--text);
+  font-size: 20px;
+  /* font-family: Arial, Helvetica, sans-serif; */
+  padding: 14px 25px;
+  /* background-color: transparent; */
+  /* border: 2px solid rgb(12, 0, 66); */
+}
+
+a:hover {
+  /* background-color: rgb(12, 0, 66); */
+  color: var(--text-hover)
+}
+
+button {
+  /* border-radius: 0%; */
+  /* border-color: var(--accent); */
+  border-radius: 10px;
+  border: 3px solid var(--accent);
+  color: var(--text);
+  background-color: var(--background);
+}
+
+button:hover {
+  color: var(--text-hover);
+  /* background-color: var(--dark-background); */
+}
+
+nav {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  min-height: 10vh;
+  background-color: var(--dark-background);
+  color: var(--text);
+  /* border-radius: 10px; */
+  border: 3px solid var(--accent);
+
+  /* padding-left: 30%; */
+}
+
+.nav-links {
+  width: 50%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  list-style: none;
+
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.ascii-art {
+  /* height: ; */
+  /* display: grid;
+  height: 100%;
+  width: 100%; */
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: var(--dark-background);
+  /* border: 3px solid var(--accent); */
+  position: absolute;
+  left: 50%;
+  width: 100%;
+  height: 90%;
+  /* width: fit-content; */
+  /* top: 50%; */
+  transform: translate(-50%, 0%);
+}
+
+.fischer-quote {
+  position: absolute;
+  font-family: monospace;
+  text-align: center;
+  font-size: 25px;
+  color: rgb(213, 211, 171);
+  padding: 20px;
+  width: 50%;
+  white-space: pre-wrap;
+  /* position: absolute; */
+  transform: translate(-50%, 150px);
+}
+
+.fischer-quote2 {
+  position: absolute;
+  font-family: monospace;
+  text-align: center;
+  font-size: 25px;
+  color: rgb(213, 211, 171);
+  padding: 20px;
+  width: 50%;
+  white-space: pre-wrap;
+  /* position: absolute; */
+  transform: translate(50%, 250px);
+}
+
+.desc {
+  position: absolute;
+  font-family: monospace;
+  text-align: center;
+  font-size: 20px;
+  color: var(--text);
+  padding: 20px;
+  width: 35%;
+  white-space: pre-wrap;
+  /* position: absolute; */
+  transform: translate(-90%, -300px);
+}
+
+.fit-image {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+
 .app {
   min-height: 100vh;
-  background-color: gray;
+  background-color: var(--background);
 }
 
 .no-drag {
@@ -12,25 +173,25 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  height: 600px;
-  width: 900px;
+  height: 522px;
+  width: 778px;
   align-items: center;
-  /* border: 30px solid black; */
-  /* border-radius: 30px; */
+  border: 5px solid var(--accent);
 }
 
 .button-panel {
   position: absolute;
-  left: 750px;
+  left: 640px;
   top: 50%;
   transform: translate(-50%, -50%);
-  height: 600px;
-  width: 300px;
-  background-color: rgb(97, 97, 97);
+  height: 512px;
+  width: 256px;
+  background-color: var(--light-background);
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  /* border: 5px solid var(--accent); */
 }
 
 .panel-button {
@@ -44,12 +205,13 @@
 .board {
   pointer-events: auto;
   position: absolute;
-  left: 300px;
+  left: 256px;
   top: 50%;
   transform: translate(-50%, -50%);
-  height: 600px;
-  width: 600px;
+  height: 512px;
+  width: 512px;
   align-items: center;
+  /* border: 5px solid var(--dark-background); */
 }
 
 .piece {
@@ -57,6 +219,6 @@
   position: absolute;
   left: 0px;
   top: 0px;
-  height: 75px;
-  width: 75px;
+  height: 64px;
+  width: 64px;
 }

@@ -1,11 +1,13 @@
 import React from 'react';
-import Board from './Board';
+
+import NavBar from './Components/NavBar';
+
 import './App.css';
 
 function App() {
   return(
     <div className='app'>
-      <Board/>
+      <NavBar />
     </div>
   );
 }

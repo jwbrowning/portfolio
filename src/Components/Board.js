@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
 import { Chess } from 'chess.js';
 import Piece from './Piece'
-import './App.css';
-import chessboard from './Images/chessboard.png';
-import bB from './Images/BBishop.png';
-import bK from './Images/BKing.png';
-import bN from './Images/BKnight.png';
-import bP from './Images/BPawn.png';
-import bQ from './Images/BQueen.png';
-import bR from './Images/BRook.png';
-import wB from './Images/WBishop.png';
-import wK from './Images/WKing.png';
-import wN from './Images/WKnight.png';
-import wP from './Images/WPawn.png';
-import wQ from './Images/WQueen.png';
-import wR from './Images/WRook.png';
+import '../App.css';
+import chessboard from '../Images/chessboard.png';
+import bB from '../Images/BBishop.png';
+import bK from '../Images/BKing.png';
+import bN from '../Images/BKnight.png';
+import bP from '../Images/BPawn.png';
+import bQ from '../Images/BQueen.png';
+import bR from '../Images/BRook.png';
+import wB from '../Images/WBishop.png';
+import wK from '../Images/WKing.png';
+import wN from '../Images/WKnight.png';
+import wP from '../Images/WPawn.png';
+import wQ from '../Images/WQueen.png';
+import wR from '../Images/WRook.png';
 
-const pieceSize = 75;
+const pieceSize = 64;
 
 const images = {
     'P': wP,
@@ -76,7 +76,7 @@ function GetPieces(board, flipped) {
             var b = board[i][j]
             if (b != null) {
                 ps.push(
-                    { type: GetImage(b), x: 75 * (flipped ? 7 - j : j), y: 75 * (flipped ? 7 - i : i), key: ps.length }
+                    { type: GetImage(b), x: pieceSize * (flipped ? 7 - j : j), y: pieceSize * (flipped ? 7 - i : i), key: ps.length }
                 );
             }
         }
@@ -144,8 +144,8 @@ function Board(props) {
         // setHighlightedSquares(highlightedSquares)
         console.log('start ' + startSq)
         const size = pieceSize * 8;
-        startX = Math.floor((e.nativeEvent.offsetX / size) * 8) * 75;
-        startY = Math.floor((e.nativeEvent.offsetY / size) * 8) * 75;
+        startX = Math.floor((e.nativeEvent.offsetX / size) * 8) * pieceSize;
+        startY = Math.floor((e.nativeEvent.offsetY / size) * 8) * pieceSize;
         endSq = "";
     }
 
@@ -164,8 +164,8 @@ function Board(props) {
 
     const DropPiece = (e, x, y) => {
         const size = pieceSize * 8;
-        const oX = startX - (Math.floor((e.nativeEvent.offsetX / size) * 8) * 75);
-        const oY = startY - (Math.floor((e.nativeEvent.offsetY / size) * 8) * 75);
+        const oX = startX - (Math.floor((e.nativeEvent.offsetX / size) * 8) * pieceSize);
+        const oY = startY - (Math.floor((e.nativeEvent.offsetY / size) * 8) * pieceSize);
         x = x - oX
         y = y - oY
         DragEnd(e, x, y)
@@ -217,8 +217,8 @@ function Board(props) {
 
     const ClickBoard = (e) => {
         const size = pieceSize * 8;
-        const x = Math.floor((e.nativeEvent.offsetX / size) * 8) * 75;
-        const y = Math.floor((e.nativeEvent.offsetY / size) * 8) * 75;
+        const x = Math.floor((e.nativeEvent.offsetX / size) * 8) * pieceSize;
+        const y = Math.floor((e.nativeEvent.offsetY / size) * 8) * pieceSize;
         for (var i = 0; i < pieces.length; i++) {
             if (pieces[i].x == x && pieces[i].y == y) return;
         }
@@ -227,8 +227,8 @@ function Board(props) {
 
     const DragEndBoard = (e) => {
         const size = pieceSize * 8;
-        const x = Math.floor((e.nativeEvent.offsetX / size) * 8) * 75;
-        const y = Math.floor((e.nativeEvent.offsetY / size) * 8) * 75;
+        const x = Math.floor((e.nativeEvent.offsetX / size) * 8) * pieceSize;
+        const y = Math.floor((e.nativeEvent.offsetY / size) * 8) * pieceSize;
         // for (var i = 0; i < pieces.length; i++) {
         //     if (pieces[i].x == x && pieces[i].y == y) return;
         // }

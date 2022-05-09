@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Chess } from 'chess.js';
-import './App.css';
+import '../App.css';
 
 function Piece(props) {
     return(
