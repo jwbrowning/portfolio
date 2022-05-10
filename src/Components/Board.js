@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Chess } from 'chess.js';
+import axios from 'axios';
 
 import Piece from './Piece'
 import Square from './Square'
@@ -135,7 +136,12 @@ function Board(props) {
     var startX = 0
     var startY = 0
 
+    const urlStart = 'https://explorer.lichess.ovh/lichess?variant=standard&fen=';
+    const urlEnd = '&play=&since=2012-01&until=2022-04&speeds=classical%2Crapid%2Cblitz&ratings=2000%2C2200%2C2500'
+
     const [flipped, setFlipped] = useState(false);
+
+    const [autoRespond, setAutoRespond] = useState(false);
 
     const [pieces, setPieces] = useState(GetPieces(chess.board(), flipped));
 
@@ -146,8 +152,56 @@ function Board(props) {
     }
 
     const Flip = () => {
-        setFlipped(!flipped)
-        UpdatePieces(!flipped)
+        setFlipped(!flipped);
+        UpdatePieces(!flipped);
+    }
+
+    const ToggleTraining = () => {
+        setAutoRespond(!autoRespond);
+        requestResponse(chess, !autoRespond);
+    }
+
+    const requestResponse = (ch, respond=autoRespond) => {
+        if (!respond) return;
+        var fen = ch.fen();
+        console.log(fen);
+        // fen = 'rnbqkbnr%2Fpppppppp%2F8%2F8%2F8%2F8%2FPPPPPPPP%2FRNBQKBNR+w+KQkq+-+0+1'
+        fen = fen.replaceAll(' ', '+');
+        fen = fen.replaceAll('/', '%2F');
+        var url = urlStart + fen + urlEnd;
+        axios.get(url)
+            .then((response) => {
+                var moves = [];
+                var total = 0;
+                for (var i = 0; i < response.data.moves.length; i++) {
+                    var c = response.data.moves[i].black + response.data.moves[i].white + response.data.moves[i].draws;
+                    moves.push({move: response.data.moves[i].san,
+                        count: c});
+                    total += c;
+                }
+                var rand = Math.random();
+                var a = 0;
+                if (moves.length == 0) {
+                    setAutoRespond(false);
+                    return;
+                }
+                for (var i = 0; i < moves.length; i++) {
+                    if (rand < (moves[i].count / total) + a) {
+                        if (!chess.move(moves[i].move)) {
+                            setAutoRespond(false);
+                        } else {
+                            setChess(chess);
+                            UpdatePieces();
+                        }
+                        break;
+                    }
+                    a += moves[i].count / total;
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                setAutoRespond(false);
+            });
     }
 
     const updateSquares = (sq) => {
@@ -216,7 +270,9 @@ function Board(props) {
         console.log('end ' + endSq + ' from ' + startSq)
         if (startSq != "") {
             console.log('move')
-            chess.move({ from: startSq, to: endSq })
+            if (chess.move({ from: startSq, to: endSq })) {
+                requestResponse(chess);
+            }
             setChess(chess);
             UpdatePieces();
         }
@@ -238,7 +294,9 @@ function Board(props) {
             updateSquares("");
         } else {
             // console.log("end")
-            chess.move({ from: startSq, to: sq })
+            if (chess.move({ from: startSq, to: sq })) {
+                requestResponse(chess);
+            }
             setChess(chess);
             UpdatePieces();
             setStartSq(sq);
@@ -295,8 +353,12 @@ function Board(props) {
                 
             </div>
             <div className='button-panel'>
+                <button className={'panel-button ' + (autoRespond ? 'toggle-on' : 'toggle-off')}
+                    onClick={ToggleTraining}>
+                        {autoRespond ? 'Stop Training' : 'Start Training'}
+                </button>
                 <button className='panel-button'
-                onClick={Flip}>
+                    onClick={Flip}>
                     Flip Board
                 </button>
             </div>
