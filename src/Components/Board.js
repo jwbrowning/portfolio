@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Chess } from 'chess.js';
 import axios from 'axios';
+import qs from 'qs'
 
 import Piece from './Piece'
 import Square from './Square'
@@ -18,6 +19,17 @@ import wN from '../Images/WKnight.png';
 import wP from '../Images/WPawn.png';
 import wQ from '../Images/WQueen.png';
 import wR from '../Images/WRook.png';
+
+import rotateIcon from '../Icons/rotate.png';
+import backIcon from '../Icons/back.png';
+import calculatorIcon from '../Icons/calculator.png';
+import closeIcon from '../Icons/close.png';
+import playIcon from '../Icons/play.png';
+import stopIcon from '../Icons/stop.png';
+import swapIcon from '../Icons/swap.png';
+import saveIcon from '../Icons/save.png';
+import leftIcon from '../Icons/left.png';
+import rightIcon from '../Icons/right.png';
 
 import '../App.css';
 
@@ -136,6 +148,9 @@ function Board(props) {
     var startX = 0
     var startY = 0
 
+    const [trainingPosition, setTrainingPosition] = useState('');
+    const [redoStack, setRedoStack] = useState([]);
+
     const urlStart = 'https://explorer.lichess.ovh/lichess?variant=standard&fen=';
     const urlEnd = '&play=&since=2012-01&until=2022-04&speeds=classical%2Crapid%2Cblitz&ratings=2000%2C2200%2C2500'
 
@@ -147,8 +162,8 @@ function Board(props) {
 
     const [squares, setSquares] = useState([])
 
-    const UpdatePieces = (f=flipped) => {
-        setPieces(GetPieces(chess.board(), f));
+    const UpdatePieces = (f=flipped, c=chess) => {
+        setPieces(GetPieces(c.board(), f));
     }
 
     const Flip = () => {
@@ -159,6 +174,10 @@ function Board(props) {
     const ToggleTraining = () => {
         setAutoRespond(!autoRespond);
         requestResponse(chess, !autoRespond);
+    }
+
+    const saveTrainingPosition = () => {
+        setTrainingPosition(chess.pgn());
     }
 
     const requestResponse = (ch, respond=autoRespond) => {
@@ -176,7 +195,7 @@ function Board(props) {
                 for (var i = 0; i < response.data.moves.length; i++) {
                     var c = response.data.moves[i].black + response.data.moves[i].white + response.data.moves[i].draws;
                     moves.push({move: response.data.moves[i].san,
-                        count: c});
+                        count: c, from: response.data.moves[i].uci.substring(0, 2), to: response.data.moves[i].uci.substring(2, 4)});
                     total += c;
                 }
                 var rand = Math.random();
@@ -192,6 +211,15 @@ function Board(props) {
                         } else {
                             setChess(chess);
                             UpdatePieces();
+                            setStartSq('');
+                            updateSquares('');
+                            setRedoStack([]);
+                            // var fromCords = GetCords(flipped, moves[i].from);
+                            // var toCords = GetCords(flipped, moves[i].to);
+                            // var sqss = squares;
+                            // sqss.push({type: 'start', x: fromCords[0] * pieceSize, y: fromCords[1] * pieceSize, key: 98});
+                            // sqss.push({type: 'start', x: toCords[0] * pieceSize, y: toCords[1] * pieceSize, key: 99});
+                            // setSquares(sqss);
                         }
                         break;
                     }
@@ -202,6 +230,68 @@ function Board(props) {
                 console.log(error);
                 setAutoRespond(false);
             });
+    }
+
+    const resetBoard = () => {
+        if (trainingPosition == '') {
+            var c = new Chess();
+            setChess(c);
+            UpdatePieces(flipped, c);
+            setStartSq('');
+            updateSquares('');
+            setAutoRespond(false);
+        } else {
+            var c = new Chess();
+            c.load_pgn(trainingPosition);
+            if (chess.fen() == c.fen()) {
+                c = new Chess();
+            }
+            setChess(c);
+            UpdatePieces(flipped, c);
+            setStartSq('');
+            updateSquares('');
+            setAutoRespond(false);
+        }
+    }
+
+    const leftArrow = () => {
+        var c = chess;
+        var m = c.undo();
+        if (m) {
+            redoStack.push(m.san);
+            setChess(c);
+            UpdatePieces(flipped, c);
+        }
+        setStartSq('');
+        updateSquares('');
+        setAutoRespond(false);
+    }
+
+    const rightArrow = () => {
+        if (redoStack.length == 0) return;
+        var san = redoStack.pop();
+        setRedoStack(redoStack);
+        var c = chess;
+        c.move(san);
+        setChess(c);
+        UpdatePieces(flipped, c);
+        setStartSq('');
+        updateSquares('');
+        setAutoRespond(false);
+    }
+
+    const Analyze = () => {
+        var pgn = chess.pgn()
+        console.log(pgn)
+        axios.post('https://lichess.org/api/import', qs.stringify({ pgn: pgn }))
+            .then((response) => {
+                window.open(response.data.url, '_blank');
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+                console.log(error.request.responseText)
+            })
     }
 
     const updateSquares = (sq) => {
@@ -271,6 +361,7 @@ function Board(props) {
         if (startSq != "") {
             console.log('move')
             if (chess.move({ from: startSq, to: endSq })) {
+                setRedoStack([]);
                 requestResponse(chess);
             }
             setChess(chess);
@@ -295,6 +386,7 @@ function Board(props) {
         } else {
             // console.log("end")
             if (chess.move({ from: startSq, to: sq })) {
+                setRedoStack([]);
                 requestResponse(chess);
             }
             setChess(chess);
@@ -325,6 +417,20 @@ function Board(props) {
         DragEnd(e, x, y)
     }
 
+    const handleKeyPress = (e) => {
+        if (e.keyCode == 37) { // <-
+            leftArrow();
+        } else if (e.keyCode == 39) { // ->
+            rightArrow();
+        } else if (e.keyCode == 70) { // f
+            Flip();
+        } else if (e.keyCode == 82) { // r
+            resetBoard();
+        } else if (e.keyCode == 83) { // s
+            saveTrainingPosition();
+        }
+    }
+
     return(
         <div className='board-and-stuff'>
             <div className='board'
@@ -338,7 +444,11 @@ function Board(props) {
                     height='100%'
                     width='100%'/>
                 {squares.map((square) => (
-                    <Square type={square.type} x={square.x} y={square.y} key={square.key}/>
+                    <Square type={square.type} x={square.x} y={square.y} key={square.key}
+                    onDragEnter={handleDragEnter}
+                    onDragLeave={handleDragLeave}
+                    onDragOver={handleDragOver}
+                    onDrop={DropPiece}/>
                 ))}
                 {pieces.map((piece) => (
                     <Piece type={piece.type} x={piece.x} y={piece.y} key={piece.key} 
@@ -353,14 +463,55 @@ function Board(props) {
                 
             </div>
             <div className='button-panel'>
+                <div className='top-buttons'>
+                    <div className='col'>
+                        <button className='small-button'
+                            onClick={resetBoard}>
+                            <img className='button-icon' src={rotateIcon} alt='Reset' title='Reset Board' />
+                        </button>
+                        <button className='small-button'
+                            onClick={Flip}>
+                            <img className='button-icon' src={swapIcon} alt='Flip' title='Flip Board' />
+                        </button>
+                    </div>
+                    <div className='col'>
+                        <button className='small-button'
+                            onClick={Analyze}>
+                            <img className='button-icon' src={calculatorIcon} alt='Analyze' title='Analyze on Lichess' />
+                        </button>
+                        <button className='small-button'
+                            onClick={saveTrainingPosition}>
+                            <img className='button-icon' src={saveIcon} alt='Save' title='Set position to train from' />
+                        </button>
+                    </div>
+                </div>
                 <button className={'panel-button ' + (autoRespond ? 'toggle-on' : 'toggle-off')}
                     onClick={ToggleTraining}>
-                        {autoRespond ? 'Stop Training' : 'Start Training'}
+                        <div className='col'>
+                            {autoRespond ? 'Stop Training' : 'Start Training'}
+                            <img className='button-icon' src={autoRespond ? stopIcon : playIcon} />
+                        </div>
                 </button>
-                <button className='panel-button'
-                    onClick={Flip}>
-                    Flip Board
-                </button>
+                <div className='col'>
+                    <p className='fen'>PGN:</p>
+                    <textarea className='fen' rows={5} cols={25} readOnly value={chess.pgn({max_width: 30})}>
+                    </textarea>
+                </div>
+                <div className='col'>
+                    <p className='fen'>FEN:</p>
+                    <textarea className='fen' rows={1} cols={25} readOnly value={chess.fen()}>
+                    </textarea>
+                </div>
+                <div className='top-buttons'>
+                    <button className='small-button'
+                        onClick={leftArrow}>
+                        <img className='button-icon' src={leftIcon} alt='<' />
+                    </button>
+                    <button className='small-button'
+                        onClick={rightArrow}>
+                        <img className='button-icon' src={rightIcon} alt='>' />
+                    </button>
+                </div>
             </div>
         </div>
     );
