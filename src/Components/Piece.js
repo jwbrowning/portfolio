@@ -3,8 +3,13 @@ import { Chess } from 'chess.js';
 import '../App.css';
 
 function Piece(props) {
+
+    let trans = {
+        transform: 'translate(' + props.x + 'px, ' + props.y + 'px)'
+    }
+
     return(
-        <div className='piece'
+        <div className={props.cName ? 'piece ' + props.cName : 'piece'}
         draggable="true"
         onDragStart={(e) => {props.onDragStart(e, props.x, props.y)}}
         onDragEnter={props.onDragEnter}
@@ -14,7 +19,7 @@ function Piece(props) {
         // onDragEnd={(e) => {props.onDragEnd(e, props.x, props.y)}}
         // onmouse={(e) => {props.onDragEnd(e, props.x, props.y)}}
         onClick={(e) => {props.onClick(e, props.x, props.y)}}
-        style={{transform: 'translate(' + props.x + 'px, ' + props.y + 'px)'}}>
+        style={{...trans, ...props.pSize}}>
             <img className='no-drag'
                 src={props.type}
                 height='100%'

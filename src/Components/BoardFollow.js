@@ -5,7 +5,6 @@ import qs from 'qs'
 
 import Piece from './Piece'
 import Square from './Square'
-import GameInfo from './GameInfo';
 
 import chessboard from '../Images/chessboard.png';
 import bB from '../Images/BBishop.png';
@@ -21,20 +20,6 @@ import wP from '../Images/WPawn.png';
 import wQ from '../Images/WQueen.png';
 import wR from '../Images/WRook.png';
 
-// import chessboard from '../staunty-wood/chessboard.png';
-// import bB from '../staunty_wood/bb.svg';
-// import bK from '../staunty_wood/kb.svg';
-// import bN from '../staunty_wood/nb.svg';
-// import bP from '../staunty_wood/pb.svg';
-// import bQ from '../staunty_wood/qb.svg';
-// import bR from '../staunty_wood/rb.svg';
-// import wB from '../staunty_wood/bw.svg';
-// import wK from '../staunty_wood/kw.svg';
-// import wN from '../staunty_wood/nw.svg';
-// import wP from '../staunty_wood/pw.svg';
-// import wQ from '../staunty_wood/qw.svg';
-// import wR from '../staunty_wood/rw.svg';
-
 import rotateIcon from '../Icons/rotate.png';
 import backIcon from '../Icons/back.png';
 import calculatorIcon from '../Icons/calculator.png';
@@ -45,7 +30,6 @@ import swapIcon from '../Icons/swap.png';
 import saveIcon from '../Icons/save.png';
 import leftIcon from '../Icons/left.png';
 import rightIcon from '../Icons/right.png';
-import microscopeIcon from '../Icons/microscope.png';
 
 import '../App.css';
 
@@ -88,6 +72,16 @@ const cord = {
     '3': 5,
     '2': 6,
     '1': 7,
+}
+
+function XCord(sq, pieceSize) {
+    var file = sq.charAt(0);
+    return pieceSize * cord[file];
+}
+
+function YCord(sq, pieceSize) {
+    var rank = sq.charAt(1);
+    return pieceSize * cord[rank];
 }
 
 function GetPieces(board, flipped, pieceSize) {
@@ -144,7 +138,7 @@ function GetCords(flipped, square) {
     return [x, y]
 }
 
-function Board(props) {
+function BoardFollow(props) {
     const [chess, setChess] = useState(new Chess());
 
     const [startSq, setStartSq] = useState('');
@@ -162,7 +156,7 @@ function Board(props) {
 
     const [autoRespond, setAutoRespond] = useState(false);
 
-    const [pieces, setPieces] = useState(GetPieces(chess.board(), flipped, props.pieceSize));
+    const [pieces, setPieces] = useState(GetPieces(chess.board(), flipped));
 
     const [squares, setSquares] = useState([])
 
@@ -218,6 +212,12 @@ function Board(props) {
                             setStartSq('');
                             updateSquares('');
                             setRedoStack([]);
+                            // var fromCords = GetCords(flipped, moves[i].from);
+                            // var toCords = GetCords(flipped, moves[i].to);
+                            // var sqss = squares;
+                            // sqss.push({type: 'start', x: fromCords[0] * pieceSize, y: fromCords[1] * pieceSize, key: 98});
+                            // sqss.push({type: 'start', x: toCords[0] * pieceSize, y: toCords[1] * pieceSize, key: 99});
+                            // setSquares(sqss);
                         }
                         break;
                     }
@@ -258,7 +258,7 @@ function Board(props) {
         if (m) {
             redoStack.push(m.san);
             setChess(c);
-            UpdatePieces(flipped, c);
+            UpdatePieces(flipped, c, props.pieceSize);
         }
         setStartSq('');
         updateSquares('');
@@ -295,7 +295,7 @@ function Board(props) {
     const updateSquares = (sq) => {
         const sqs = [];
         if (sq != '') {
-            const sCords = GetCords(flipped, sq);
+            const sCords = GetCords(flipped, sq, props.pieceSize);
             sqs.push({ type: 'start', x: sCords[0] * props.pieceSize, y: sCords[1] * props.pieceSize, key: 0 });
             const moves = chess.moves({ verbose: true, square: sq });
             for (var i = 0; i < moves.length; i++) {
@@ -428,60 +428,10 @@ function Board(props) {
             saveTrainingPosition();
         }
     }
-    
-    let basSize = 
-    props.type == 'opening trainer' ? 
-    {
-        width: (10 + props.pieceSize * 8 + props.pieceSize * 4) + 'px',
-        height: (10 + props.pieceSize * 8) + 'px'
-    } : props.type == 'small-tournament' ? {
-        width: (props.pieceSize * 8 * 4) + 'px',
-        height: (10 + props.pieceSize * 8) + 'px'
-    } : {
-        width: (10 + props.pieceSize * 8) + 'px',
-        height: (10 + props.pieceSize * 8) + 'px'
-    }
-
-    let basMore = {
-        position: 'absolute',
-        left: '50%',
-        top: '50%',
-        transform: 'translate(-50%, -50%)'
-    }
-
-    let bSize = {
-        width: (props.pieceSize * 8) + 'px',
-        height: (props.pieceSize * 8) + 'px'
-    }
-
-    let pSize = {
-        width: props.pieceSize + 'px',
-        height: props.pieceSize + 'px'
-    }
-
-    let bEffect = {
-        filter: 'saturate(200%) hue-rotate(70deg)',
-        // filter: 'hue-rotate(deg)',
-        // filter: 'sepia(100%)',
-        // filter: 'invert(40%)',
-        // filter: 'blur(2px) saturate(150%)',
-        // filter: 'brightness(1.1)',
-    }
-
-    let bEffect2 = {
-        filter: 'saturate(100%) hue-rotate(70deg)',
-        // filter: 'hue-rotate(deg)',
-        // filter: 'sepia(100%)',
-        // filter: 'invert(40%)',
-        // filter: 'blur(2px) saturate(150%)',
-        // filter: 'brightness(1.1)',
-    }
 
     return(
-        <div className='board-and-stuff'
-        style={props.type=='opening trainer' ? {...basMore, ...basSize} : {...basSize}}>
-            <div className='board'
-            style={{...bSize}}
+        <div className='follow-board-stuff'>
+            <div className='fboard'
             onDragEnter={handleDragEnter}
             onDragLeave={handleDragLeave}
             onDragOver={handleDragOver}
@@ -489,21 +439,17 @@ function Board(props) {
             onClick={ClickBoard}>
                 <img className='no-drag'
                     src={chessboard}
-                    style={(chess.pgn() == trainingPosition && trainingPosition != '') ? {...bEffect} : {...bEffect2}}
                     height='100%'
                     width='100%'/>
                 {squares.map((square) => (
-                    <Square type={square.type} x={square.x} y={square.y} key={square.key}
-                    pSize={pSize}
-                    pieceSize={props.pieceSize}
+                    <Square size={props.pieceSize} type={square.type} x={square.x} y={square.y} key={square.key}
                     onDragEnter={handleDragEnter}
                     onDragLeave={handleDragLeave}
                     onDragOver={handleDragOver}
                     onDrop={DropPiece}/>
                 ))}
                 {pieces.map((piece) => (
-                    <Piece type={piece.type} x={piece.x} y={piece.y} key={piece.key} 
-                    pSize={pSize}
+                    <Piece cName={'fpiece'} type={piece.type} x={piece.x} y={piece.y} key={piece.key} 
                     onDragStart={DragStart}
                     onDragEnd={DragEnd}
                     onDragEnter={handleDragEnter}
@@ -514,30 +460,26 @@ function Board(props) {
                 ))}
                 
             </div>
-            {props.type == 'opening trainer' ? <div className='button-panel'>
+            {/* <div className='button-panel'>
                 <div className='top-buttons'>
                     <div className='col'>
-                        <button className='small-button tooltip'
+                        <button className='small-button'
                             onClick={resetBoard}>
-                            <img className='button-icon' src={rotateIcon} alt='Reset' data='Reset Board' />
-                            <span class='tooltiptext'>reset board</span>
+                            <img className='button-icon' src={rotateIcon} alt='Reset' title='Reset Board' />
                         </button>
-                        <button className='small-button tooltip'
+                        <button className='small-button'
                             onClick={Flip}>
-                            <img className='button-icon' src={swapIcon} alt='Flip' data='Flip Board' />
-                            <span class='tooltiptext'>flip board</span>
+                            <img className='button-icon' src={swapIcon} alt='Flip' title='Flip Board' />
                         </button>
                     </div>
                     <div className='col'>
-                        <button className='small-button tooltip'
-                            onClick={saveTrainingPosition}>
-                            <img className='button-icon' src={saveIcon} alt='Save' data='Set position to train from' />
-                            <span class='tooltiptext'>save position</span>
-                        </button>
-                        <button className='small-button tooltip'
+                        <button className='small-button'
                             onClick={Analyze}>
-                            <img className='button-icon' src={microscopeIcon} alt='Analyze' data='Analyze on Lichess' />
-                            <span class='tooltiptext'>analyze on lichess</span>
+                            <img className='button-icon' src={calculatorIcon} alt='Analyze' title='Analyze on Lichess' />
+                        </button>
+                        <button className='small-button'
+                            onClick={saveTrainingPosition}>
+                            <img className='button-icon' src={saveIcon} alt='Save' title='Set position to train from' />
                         </button>
                     </div>
                 </div>
@@ -545,7 +487,7 @@ function Board(props) {
                     onClick={ToggleTraining}>
                         <div className='col'>
                             {autoRespond ? 'Stop Training' : 'Start Training'}
-                            <img className='button-icon2' src={autoRespond ? stopIcon : playIcon} />
+                            <img className='button-icon' src={autoRespond ? stopIcon : playIcon} />
                         </div>
                 </button>
                 <div className='col'>
@@ -568,17 +510,9 @@ function Board(props) {
                         <img className='button-icon' src={rightIcon} alt='>' />
                     </button>
                 </div>
-            </div> : props.type=='small-tournament' ?
-            <GameInfo 
-            whitePlayer='Caruana'
-            blackPlayer='Nakamura'
-            eval={-2.1}
-            whiteChance={.05}
-            drawChance={.26}
-            blackChance={.69}/>
-            : <></>}
+            </div> */}
         </div>
     );
 }
 
-export default Board;
+export default BoardFollow;

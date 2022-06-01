@@ -10,7 +10,7 @@ function NavBar() {
         <div className='NavBar'>
             <Router>
                 <nav>
-                    <h2>Lousy Game Chess</h2>
+                    <h2>Chess Assess</h2>
                     <ul className='nav-links'>
                         <li>
                             <Link to='/'>Home</Link>

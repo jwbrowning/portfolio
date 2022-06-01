@@ -14,11 +14,20 @@ function Square(props) {
     }
 
     let trans = {
-        transform: 'translate(' + props.x + 'px, ' + props.y + 'px)'
+        transform: 'translate(' + (props.x) + 'px, ' + (props.y) + 'px)'
+    }
+
+    let mTrans = {
+        transform: 'translate(' + Math.floor(.3125 * props.pieceSize) + 'px, ' + Math.floor(.3125 * props.pieceSize) + 'px)'
     }
 
     let color = {
-        backgroundColor: 'rgba(255, 217, 0, 0.294)'
+        backgroundColor: 'var(--glow-color)'
+    }
+
+    let mSize = {
+        width: Math.floor(.375 * props.pieceSize) + 'px',
+        height: Math.floor(.375 * props.pieceSize) + 'px'
     }
 
     return(
@@ -27,8 +36,9 @@ function Square(props) {
         onDragLeave={dragExit}
         onDragOver={props.onDragOver}
         onDrop={(e) => {props.onDrop(e, props.x, props.y)}}
-        style={highlight ? {...trans, ...color} : {...trans}}>
-            <span className={props.type}/>
+        style={highlight ? {...trans, ...color, ...props.pSize} : {...trans, ...props.pSize}}>
+            <span className={props.type}
+            style={props.type=='move' ? {...mSize, ...mTrans} : {...props.pSize}}/>
         </div>
     );
 }

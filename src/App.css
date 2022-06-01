@@ -1,14 +1,67 @@
 :root {
-  /* --primary: #B21A17; */
-  --accent: #c9c045;
+  --accent: #45c94c;
+  --piece-background: rgba(106, 255, 80, 0.722);
+  --square-background: rgba(43, 255, 0, 0.478);
+  --text: rgb(198, 198, 198);
+  --text-hover: rgb(255, 255, 255);
+  --text2: rgb(0, 0, 0);
+  --background: #30362e;
+  --dark-background: #1c211c;
+  --light-background: #5b6958;
+  --glow-color: rgba(164, 253, 152, 0.605);
+}
+
+/* :root {
+  --accent: #c9ba45;
+  --piece-background: rgba(255, 246, 80, 0.722);
+  --square-background: rgba(255, 251, 0, 0.478);
   --text: rgb(198, 198, 198);
   --text-hover: rgb(255, 255, 255);
   --text2: rgb(0, 0, 0);
   --background: #36352e;
-  --dark-background: #21201C;
-  --light-background: #696558;
-  /* D3DFB8 */
-}
+  --dark-background: #21211c;
+  --light-background: #696858;
+  --glow-color: rgba(253, 253, 152, 0.605);
+} */
+
+/* :root {
+  --accent: #c94545;
+  --piece-background: rgba(255, 80, 80, 0.722);
+  --square-background: rgba(255, 0, 0, 0.478);
+  --text: rgb(198, 198, 198);
+  --text-hover: rgb(255, 255, 255);
+  --text2: rgb(0, 0, 0);
+  --background: #362e2e;
+  --dark-background: #211c1c;
+  --light-background: #695858;
+  --glow-color: rgba(253, 253, 152, 0.605);
+} */
+
+/* :root {
+  --accent: #4549c9;
+  --piece-background: rgba(80, 86, 255, 0.722);
+  --square-background: rgba(0, 4, 255, 0.478);
+  --text: rgb(198, 198, 198);
+  --text-hover: rgb(255, 255, 255);
+  --text2: rgb(0, 0, 0);
+  --background: #2e2e36;
+  --dark-background: #1c1c21;
+  --light-background: #585869;
+  --glow-color: rgba(253, 253, 152, 0.605);
+} */
+
+/* :root {
+  --accent: #c98045;
+  --piece-background: rgba(255, 150, 80, 0.722);
+  --square-background: rgba(255, 140, 0, 0.478);
+  --text: rgb(198, 198, 198);
+  --text-hover: rgb(255, 255, 255);
+  --text2: rgb(0, 0, 0);
+  --background: #36322e;
+  --dark-background: #211e1c;
+  --light-background: #696158;
+  --glow-color: rgba(253, 213, 152, 0.605);
+} */
 
 * {
   padding: 0;
@@ -187,19 +240,6 @@ nav {
   -webkit-user-drag: none;
 }
 
-.board-and-stuff {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  height: 522px;
-  width: 778px;
-  align-items: center;
-  border: 5px solid var(--accent);
-  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-
-}
-
 .button-panel {
   position: absolute;
   left: 640px;
@@ -216,8 +256,29 @@ nav {
 }
 
 .button-icon {
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  -webkit-user-drag: none;
+}
+.button-icon:hover {
+  filter: opacity(75%);
+}
+.button-icon:active {
+  filter: opacity(50%);
+}
+
+.button-icon2 {
   height: 45px;
   width: 45px;
+  -webkit-user-drag: none;
+}
+.button-icon2:hover {
+  filter: opacity(75%);
+}
+.button-icon2:active {
+  filter: opacity(50%);
 }
 
 .col {
@@ -261,14 +322,210 @@ nav {
   background-color: var(--light-background);
 }
 
+/*
+ ---------------------------- FOLLOW TOURNAMENTS ----------------------------
+*/
+.tournament-container {
+  transition-duration: .5s;
+  border: 5px solid var(--accent);
+  width: 778px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 auto;
+  margin-top: 32px;
+  background-color: var(--light-background);
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+.tournament-container:hover {
+  color: var(--text-hover);
+  /* border: 5px solid var(--text-hover); */
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.tournament-info {
+  border: 5px solid var(--accent);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text);
+  text-align: center;
+  background-color: var(--dark-background);
+  transition-duration: .5s;
+}
+.tournament-info:hover {
+  color: var(--text-hover);
+  /* border: 5px solid var(--text-hover); */
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.games-and-standings-container {
+  /* border: 5px solid var(--dark-background); */
+  width: 768px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+.games-and-standings-container:hover {
+  color: var(--text-hover);
+  /* border: 5px solid var(--text-hover); */
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.standings-container {
+  border: 5px solid var(--accent);
+  width: 256px;
+  transition-duration: .5s;
+}
+.standings-container:hover {
+  color: var(--text-hover);
+  /* border: 5px solid var(--text-hover); */
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.tournament-games-container {
+  /* position: absolute; */
+  /* top: 50%; */
+  /* left: 25%; */
+  width: 512px;
+  /* height: 1374px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  /* align-items: center; */
+  border: 5px solid var(--accent);
+  margin: 0 auto;
+  /* margin-top: 32px; */
+}
+.tournament-games-container:hover {
+  color: var(--text-hover);
+  /* border: 5px solid var(--text-hover); */
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+/*
+ ---------------------------- TOURNAMENT GAMES ----------------------------
+*/
+.game-info {
+  position: relative;
+  top: -128px;
+  left: 128px;
+  /* border: 5px solid blue; */
+  /* display: flex;
+  flex-direction: column;
+  justify-content: space-evenly; */
+  /* margin: 5px; */
+  flex-direction: row;
+  width: 369px;
+  height: 128px;
+  color: var(--text);
+  text-align: center;
+  transition-duration: .5s;
+}
+.game-info:hover {
+  color: var(--text-hover);
+}
+
+.game-player-info {
+  margin-top: 16px;
+}
+
+.game-eval-info {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: small;
+}
+
+.eval-bar-container {
+  width: 300px;
+  height: 16px;
+  /* border-radius: 5%; */
+  background-color: gray;
+  margin: 0 auto;
+  display: flex;
+}
+.eval-bar {
+  height: 16px;
+}
+.eval-bar:hover {
+  border: 3px solid var(--accent);
+  height: 22px;
+  margin: 0 auto;
+  margin-top: -3px;
+}
+
+.prediction-bar-container {
+  width: 300px;
+  height: 16px;
+  /* border-radius: 5%; */
+  background-color: gray;
+  margin: 0 auto;
+  margin-top: 16px;
+  display: flex;
+}
+.prediction-bar {
+  height: 16px;
+}
+.prediction-bar:hover {
+  border: 3px solid var(--accent);
+  height: 22px;
+  margin: 0 auto;
+  margin-top: -3px;
+}
+
+.white-bar {
+  background-color: white;
+  color: rgba(0, 0, 0, 0);
+}
+.white-bar:hover {
+  color: black;
+}
+
+.black-bar {
+  background-color: black;
+  color: rgba(0, 0, 0, 0);
+}
+.black-bar:hover {
+  color: white;
+}
+
+.gray-bar {
+  background-color: gray;
+  color: rgba(0, 0, 0, 0);
+}
+.gray-bar:hover {
+  color: black;
+}
+
+.white-eval-bar {
+  background-color: white;
+  color: black;
+}
+.black-eval-bar {
+  background-color: black;
+  color: white;
+}
+
+/*
+ ---------------------------- BOARD ----------------------------
+*/
+.board-and-stuff {
+  /* position: relative; */
+  align-items: center;
+  transition-duration: .5s;
+  border: 5px solid var(--accent);
+  /* border: 5px solid red; */
+  /* box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19); */
+}
+.board-and-stuff:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
 .board {
   pointer-events: auto;
-  position: absolute;
-  left: 256px;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  height: 512px;
-  width: 512px;
+  position: relative;
+  /* left: 256px;
+  top: 50%; */
+  /* transform: translate(-50%, -50%); */
   align-items: center;
   /* border: 5px solid var(--dark-background); */
 }
@@ -276,49 +533,47 @@ nav {
   cursor: pointer;
 }
 
+/*
+ ---------------------------- PIECES ----------------------------
+*/
 .piece {
   pointer-events: auto;
   position: absolute;
   left: 0px;
   top: 0px;
-  height: 64px;
-  width: 64px;
-  box-shadow: 0 12px 12px 0 rgba(253, 238, 152, 0.146);
+  box-shadow: 0 0px 12px 0 rgba(253, 238, 152, 0.146);
   transition-duration: 0s;
 }
 .piece:hover {
   cursor: pointer;
   /* transition-duration: .5s; */
-  box-shadow: 0 12px 12px 0 rgba(253, 238, 152, 0.605);
-  background-color: rgba(255, 229, 80, 0.605);
+  box-shadow: 0 12px 12px 0 var(--glow-color);
+  background-color: var(--piece-background);
 }
 .piece:active {
   transition-duration: 0s;
   background-color: rgba(255, 229, 80, 0);
 }
 
-.drag-piece {
-  align-items: center;
-  width: 64px;
-  height: 64px;
-}
-
+/*
+ ---------------------------- SQUARES ----------------------------
+*/
 .square {
   /* pointer-events: none; */
   display: inline-block;
   justify-content: space-evenly;
   align-items: center;
-  width: 64px;
-  height: 64px;
+  /* width: 64px;
+  height: 64px; */
   position: absolute;
   left: 0px;
   top: 0px;
 }
 .square:hover {
   /* pointer-events: none; */
-  background-color: rgba(255, 217, 0, 0.294);
+  background-color: var(--square-background);
   /* border: 3px solid var(--accent); */
-  box-shadow: 0 12px 12px 0 rgba(253, 238, 152, 0.605);
+  box-shadow: 0 12px 12px 0 var(--glow-color);
 }
 .square:active {
   pointer-events: none;
@@ -329,57 +584,82 @@ nav {
   left: 0px;
   top: 0px;
   pointer-events: none;
-  background-color: rgba(239, 233, 51, 0.617);
-  width: 64px;
-  height: 64px;
+  background-color: var(--square-background);
+  /* width: 64px;
+  height: 64px; */
   display: inline-block;
 }
-/* .start:hover {
-  background-color: rgba(255, 0, 0, 0.645);
-} */
 
 .move {
   position: absolute;
   left: 0px;
   top: 0px;
   pointer-events: none;
-  background-color: rgba(239, 233, 51, 0.617);
-  width: 24px;
-  height: 24px;
+  background-color: var(--square-background);
+  /* width: 24px;
+  height: 24px; */
   border-radius: 50%;
   display: inline-block;
-  transform: translate(20px, 20px);
+  /* transform: translate(20px, 20px); */
 }
-/* .move:hover {
-  pointer-events: all;
-}
-.move:active {
-  pointer-events: none;
-} */
-
 
 .capture {
   position: absolute;
   left: 0px;
   top: 0px;
   pointer-events: none;
-  background-color: rgba(239, 233, 51, 0.617);
-  width: 64px;
-  height: 64px;
+  background-color: var(--square-background);
+  /* width: 64px;
+  height: 64px; */
   border-radius: 50%;
   display: inline-block;
 }
-/* .capture:hover {
-  pointer-events: all;
+
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  /* border-bottom: 1px dotted black; */
 }
-.capture:active {
+
+.tooltip .tooltiptext {
+  visibility: hidden;
   pointer-events: none;
-} */
+  width: 120px;
+  background-color: var(--dark-background);
+  color: var(--text);
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  font-size: large;
 
-.from-sq {
-  background-color: rgba(239, 233, 51, 0.617);
+  border: 2px solid var(--accent);
+
+  position: absolute;
+  transform: translate(-50%, -150%);
+  z-index: 1;
 }
 
-.to-sq {
-  background-color: rgba(239, 233, 51, 0.617);
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+
+.info-text {
+  text-align: center;
+  color: var(--accent);
+  font-size: xx-large;
+  padding-top: 50px;
+}
+.info-text2 {
+  text-align: center;
+  color: var(--text-hover);
+  font-size: x-large;
+  padding-top: 20px;
+}
+.info-text3 {
+  text-align: center;
+  color: var(--text);
+  font-size: large;
+  padding-top: 5px;
 }

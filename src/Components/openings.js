@@ -4,8 +4,7 @@ import Board from './Board'
 export default function Home() {
     return (
         <div>
-            {/* <h1>Opening Trainer</h1> */}
-            <Board />
+            <Board type='opening trainer' pieceSize={64}/>
         </div>
     )
 }
