@@ -66,6 +66,7 @@
 * {
   padding: 0;
   margin: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -261,11 +262,12 @@ nav {
   position: absolute;
   transform: translate(-50%, -50%);
   -webkit-user-drag: none;
+  transition-duration: 0.5s;
 }
-.button-icon:hover {
+button:hover .button-icon {
   filter: opacity(75%);
 }
-.button-icon:active {
+button:active .button-icon {
   filter: opacity(50%);
 }
 
@@ -273,11 +275,12 @@ nav {
   height: 45px;
   width: 45px;
   -webkit-user-drag: none;
+  transition-duration: 0.5s;
 }
-.button-icon2:hover {
+button:hover .button-icon2 {
   filter: opacity(75%);
 }
-.button-icon2:active {
+button:active .button-icon2 {
   filter: opacity(50%);
 }
 
@@ -641,6 +644,42 @@ nav {
 }
 
 .tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+
+.help {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 30px;
+  height: 30px;
+  font-size: larger;
+  transform: translate(0,0);
+  display: inline-block;
+}
+
+.help .help-text {
+  visibility: hidden;
+  pointer-events: none;
+  width: max-content;
+  background-color: var(--dark-background);
+  color: var(--text);
+  text-align: left;
+  padding: 20px;
+  border-radius: 6px;
+  font-size: large;
+
+  border: 2px solid var(--accent);
+
+  position: absolute;
+  transform:translate(-100%, 2px);
+  z-index: 1;
+
+  white-space: pre-wrap;
+}
+
+.help:hover .help-text {
   visibility: visible;
 }
 

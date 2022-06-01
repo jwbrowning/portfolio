@@ -514,13 +514,14 @@ function Board(props) {
                 ))}
                 
             </div>
-            {props.type == 'opening trainer' ? <div className='button-panel'>
+            {props.type == 'opening trainer' ? <div>
+            <div className='button-panel'>
                 <div className='top-buttons'>
                     <div className='col'>
                         <button className='small-button tooltip'
                             onClick={resetBoard}>
                             <img className='button-icon' src={rotateIcon} alt='Reset' data='Reset Board' />
-                            <span class='tooltiptext'>reset board</span>
+                            <span className='tooltiptext'>reset board</span>
                         </button>
                         <button className='small-button tooltip'
                             onClick={Flip}>
@@ -568,7 +569,29 @@ function Board(props) {
                         <img className='button-icon' src={rightIcon} alt='>' />
                     </button>
                 </div>
-            </div> : props.type=='small-tournament' ?
+            </div>
+            <button className='help'>?
+                <span className='help-text'>
+                    Welcome to the opening trainer!
+                    {'\n'}
+                    {'\n'}You can freely make moves on the board. Click the Save button to
+                    {'\n'}save the position you want to train. 
+                    {'\n'}
+                    {'\n'}When you click the start button, the trainer will randomly choose 
+                    {'\n'}a move from the lichess games database in this position and play it.
+                    {'\n'}This way, the opening moves you face here will be representative
+                    {'\n'}of what you would actually see in a game on lichess.
+                    {'\n'}The trainer will then continue responding to your moves as you play.
+                    {'\n'}
+                    {'\n'}The trainer will stop when there are no more games in the database
+                    {'\n'}from the current position. To check your moves with a computer,
+                    {'\n'}you can click the Analyze on Lichess button, and the game will be
+                    {'\n'}imported to Lichess.
+                    {'\n'}
+                    {'\n'}Clicking Reset will take you back to your saved position.
+                    {'\n'}Click Reset again to return to the starting position.
+                </span>
+            </button></div> : props.type=='small-tournament' ?
             <GameInfo 
             whitePlayer='Caruana'
             blackPlayer='Nakamura'
