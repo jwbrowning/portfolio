@@ -459,8 +459,18 @@ function Board(props) {
         height: props.pieceSize + 'px'
     }
 
-    let bEffect = {
+    let bSaturated = {
+        // transitionDuration: '05s',
         filter: 'saturate(200%) hue-rotate(70deg)',
+        // filter: 'hue-rotate(deg)',
+        // filter: 'sepia(100%)',
+        // filter: 'invert(100%)',
+        // filter: 'blur(2px) saturate(100%) hue-rotate(70deg)',
+        // filter: 'brightness(1.1)',
+    }
+
+    let bNormal = {
+        filter: 'saturate(100%) hue-rotate(70deg)',
         // filter: 'hue-rotate(deg)',
         // filter: 'sepia(100%)',
         // filter: 'invert(40%)',
@@ -468,8 +478,8 @@ function Board(props) {
         // filter: 'brightness(1.1)',
     }
 
-    let bEffect2 = {
-        filter: 'saturate(100%) hue-rotate(70deg)',
+    let bDesaturated = {
+        filter: 'saturate(50%) hue-rotate(70deg)',
         // filter: 'hue-rotate(deg)',
         // filter: 'sepia(100%)',
         // filter: 'invert(40%)',
@@ -487,10 +497,10 @@ function Board(props) {
             onDragOver={handleDragOver}
             onDrop={DropPieceBoard}
             onClick={ClickBoard}>
-                <img className='no-drag'
+                <img className='no-drag half-second-transition'
                     alt=''
                     src={chessboard}
-                    style={(chess.pgn() == trainingPosition && trainingPosition != '') ? {...bEffect} : {...bEffect2}}
+                    style={(chess.pgn() == trainingPosition && trainingPosition != '') ? {...bSaturated} : autoRespond ? {...bNormal} : {...bDesaturated}}
                     height='100%'
                     width='100%'/>
                 {squares.map((square) => (
