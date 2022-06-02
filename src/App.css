@@ -320,7 +320,7 @@ button:active .button-icon2 {
   width:  fit-content;
   white-space: pre;
   text-align: center;
-  font-size: medium;
+  font-size: small;
   color: white;
   background-color: var(--light-background);
 }

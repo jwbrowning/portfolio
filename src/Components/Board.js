@@ -488,6 +488,7 @@ function Board(props) {
             onDrop={DropPieceBoard}
             onClick={ClickBoard}>
                 <img className='no-drag'
+                    alt=''
                     src={chessboard}
                     style={(chess.pgn() == trainingPosition && trainingPosition != '') ? {...bEffect} : {...bEffect2}}
                     height='100%'
@@ -546,12 +547,12 @@ function Board(props) {
                     onClick={ToggleTraining}>
                         <div className='col'>
                             {autoRespond ? 'Stop Training' : 'Start Training'}
-                            <img className='button-icon2' src={autoRespond ? stopIcon : playIcon} />
+                            <img className='button-icon2' alt='' src={autoRespond ? stopIcon : playIcon} />
                         </div>
                 </button>
                 <div className='col'>
                     <p className='fen'>PGN:</p>
-                    <textarea className='fen' rows={5} cols={25} readOnly value={chess.pgn({max_width: 30})}>
+                    <textarea className='fen' rows={5} cols={25} readOnly value={chess.pgn({max_width: 25})}>
                     </textarea>
                 </div>
                 <div className='col'>
