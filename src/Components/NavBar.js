@@ -1,11 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
+import ReactGA from 'react-ga';
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
+
+// const TRACKING_ID = 'UA-230577039-2';
+// ReactGA.initialize(TRACKING_ID);
 
 import HomePage from './home'
 import FollowPage from './follow'
 import OpeningsPage from './openings'
 
 function NavBar() {
+
+    useEffect(() => {
+        ReactGA.pageview(window.location.pathname + window.location.search);
+    }, []);
+
     return (
         <div className='NavBar'>
             <Router>

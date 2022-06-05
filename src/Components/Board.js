@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Chess } from 'chess.js';
 import axios from 'axios';
 import qs from 'qs'
+import ReactGA from 'react-ga';
 
 import Piece from './Piece'
 import Square from './Square'
@@ -173,15 +174,32 @@ function Board(props) {
     const Flip = () => {
         setFlipped(!flipped);
         UpdatePieces(!flipped);
+        ReactGA.event({
+            category: 'Opening Trainer',
+            action: 'Flipped Board'
+        });
     }
 
     const ToggleTraining = () => {
         setAutoRespond(!autoRespond);
         requestResponse(chess, !autoRespond);
+        var act = 'Started Training'
+        if (autoRespond) {
+            act = 'Stopped Training'
+        }
+        ReactGA.event({
+            category: 'Opening Trainer',
+            action: act
+        });
     }
 
     const saveTrainingPosition = () => {
         setTrainingPosition(chess.pgn());
+        ReactGA.event({
+            category: 'Opening Trainer',
+            action: 'Saved Position',
+            label: chess.pgn()
+        });
     }
 
     const requestResponse = (ch, respond=autoRespond) => {
@@ -250,6 +268,10 @@ function Board(props) {
             updateSquares('');
             setAutoRespond(false);
         }
+        ReactGA.event({
+            category: 'Opening Trainer',
+            action: 'Reset Board'
+        });
     }
 
     const leftArrow = () => {
@@ -290,6 +312,10 @@ function Board(props) {
                 console.log(error);
                 console.log(error.request.responseText)
             })
+        ReactGA.event({
+            category: 'Opening Trainer',
+            action: 'Analyzed on Lichess'
+        });
     }
 
     const updateSquares = (sq) => {

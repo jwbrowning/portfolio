@@ -2,6 +2,7 @@ import React from 'react'
 import fischer from '../Images/fischerasciiscreenshot.png'
 import axios from 'axios'
 import qs from 'qs'
+import ReactGA from 'react-ga'
 
 export default function Home() {
 
@@ -16,9 +17,6 @@ export default function Home() {
 
     return (
         <div className='ascii-art'>
-            <h2 className='desc'>
-                a chess website for training and following games
-            </h2>
             {/* <h3 className='fischer-quote'>
                 iF YoU ReAlLy aNaLyZe cHeSs oBjEcTiVeLy...iT'S BeEn a lOuSy gAmE BaCk eVeN To tHe tImE Of mOrPhY!
             </h3>
@@ -29,6 +27,15 @@ export default function Home() {
                 className="fit-image"
                 height='100%'
                 width='100%' />
+            <h2 className='desc'>
+                a chess website for training and following games made by Johnathan Browning
+                {'\n\n'}<a onClick={() => {
+                    ReactGA.event({
+                        category: 'Home',
+                        action: 'Clicked Twitter Link'
+                    });
+                }} className='twitter-link' target="_blank" rel="noopener noreferrer" href="https://twitter.com/JBrowningIndie">@JBrowningIndie</a>
+            </h2>
         </div>
     )
 }
