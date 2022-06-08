@@ -11,7 +11,7 @@ function Piece(props) {
 
     return(
         <div className={props.cName ? 'piece ' + props.cName : 'piece'}
-        draggable="true"
+        draggable={props.canMove ? "true" : "false"}
         onDragStart={(e) => {props.onDragStart(e, props.x, props.y)}}
         onDragEnter={props.onDragEnter}
         onDragLeave={props.onDragLeave}
@@ -19,7 +19,7 @@ function Piece(props) {
         onDrop={(e) => {props.onDrop(e, props.x, props.y)}}
         // onDragEnd={(e) => {props.onDragEnd(e, props.x, props.y)}}
         // onmouse={(e) => {props.onDragEnd(e, props.x, props.y)}}
-        onClick={(e) => {props.onClick(e, props.x, props.y)}}
+        onClick={(e) => {if(props.canMove) props.onClick(e, props.x, props.y)}}
         style={{...trans, ...props.pSize}}>
             <img className='no-drag'
                 src={props.type}

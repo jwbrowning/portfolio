@@ -146,6 +146,7 @@ function GetCords(flipped, square) {
 }
 
 function Board(props) {
+
     const [chess, setChess] = useState(new Chess());
 
     const [startSq, setStartSq] = useState('');
@@ -485,9 +486,11 @@ function Board(props) {
         height: props.pieceSize + 'px'
     }
 
+    const hue = 70;
+
     let bSaturated = {
         // transitionDuration: '05s',
-        filter: 'saturate(200%) hue-rotate(70deg)',
+        filter: 'saturate(200%) hue-rotate(' + hue + 'deg)',
         // filter: 'hue-rotate(deg)',
         // filter: 'sepia(100%)',
         // filter: 'invert(100%)',
@@ -496,7 +499,7 @@ function Board(props) {
     }
 
     let bNormal = {
-        filter: 'saturate(100%) hue-rotate(70deg)',
+        filter: 'saturate(100%) hue-rotate(' + hue + 'deg)',
         // filter: 'hue-rotate(deg)',
         // filter: 'sepia(100%)',
         // filter: 'invert(40%)',
@@ -505,7 +508,7 @@ function Board(props) {
     }
 
     let bDesaturated = {
-        filter: 'saturate(50%) hue-rotate(70deg)',
+        filter: 'saturate(50%) hue-rotate(' + hue + 'deg)',
         // filter: 'hue-rotate(deg)',
         // filter: 'sepia(100%)',
         // filter: 'invert(40%)',
@@ -531,6 +534,7 @@ function Board(props) {
                     width='100%'/>
                 {squares.map((square) => (
                     <Square type={square.type} x={square.x} y={square.y} key={square.key}
+                    canMove={props.type=='opening trainer'}
                     pSize={pSize}
                     pieceSize={props.pieceSize}
                     onDragEnter={handleDragEnter}

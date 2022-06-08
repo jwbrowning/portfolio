@@ -32,6 +32,17 @@ function NavBar() {
                             <Link to='openings'>Opening Trainer</Link>
                         </li>
                     </ul>
+                    <button style={{padding: '10px'}}
+                            onClick={() => {
+                                document.documentElement.style.setProperty('--hue', Math.floor(Math.random() * 360) + 'deg');
+                                document.documentElement.style.setProperty('--sat', Math.floor(Math.random() * 200) + '%');
+                                ReactGA.event({
+                                    category: 'Navigation Bar',
+                                    action: 'Changed Color'
+                                });
+                            }}>
+                        <h3>Change Color</h3>
+                    </button>
                 </nav>
                 <Routes>
                     <Route path='/' element={<HomePage />} />

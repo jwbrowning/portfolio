@@ -9,6 +9,8 @@
   --dark-background: #1c211c;
   --light-background: #5b6958;
   --glow-color: rgba(164, 253, 152, 0.605);
+  --hue: 0deg;
+  --sat: 100%;
 }
 
 /* :root {
@@ -66,11 +68,14 @@
 * {
   padding: 0;
   margin: 0;
+  /* filter: hue-rotate(var(--hue)); */
   -webkit-tap-highlight-color: transparent;
 }
 
 body {
   background-color: var(--background);
+  filter: hue-rotate(var(--hue)) saturate(var(--sat));
+  /* transition-duration: .5s; */
 }
 
 h1 {
