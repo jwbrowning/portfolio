@@ -70,20 +70,22 @@ export default function Follow() {
     };
 
     const convertEvaluation = (ev, turn) => {
+        // if (ev.startsWith('M')) {
+        //     ev = `M${ev.substring(1)}`
+        // }
+        // if (turn === 'b' && !ev.startsWith('M')) {
+        //     if (ev.startsWith('-')) {
+        //         ev = ev.substring(1);
+        //     } else {
+        //         ev = `-${ev}`;
+        //     }
+        // }
         if (ev.startsWith('M')) {
-            ev = `M${ev.substring(1)}`
-        }
-        if (turn === 'b' && !ev.startsWith('M')) {
-            if (ev.startsWith('-')) {
-                ev = ev.substring(1);
-            } else {
-                ev = `-${ev}`;
-            }
-        }
-        if (turn === 'b' && ev.startsWith('M')) {
-            return '-10000'
-        } else if (turn === 'w' && ev.startsWith('M')) {
-            return '10000'
+            ev = ev.substring(1) + '000';
+            return ev
+        } else if (ev.startsWith('M')) {
+            ev = ev.substring(1) + '000';
+            return ev
         }
         return ev;
     };
