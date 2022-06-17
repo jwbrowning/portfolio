@@ -592,19 +592,19 @@ function Board(props) {
                         <button className='small-button tooltip'
                             onClick={Flip}>
                             <img className='button-icon' src={swapIcon} alt='Flip' data='Flip Board' />
-                            <span class='tooltiptext'>flip board</span>
+                            <span className='tooltiptext'>flip board</span>
                         </button>
                     </div>
                     <div className='col'>
                         <button className='small-button tooltip'
                             onClick={saveTrainingPosition}>
                             <img className='button-icon' src={saveIcon} alt='Save' data='Set position to train from' />
-                            <span class='tooltiptext'>save position</span>
+                            <span className='tooltiptext'>save position</span>
                         </button>
                         <button className='small-button tooltip'
                             onClick={Analyze}>
                             <img className='button-icon' src={microscopeIcon} alt='Analyze' data='Analyze on Lichess' />
-                            <span class='tooltiptext'>analyze on lichess</span>
+                            <span className='tooltiptext'>analyze on lichess</span>
                         </button>
                     </div>
                 </div>
