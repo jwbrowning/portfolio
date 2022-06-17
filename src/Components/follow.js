@@ -15,7 +15,7 @@ let stockfish4 = new Worker('/stockfish.js');
 
 export default function Follow() {
 
-    const depth = 15;
+    const depth = 20;
 
     const onStockfishMsg = (event, fen, i, g, d) => {
         if (event.data.startsWith("info depth " + depth)) {
@@ -74,13 +74,13 @@ export default function Follow() {
         // if (ev.startsWith('M')) {
         //     ev = `M${ev.substring(1)}`
         // }
-        // if (turn === 'b' && !ev.startsWith('M')) {
-        //     if (ev.startsWith('-')) {
-        //         ev = ev.substring(1);
-        //     } else {
-        //         ev = `-${ev}`;
-        //     }
-        // }
+        if (turn === 'b' && !ev.startsWith('M')) {
+            if (ev.startsWith('-')) {
+                ev = ev.substring(1);
+            } else {
+                ev = `-${ev}`;
+            }
+        }
         if (ev.startsWith('M')) {
             ev = ev.substring(1) + '000';
             return ev
