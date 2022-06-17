@@ -15,7 +15,7 @@ let stockfish4 = new Worker('/stockfish.js');
 
 export default function Follow() {
 
-    const depth = 20;
+    const depth = 15;
 
     const onStockfishMsg = (event, fen, i, g, d) => {
         if (event.data.startsWith("info depth " + depth)) {
