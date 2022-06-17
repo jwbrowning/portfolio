@@ -18,6 +18,7 @@ export default function Follow() {
 
     const onStockfishMsg = (event, fen, i, g, d) => {
         if (event.data.startsWith("info depth " + depth)) {
+            // console.log('iiiiiiii ' + i)
             // console.log('msg' + d);
             // console.log(d);
             var messageEvalType;
@@ -94,9 +95,10 @@ export default function Follow() {
         var c = new Chess();
         c.load_pgn(g.pgn);
         var fen = c.fen();
-        if (c.header().Result != '*') {
-            return;
-        }
+        // if (c.header().Result != '*') {
+        //     // console.log(c.header().Result)
+        //     return;
+        // }
         if (i == 0) {
             stockfish1.terminate();
             stockfish1 = new Worker("/stockfish.js");
@@ -812,7 +814,6 @@ export default function Follow() {
             ply: p,
             material: m
         }
-
         // console.log('setgame')
         // console.log(d);
         getEval(i, g, d)
@@ -846,6 +847,7 @@ export default function Follow() {
                             for (var j = 0; j < games.length; j++) {
                                 if (curW.includes(games[j][0]) && curB.includes(games[j][1])) {
                                     // console.log('found ' + j)
+                                    // if (j == 1) console.log(curPgn)
                                     var c = new Chess();
                                     c.load_pgn(curPgn);
                                     var comments = c.get_comments();
