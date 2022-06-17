@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Chess } from 'chess.js';
 import axios from 'axios';
 import qs from 'qs'
@@ -7,6 +7,7 @@ import ReactGA from 'react-ga';
 import Piece from './Piece'
 import Square from './Square'
 import GameInfo from './GameInfo';
+import ExpandedGameInfo from './ExpandedGameInfo';
 
 import chessboard from '../Images/chessboard.png';
 import bB from '../Images/BBishop.png';
@@ -91,21 +92,6 @@ const cord = {
     '1': 7,
 }
 
-function GetPieces(board, flipped, pieceSize) {
-    var ps = []
-    for (var i = 0; i < board.length; i++) {
-        for (var j = 0; j < board[i].length; j++) {
-            var b = board[i][j]
-            if (b != null) {
-                ps.push(
-                    { type: GetImage(b), x: pieceSize * (flipped ? 7 - j : j), y: pieceSize * (flipped ? 7 - i : i), key: ps.length }
-                );
-            }
-        }
-    }
-    return ps;
-}
-
 const cordToFile = {
     0: 'a',
     1: 'b',
@@ -125,16 +111,6 @@ function GetRank(y) {
     return "" + (8 - y);
 }
 
-function GetSquare(flipped, x, y, pieceSize) {
-    x /= pieceSize;
-    y /= pieceSize;
-    if (flipped) {
-        x = 7 - x;
-        y = 7 - y;
-    }
-    return GetFile(x) + GetRank(y);
-}
-
 function GetCords(flipped, square) {
     var x = cord[square.charAt(0)];
     var y = cord[square.charAt(1)];
@@ -146,8 +122,50 @@ function GetCords(flipped, square) {
 }
 
 function Board(props) {
+    
+    const GetPieces = (board, flipped, pieceSize) => {
+        // console.log('ps ' + pieceSize)
+        var ps = []
+        for (var i = 0; i < board.length; i++) {
+            for (var j = 0; j < board[i].length; j++) {
+                var b = board[i][j]
+                if (b != null) {
+                    ps.push(
+                        { type: GetImage(b), x: props.pieceSize * (flipped ? 7 - j : j), y: props.pieceSize * (flipped ? 7 - i : i), key: ps.length }
+                    );
+                }
+            }
+        }
+        return ps;
+    }
 
-    const [chess, setChess] = useState(new Chess());
+    function GetSquare(flipped, x, y, pieceSize) {
+        x /= props.pieceSize;
+        y /= props.pieceSize;
+        if (flipped) {
+            x = 7 - x;
+            y = 7 - y;
+        }
+        return GetFile(x) + GetRank(y);
+    }
+
+    // const [pieceSize, setPieceSize] = useState([16]);
+
+    // useEffect(() => {
+    //     setPieceSize(props.pieceSize);
+    // }, [props.pieceSize]);
+
+    function createFromPgn ()  {
+        var c = new Chess();
+        // if (props.pgn) {
+        //     c.load_pgn(props.pgn);
+        //     // console.log('loaded ' + props.pgn)
+        //     // loadedPgn = true;
+        // }
+        return c;
+    }
+
+    const [chess, setChess] = useState(createFromPgn());
 
     const [startSq, setStartSq] = useState('');
     var endSq = ''
@@ -166,7 +184,7 @@ function Board(props) {
 
     const [pieces, setPieces] = useState(GetPieces(chess.board(), flipped, props.pieceSize));
 
-    const [squares, setSquares] = useState([])
+    const [squares, setSquares] = useState([]);
 
     const UpdatePieces = (f=flipped, c=chess) => {
         setPieces(GetPieces(c.board(), f, props.pieceSize));
@@ -276,6 +294,7 @@ function Board(props) {
     }
 
     const leftArrow = () => {
+        // console.log(chess.pgn())
         var c = chess;
         var m = c.undo();
         if (m) {
@@ -423,6 +442,7 @@ function Board(props) {
     }
 
     const ClickBoard = (e) => {
+        if (props.type == 'small-tournament') return;
         const size = props.pieceSize * 8;
         const x = Math.floor((e.nativeEvent.offsetX / size) * 8) * props.pieceSize;
         const y = Math.floor((e.nativeEvent.offsetY / size) * 8) * props.pieceSize;
@@ -465,8 +485,14 @@ function Board(props) {
         width: (props.pieceSize * 8 * 4) + 'px',
         height: (10 + props.pieceSize * 8) + 'px'
     } : {
-        width: (10 + props.pieceSize * 8) + 'px',
-        height: (10 + props.pieceSize * 8) + 'px'
+        width: (10 + 502) + 'px',
+        height: (10 + 512) + 'px',
+        paddingTop: '64px'
+    }
+
+    let basMid = {
+        position: 'relative',
+        top: '0%'
     }
 
     let basMore = {
@@ -486,46 +512,45 @@ function Board(props) {
         height: props.pieceSize + 'px'
     }
 
-    const hue = 70;
+    const hue = 0;
 
     let bSaturated = {
-        // transitionDuration: '05s',
         filter: 'saturate(200%) hue-rotate(' + hue + 'deg)',
-        // filter: 'hue-rotate(deg)',
-        // filter: 'sepia(100%)',
-        // filter: 'invert(100%)',
-        // filter: 'blur(2px) saturate(100%) hue-rotate(70deg)',
-        // filter: 'brightness(1.1)',
     }
 
     let bNormal = {
         filter: 'saturate(100%) hue-rotate(' + hue + 'deg)',
-        // filter: 'hue-rotate(deg)',
-        // filter: 'sepia(100%)',
-        // filter: 'invert(40%)',
-        // filter: 'blur(2px) saturate(150%)',
-        // filter: 'brightness(1.1)',
     }
 
     let bDesaturated = {
         filter: 'saturate(50%) hue-rotate(' + hue + 'deg)',
-        // filter: 'hue-rotate(deg)',
-        // filter: 'sepia(100%)',
-        // filter: 'invert(40%)',
-        // filter: 'blur(2px) saturate(150%)',
-        // filter: 'brightness(1.1)',
     }
+
+    useEffect(() => {
+        if (props.pgn) {
+            var c = new Chess();
+            c.load_pgn(props.pgn);
+            setChess(c);
+            UpdatePieces(false, c);
+            setStartSq('');
+            updateSquares('');
+            setRedoStack([]);
+        }
+    }, [props.pgn])
 
     return(
         <div className='board-and-stuff'
-        style={props.type=='opening trainer' ? {...basMore, ...basSize} : {...basSize}}>
-            <div className='board'
+        style={props.type=='opening trainer' ? {...basMore, ...basSize} : props.type == 'small-tournament' ? {...basSize} : {...basSize, ...basMid}}>
+            <div className={'board' + (props.type=='small-tournament' ? ' board-expandable' : '')}
             style={{...bSize}}
             onDragEnter={handleDragEnter}
             onDragLeave={handleDragLeave}
             onDragOver={handleDragOver}
             onDrop={DropPieceBoard}
-            onClick={ClickBoard}>
+            onClick={props.type=='small-tournament' ? () => {
+                props.expand(props.bid);
+            } : (e) => {ClickBoard(e)}}
+            >
                 <img className='no-drag half-second-transition'
                     alt=''
                     src={chessboard}
@@ -534,7 +559,6 @@ function Board(props) {
                     width='100%'/>
                 {squares.map((square) => (
                     <Square type={square.type} x={square.x} y={square.y} key={square.key}
-                    canMove={props.type=='opening trainer'}
                     pSize={pSize}
                     pieceSize={props.pieceSize}
                     onDragEnter={handleDragEnter}
@@ -544,6 +568,7 @@ function Board(props) {
                 ))}
                 {pieces.map((piece) => (
                     <Piece type={piece.type} x={piece.x} y={piece.y} key={piece.key} 
+                    canMove={props.type=='opening trainer'}
                     pSize={pSize}
                     onDragStart={DragStart}
                     onDragEnd={DragEnd}
@@ -633,14 +658,76 @@ function Board(props) {
                     {'\n'}Click Reset again to return to the starting position.
                 </span>
             </button></div> : props.type=='small-tournament' ?
-            <GameInfo 
-            whitePlayer='Caruana'
-            blackPlayer='Nakamura'
-            eval={-2.1}
-            whiteChance={.05}
-            drawChance={.26}
-            blackChance={.69}/>
-            : <></>}
+            <div className='game-info-and-buttons'>
+                <GameInfo 
+                whitePlayer={props.whitePlayer}
+                blackPlayer={props.blackPlayer}
+                eval={props.eval}
+                whiteChance={props.probs[0]}
+                drawChance={props.probs[1]}
+                blackChance={props.probs[2]}/>
+                <div className='result-buttons'>
+                    <button className={'small-button result-button black-result' + (props.selectedResult == '0-1' ? ' selected-result' : '')}
+                    onClick={() => {props.blackButton(props.bid)}}>
+                        <b>0 - 1</b>
+                    </button>
+                    <button className={'small-button result-button draw-result' + (props.selectedResult == '1/2-1/2' ? ' selected-result' : '')}
+                    onClick={() => {props.drawButton(props.bid)}}>
+                        <b>1/2-1/2</b>
+                    </button>
+                    <button className={'small-button result-button white-result' + (props.selectedResult == '1-0' ? ' selected-result' : '')}
+                    onClick={() => {props.whiteButton(props.bid)}}>
+                        <b>1 - 0</b>
+                    </button>
+                </div>
+            </div>
+            : props.type=='big-tournament' ? 
+            <div>
+            <ExpandedGameInfo
+                whitePlayer={props.whitePlayer}
+                blackPlayer={props.blackPlayer}
+                whiteClock={props.whiteClock}
+                blackClock={props.blackClock}
+                eval={props.eval}
+                whiteChance={props.probs[0]}
+                drawChance={props.probs[1]}
+                blackChance={props.probs[2]}/>
+                <button className='minimize-button' onClick={() => {props.minimize(props.bid)}}>
+                    <div className='mini'></div>
+                </button>
+                <div className='expanded-result-buttons'>
+                    <button className={'small-button expanded-result-button white-result' + (props.selectedResult == '1-0' ? ' selected-result' : '')}
+                    onClick={() => {props.whiteButton(props.bid)}}>
+                        <b>1 - 0</b>
+                    </button>
+                    <button className={'small-button expanded-result-button draw-result' + (props.selectedResult == '1/2-1/2' ? ' selected-result' : '')}
+                    onClick={() => {props.drawButton(props.bid)}}>
+                        <b>1/2-1/2</b>
+                    </button>
+                    <button className={'small-button expanded-result-button black-result' + (props.selectedResult == '0-1' ? ' selected-result' : '')}
+                    onClick={() => {props.blackButton(props.bid)}}>
+                        <b>0 - 1</b>
+                    </button>
+                </div>
+                {/* <div className='move-buttons'>
+                    <div className='arrow-buttons'>
+                        <button className='move-button'
+                        onClick={leftArrow}>
+                            <h3><b>{'<'}</b></h3>
+                        </button>
+                        <button className='move-button'
+                        onClick={rightArrow}>
+                            <h3><b>{'>'}</b></h3>
+                        </button>
+                    </div>
+                    <button className='live-button'
+                    onClick={()=>{}}>
+                        <h3><b>Live</b></h3>
+                    </button>
+                </div> */}
+            </div>
+            :
+            <></>}
         </div>
     );
 }

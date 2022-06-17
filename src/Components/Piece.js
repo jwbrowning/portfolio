@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { Chess } from 'chess.js';
 import '../App.css';
 
@@ -8,6 +8,7 @@ function Piece(props) {
         transform: 'translate(' + props.x + 'px, ' + props.y + 'px)',
         // filter: 'grayscale(100%)'
     }
+
 
     return(
         <div className={props.cName ? 'piece ' + props.cName : 'piece'}

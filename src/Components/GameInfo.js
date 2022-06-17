@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
 function GameInfo(props) {
 
-    const length = 300;
+    const length = 250;
 
     const clampedEval = props.eval > 4.0 ? 4.0 : props.eval < -4.0 ? -4.0 : props.eval;
     // const clampedEval = 2.5;
@@ -23,6 +23,15 @@ function GameInfo(props) {
         width: blackEvalLength + 'px',
     }
 
+    var most = 'draw'
+    if (props.drawChance > props.whiteChance && props.drawChance > props.blackChance) {
+        most = 'draw'
+    } else if (props.whiteChance >= props.drawChance && props.whiteChance >= props.blackChance) {
+        most = 'white'
+    } else if (props.blackChance > props.drawChance && props.blackChance > props.whiteChance) {
+        most = 'black'
+    }
+
     let whiteChanceBar = {
         width: whiteChanceLength + 'px',
     }
@@ -32,6 +41,18 @@ function GameInfo(props) {
     let blackChanceBar = {
         width: blackChanceLength + 'px',
     }
+    let whiteChanceBar2 = {
+        width: whiteChanceLength + 'px',
+        color: '#000f'
+    }
+    let drawChanceBar2 = {
+        width: drawChanceLength + 'px',
+        color: '#000f'
+    }
+    let blackChanceBar2 = {
+        width: blackChanceLength + 'px',
+        color: '#ffff'
+    }
 
     return (
         <div className="game-info"
@@ -40,14 +61,16 @@ function GameInfo(props) {
                 <h3>{props.whitePlayer + ' - ' + props.blackPlayer}</h3>
             </div>
             <div className="game-eval-info">
+                <h4 className="bar-label">Eval</h4>
                 <div className="eval-bar-container">
                     <div className="eval-bar white-eval-bar" style={{...whiteEvalBar}}><b>{props.eval >= 0 ? props.eval.toFixed(2) : ''}</b></div>
                     <div className="eval-bar black-eval-bar" style={{...blackEvalBar}}><b>{props.eval < 0 ? props.eval.toFixed(2) : ''}</b></div>
                 </div>
+                <h4 className="bar-label">Predictions</h4>
                 <div className="prediction-bar-container">
-                    <div className="prediction-bar white-bar" style={{...whiteChanceBar}}><b>{Math.round(props.whiteChance * 100) + '%'}</b></div>
-                    <div className="prediction-bar gray-bar" style={{...drawChanceBar}}><b>{Math.round(props.drawChance * 100) + '%'}</b></div>
-                    <div className="prediction-bar black-bar" style={{...blackChanceBar}}><b>{Math.round(props.blackChance * 100) + '%'}</b></div>
+                    <div className="prediction-bar white-bar" style={most == 'white' ? {...whiteChanceBar2} : {...whiteChanceBar}}><b>{Math.round(props.whiteChance * 100) + '%'}</b></div>
+                    <div className="prediction-bar gray-bar" style={most == 'draw' ? {...drawChanceBar2} : {...drawChanceBar}}><b>{Math.round(props.drawChance * 100) + '%'}</b></div>
+                    <div className="prediction-bar black-bar" style={most == 'black' ? {...blackChanceBar2} : {...blackChanceBar}}><b>{Math.round(props.blackChance * 100) + '%'}</b></div>
                 </div>
             </div>
         </div>
