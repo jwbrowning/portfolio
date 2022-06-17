@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Chess } from 'chess.js';
+import ReactGA from 'react-ga';
 
 import probabilities from '../probabilities2.txt';
 
@@ -400,6 +401,10 @@ export default function Follow() {
     }
 
     const whiteButton = (i) => {
+        ReactGA.event({
+            category: 'Follow',
+            action: 'Clicked White Win Button'
+        });
         var cR = {
             res1: chosenResults.res1,
             res2: chosenResults.res2,
@@ -435,6 +440,10 @@ export default function Follow() {
         setStandings(GetStandings(probData, cR))
     }
     const drawButton = (i) => {
+        ReactGA.event({
+            category: 'Follow',
+            action: 'Clicked Draw Button'
+        });
         var cR = {
             res1: chosenResults.res1,
             res2: chosenResults.res2,
@@ -470,6 +479,10 @@ export default function Follow() {
         setStandings(GetStandings(probData, cR))
     }
     const blackButton = (i) => {
+        ReactGA.event({
+            category: 'Follow',
+            action: 'Clicked Black Win Button'
+        });
         var cR = {
             res1: chosenResults.res1,
             res2: chosenResults.res2,
@@ -506,12 +519,20 @@ export default function Follow() {
     }
 
     const expand = (i) => {
+        ReactGA.event({
+            category: 'Follow',
+            action: 'Expanded Board'
+        });
         // console.log(boardTypes)
         var b = boardTypes;
         b[i] = 'big-tournament';
         setBoardTypes([b[0],b[1],b[2],b[3]]);
     }
     const minimize = (i) => {
+        ReactGA.event({
+            category: 'Follow',
+            action: 'Minimized Board'
+        });
         // console.log(boardTypes)
         var b = boardTypes;
         b[i] = 'small-tournament';
