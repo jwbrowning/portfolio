@@ -526,6 +526,8 @@ function Board(props) {
         filter: 'saturate(50%) hue-rotate(' + hue + 'deg)',
     }
 
+    const [gameResult, setGameResult] = useState('*');
+
     useEffect(() => {
         if (props.pgn) {
             var c = new Chess();
@@ -535,6 +537,8 @@ function Board(props) {
             setStartSq('');
             updateSquares('');
             setRedoStack([]);
+            setGameResult(c.header().Result)
+            // setGameResult('1-0')
         }
     }, [props.pgn])
 
@@ -551,6 +555,9 @@ function Board(props) {
                 props.expand(props.bid);
             } : (e) => {ClickBoard(e)}}
             >
+                {gameResult != '*' ? <div className='result-overlay'>
+                    <h2 className='result'>{gameResult}</h2>
+                </div> : <></>}
                 <img className='no-drag half-second-transition'
                     alt=''
                     src={chessboard}
@@ -666,7 +673,8 @@ function Board(props) {
                 whiteChance={props.probs[0]}
                 drawChance={props.probs[1]}
                 blackChance={props.probs[2]}/>
-                <div className='result-buttons'>
+                <div className='result-buttons'
+                    style={gameResult != '*' ? {pointerEvents: 'none'} : {}}>
                     <button className={'small-button result-button black-result' + (props.selectedResult == '0-1' ? ' selected-result' : '')}
                     onClick={() => {props.blackButton(props.bid)}}>
                         <b>0 - 1</b>

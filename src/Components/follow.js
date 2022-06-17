@@ -88,11 +88,15 @@ export default function Follow() {
     };
 
     const getEval = (i, g, d) => {
+
         // console.log('geteval' + d);
         // console.log(d);
         var c = new Chess();
         c.load_pgn(g.pgn);
         var fen = c.fen();
+        if (c.header().Result != '*') {
+            return;
+        }
         if (i == 0) {
             stockfish1.terminate();
             stockfish1 = new Worker("/stockfish.js");
@@ -199,9 +203,9 @@ export default function Follow() {
         }
         setProbData(data);
         setStandings(GetStandings(data));
-        // apiTimeout = setTimeout(() => {
-        //     fetchAPIData(data)
-        // }, 1);
+        apiTimeout = setTimeout(() => {
+            fetchAPIData(data)
+        }, 1);
     }
 
     const ReadProbs = () => {
@@ -567,18 +571,96 @@ export default function Follow() {
 
     useEffect(() => {
         stockfish1.terminate();
+        var c = new Chess();
+        c.load_pgn(game1.pgn);
+        var res = c.header().Result;
+        var cR = chosenResults;
+        if (res != '*') {
+            setChosenResults({
+                res1: 'x',
+                res2: 'x',
+                res3: 'x',
+                res4: 'x',
+            })
+            if (res == '1-0') {
+                setChances1([1,0,0]);
+            } else if (res == '1/2-1/2') {
+                setChances1([0,1,0]);
+            } else if (res == '0-1') {
+                setChances1([0,0,1]);
+            }
+        }
     }, [game1])
 
     useEffect(() => {
         stockfish2.terminate();
+        var c = new Chess();
+        c.load_pgn(game2.pgn);
+        var res = c.header().Result;
+        var cR = chosenResults;
+        if (res != '*') {
+            setChosenResults({
+                res1: 'x',
+                res2: 'x',
+                res3: 'x',
+                res4: 'x',
+            })
+            if (res == '1-0') {
+                setChances2([1,0,0]);
+            } else if (res == '1/2-1/2') {
+                setChances2([0,1,0]);
+            } else if (res == '0-1') {
+                setChances2([0,0,1]);
+            }
+        }
     }, [game2])
 
     useEffect(() => {
         stockfish3.terminate();
+        stockfish2.terminate();
+        var c = new Chess();
+        c.load_pgn(game3.pgn);
+        var res = c.header().Result;
+        var cR = chosenResults;
+        if (res != '*') {
+            setChosenResults({
+                res1: 'x',
+                res2: 'x',
+                res3: 'x',
+                res4: 'x',
+            })
+            if (res == '1-0') {
+                setChances3([1,0,0]);
+            } else if (res == '1/2-1/2') {
+                setChances3([0,1,0]);
+            } else if (res == '0-1') {
+                setChances3([0,0,1]);
+            }
+        }
     }, [game3])
 
     useEffect(() => {
         stockfish4.terminate();
+        stockfish2.terminate();
+        var c = new Chess();
+        c.load_pgn(game4.pgn);
+        var res = c.header().Result;
+        var cR = chosenResults;
+        if (res != '*') {
+            setChosenResults({
+                res1: 'x',
+                res2: 'x',
+                res3: 'x',
+                res4: 'x',
+            })
+            if (res == '1-0') {
+                setChances4([1,0,0]);
+            } else if (res == '1/2-1/2') {
+                setChances4([0,1,0]);
+            } else if (res == '0-1') {
+                setChances4([0,0,1]);
+            }
+        }
     }, [game4])
 
     const games = [
@@ -609,7 +691,7 @@ export default function Follow() {
     useEffect(() => {
         var getst = GetStandings(probData, chosenResults);
         if (getst != null) setStandings(getst)
-    }, [chances1, chances2, chances3, chances4])
+    }, [chances1, chances2, chances3, chances4, chosenResults])
 
 
     const updateChances = (i, g, dd) => {
@@ -691,11 +773,14 @@ export default function Follow() {
         pWin /= total;
         pDraw /= total;
         pLoss /= total;
-        setChancesI(i, [pWin, pDraw, pLoss], dd);
+        setChancesI(i, [pWin, pDraw, pLoss], dd, g.pgn);
     }
-    const setChancesI = (i, c, d) => {
+    const setChancesI = (i, c, d, pgn) => {
         // console.log(i)
         // console.log(c)
+        var ch = new Chess();
+        ch.load_pgn(pgn);
+        if (ch.header().Result != '*') return;
         if (i == 0) {
             setChances1(c);
         } else if (i == 1) {
@@ -727,6 +812,7 @@ export default function Follow() {
             ply: p,
             material: m
         }
+
         // console.log('setgame')
         // console.log(d);
         getEval(i, g, d)
@@ -744,7 +830,7 @@ export default function Follow() {
     function fetchAPIData(d) {
         var broadcastRoundId = ''; 
         broadcastRoundId = 'LsFeKWZU' // candidates round 1
-        broadcastRoundId = 'wrKZuojo' // test - Prague Challengers Round 6
+        // broadcastRoundId = 'wrKZuojo' // test - Prague Challengers Round 6
         const url = 'https://lichess.org/api/broadcast/round/' + broadcastRoundId + '.pgn';
         axios.get(url)
         .then((response) => {
@@ -756,9 +842,10 @@ export default function Follow() {
                     var curW = ''
                     var curB = ''
                     for (var i = 1; i < lines.length; i++) {
-                        if (lines[i].startsWith('[Event ')) {
+                        if (lines[i].startsWith('[Event ') || i == lines.length - 1) {
                             for (var j = 0; j < games.length; j++) {
                                 if (curW.includes(games[j][0]) && curB.includes(games[j][1])) {
+                                    // console.log('found ' + j)
                                     var c = new Chess();
                                     c.load_pgn(curPgn);
                                     var comments = c.get_comments();
@@ -834,7 +921,7 @@ export default function Follow() {
                     }
                 }
 
-                // console.log(response);
+                // console.log(response.data);
                 apiTimeout = setTimeout(() => {
                     fetchAPIData(d)
                 }, 10000);
