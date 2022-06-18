@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Chess } from 'chess.js';
 import ReactGA from 'react-ga';
 
-import probabilities from '../probabilities3.txt';
+import probabilities from '../probabilities4.txt';
 
 import Board from './Board';
 import StandingsRow from './StandingsRow';
@@ -15,10 +15,11 @@ let stockfish4 = new Worker('/stockfish.js');
 
 export default function Follow() {
 
-    const depth = 20;
+    const depth = 18;
 
     const onStockfishMsg = (event, fen, i, g, d) => {
         if (event.data.startsWith("info depth " + depth)) {
+            console.log(event.data)
             // console.log('iiiiiiii ' + i)
             // console.log('msg' + d);
             // console.log(d);
@@ -52,20 +53,20 @@ export default function Follow() {
             updateChances(i, newG, d);
             if (i == 0) {
                 setGame1(newG);
-                stockfish1.terminate();
-                stockfish1.onmessage = () => {};
+                // stockfish1.terminate();
+                // stockfish1.onmessage = () => {};
             } else if (i == 1) {
                 setGame2(newG);
-                stockfish2.terminate();
-                stockfish2.onmessage = () => {};
+                // stockfish2.terminate();
+                // stockfish2.onmessage = () => {};
             } else if (i == 2) {
                 setGame3(newG);
-                stockfish3.terminate();
-                stockfish3.onmessage = () => {};
+                // stockfish3.terminate();
+                // stockfish3.onmessage = () => {};
             } else if (i == 3) {
                 setGame4(newG);
-                stockfish4.terminate();
-                stockfish4.onmessage = () => {};
+                // stockfish4.terminate();
+                // stockfish4.onmessage = () => {};
             }
         }
     };
@@ -179,14 +180,14 @@ export default function Follow() {
     }
 
     const scores = [
-        0.0,
         0.5,
+        1.0,
+        1.5,
+        1.5,
         1.0,
         1.0,
         0.5,
-        0.0,
-        0.5,
-        0.5,
+        1.0,
     ]
 
     const setProbStuff = (text) => {
@@ -250,10 +251,10 @@ export default function Follow() {
     }
 
     const round = [
-        ['Rapport', 'Firouzja'],
-        ['Nakamura', 'Radjabov'],
-        ['Nepo', 'Caruana'],
-        ['Duda', 'Ding'],
+        ['Ding', 'Rapport'],
+        ['Caruana', 'Duda'],
+        ['Radjabov', 'Nepo'],
+        ['Firouzja', 'Nakamura'],
     ]
 
     const getPgn = (i) => {
@@ -707,10 +708,10 @@ export default function Follow() {
     }, [game4])
 
     const games = [
-        ['Rapport', 'Firouzja'],
-        ['Nakamura', 'Radjabov'],
-        ['Nepo', 'Caruana'],
-        ['Duda', 'Ding'],
+        ['Ding', 'Rapport'],
+        ['Caruana', 'Duda'],
+        ['Radjabov', 'Nepo'],
+        ['Firouzja', 'Nakamura'],
     ]
     // const [chances, setChances] = useState([
     //     [ 0.20251337885273374, 0.6346508440327967, 0.16283577711113612, ],
@@ -719,16 +720,16 @@ export default function Follow() {
     //     [ 0.15384638103212306, 0.7060438028844119, 0.14010981608013173, ],
     // ]);
     const [chances1, setChances1] = useState([
-        0.18225573167148623, 0.622866837700823, 0.19481208837443642
+        0.19803180983892157, 0.692732771985707, 0.10923541817203808
     ]);
     const [chances2, setChances2] = useState([
-        0.17419705292948529, 0.6993918914380963, 0.12641105562908503
+        0.2681917524016877, 0.6436415460556867, 0.0881000348726258
     ]);
     const [chances3, setChances3] = useState([
-        0.17823081855955078, 0.6780766372198543, 0.14369254421726163
+        0.172763951534608, 0.6569372546919356, 0.17029879377012297
     ]);
     const [chances4, setChances4] = useState([
-        0.1435989801657833, 0.6711887244993119, 0.18521229533157135
+        0.25863575002521966, 0.6011777680808893, 0.14018648189055768
     ]);
 
     useEffect(() => {
@@ -823,7 +824,7 @@ export default function Follow() {
         // console.log(c)
         var ch = new Chess();
         ch.load_pgn(pgn);
-        if (ch.header().Result != '*') return;
+        if (ch.header().Result == '1-0' || ch.header().Result == '1/2-1/2' || ch.header().Result == '0-1') return;
         if (i == 0) {
             setChances1(c);
         } else if (i == 1) {
@@ -857,7 +858,7 @@ export default function Follow() {
         }
         // console.log('setgame')
         // console.log(d);
-        getEval(i, g, d)
+        if (pgn.includes('1.')) getEval(i, g, d)
         // if (i == 0) {
         //     setGame1(g);
         // } else if (i == 1) {
@@ -873,11 +874,13 @@ export default function Follow() {
         var broadcastRoundId = ''; 
         broadcastRoundId = 'LsFeKWZU' // candidates round 1
         broadcastRoundId = 'sylFQGas' // candidates round 2
+        broadcastRoundId = 'oe2udItH' // candidates round 3
         
         // broadcastRoundId = 'wrKZuojo' // test - Prague Challengers Round 6
         const url = 'https://lichess.org/api/broadcast/round/' + broadcastRoundId + '.pgn';
         axios.get(url)
         .then((response) => {
+            // console.log(response)
             if (response.status == 200) {
                 const lines = response.data.split('\n');
                 var gs = [game1, game2, game3, game4];
@@ -952,7 +955,7 @@ export default function Follow() {
                             curB = '';
                         } else {
                             if (lines[i] != '') {
-                                if (lines[i].startsWith('1.')) {
+                                if (lines[i].startsWith('1.') || lines[i].startsWith('*')) {
                                     curPgn += '\n'
                                 }
                                 curPgn += lines[i] + '\n';
@@ -1011,7 +1014,7 @@ export default function Follow() {
                     <div className='tournament-info-and-help'>
                         <div className='tournament-info'>
                             <h2>FIDE Candidates Tournament 2022</h2>
-                            <h3>Round 2</h3>
+                            <h3>Round 3</h3>
                         </div>
                         <button className='help'
                         >?
