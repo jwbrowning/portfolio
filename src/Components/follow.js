@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Chess } from 'chess.js';
 import ReactGA from 'react-ga';
 
-import probabilities from '../probabilities2.txt';
+import probabilities from '../probabilities3.txt';
 
 import Board from './Board';
 import StandingsRow from './StandingsRow';
@@ -15,7 +15,7 @@ let stockfish4 = new Worker('/stockfish.js');
 
 export default function Follow() {
 
-    const depth = 15;
+    const depth = 20;
 
     const onStockfishMsg = (event, fen, i, g, d) => {
         if (event.data.startsWith("info depth " + depth)) {
@@ -147,7 +147,7 @@ export default function Follow() {
 
     
     const comingSoon = false;
-    const N = 10000;
+    const N = 1000;
 
     const playerNames = [
         'Ding',
@@ -180,13 +180,13 @@ export default function Follow() {
 
     const scores = [
         0.0,
+        0.5,
+        1.0,
+        1.0,
+        0.5,
         0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
+        0.5,
+        0.5,
     ]
 
     const setProbStuff = (text) => {
@@ -250,18 +250,33 @@ export default function Follow() {
     }
 
     const round = [
-        ['Duda', 'Rapport'],
-        ['Ding', 'Nepo'],
-        ['Caruana', 'Nakamura'],
-        ['Radjabov', 'Firouzja'],
+        ['Rapport', 'Firouzja'],
+        ['Nakamura', 'Radjabov'],
+        ['Nepo', 'Caruana'],
+        ['Duda', 'Ding'],
     ]
+
+    const getPgn = (i) => {
+        if (i == 0) {
+            return game1.pgn;
+        } else if (i == 1) {
+            return game2.pgn;
+        } else if (i == 2) {
+            return game3.pgn;
+        } else {
+            return game4.pgn;
+        }
+    }
 
     const GetScore = (i, cR) => {
         var name = playerNames[i];
         var score = scores[i];
         for (var j = 0; j < round.length; j++) {
             if (round[j][0] == name) {
-                var res = GetChosenResult(j, cR);
+                var c = new Chess();
+                c.load_pgn(getPgn(j));
+                var res = c.header().Result;
+                if (!(res == '1-0' || res == '1/2-1/2' || res == '0-1')) res = GetChosenResult(j, cR);
                 if (res == '1-0') {
                     return score + 1;
                 } else if (res == '1/2-1/2') {
@@ -270,7 +285,10 @@ export default function Follow() {
                     return score;
                 }
             } else if (round[j][1] == name) {
-                var res = GetChosenResult(j, cR);
+                var c = new Chess();
+                c.load_pgn(getPgn(j));
+                var res = c.header().Result;
+                if (!(res == '1-0' || res == '1/2-1/2' || res == '0-1')) res = GetChosenResult(j, cR);
                 if (res == '0-1') {
                     return score + 1;
                 } else if (res == '1/2-1/2') {
@@ -600,7 +618,7 @@ export default function Follow() {
         c.load_pgn(game1.pgn);
         var res = c.header().Result;
         var cR = chosenResults;
-        if (res != '*') {
+        if (res == '1-0' || res == '1/2-1/2' || res == '0-1') {
             setChosenResults({
                 res1: 'x',
                 res2: 'x',
@@ -623,7 +641,7 @@ export default function Follow() {
         c.load_pgn(game2.pgn);
         var res = c.header().Result;
         var cR = chosenResults;
-        if (res != '*') {
+        if (res == '1-0' || res == '1/2-1/2' || res == '0-1') {
             setChosenResults({
                 res1: 'x',
                 res2: 'x',
@@ -647,7 +665,7 @@ export default function Follow() {
         c.load_pgn(game3.pgn);
         var res = c.header().Result;
         var cR = chosenResults;
-        if (res != '*') {
+        if (res == '1-0' || res == '1/2-1/2' || res == '0-1') {
             setChosenResults({
                 res1: 'x',
                 res2: 'x',
@@ -671,7 +689,7 @@ export default function Follow() {
         c.load_pgn(game4.pgn);
         var res = c.header().Result;
         var cR = chosenResults;
-        if (res != '*') {
+        if (res == '1-0' || res == '1/2-1/2' || res == '0-1') {
             setChosenResults({
                 res1: 'x',
                 res2: 'x',
@@ -689,10 +707,10 @@ export default function Follow() {
     }, [game4])
 
     const games = [
-        ['Duda', 'Rapport'],
-        ['Ding', 'Nepo'],
-        ['Caruana', 'Nakamura'],
-        ['Radjabov', 'Firouzja'],
+        ['Rapport', 'Firouzja'],
+        ['Nakamura', 'Radjabov'],
+        ['Nepo', 'Caruana'],
+        ['Duda', 'Ding'],
     ]
     // const [chances, setChances] = useState([
     //     [ 0.20251337885273374, 0.6346508440327967, 0.16283577711113612, ],
@@ -701,16 +719,16 @@ export default function Follow() {
     //     [ 0.15384638103212306, 0.7060438028844119, 0.14010981608013173, ],
     // ]);
     const [chances1, setChances1] = useState([
-        0.20251337885273374, 0.6346508440327967, 0.16283577711113612,
+        0.18225573167148623, 0.622866837700823, 0.19481208837443642
     ]);
     const [chances2, setChances2] = useState([
-        0.22558674341741725, 0.6556564272338700, 0.11875682934537940,,
+        0.17419705292948529, 0.6993918914380963, 0.12641105562908503
     ]);
     const [chances3, setChances3] = useState([
-        0.19171620911416837, 0.7281317625217543, 0.08015202836074407,
+        0.17823081855955078, 0.6780766372198543, 0.14369254421726163
     ]);
     const [chances4, setChances4] = useState([
-        0.15384638103212306, 0.7060438028844119, 0.14010981608013173,
+        0.1435989801657833, 0.6711887244993119, 0.18521229533157135
     ]);
 
     useEffect(() => {
@@ -854,6 +872,8 @@ export default function Follow() {
     function fetchAPIData(d) {
         var broadcastRoundId = ''; 
         broadcastRoundId = 'LsFeKWZU' // candidates round 1
+        broadcastRoundId = 'sylFQGas' // candidates round 2
+        
         // broadcastRoundId = 'wrKZuojo' // test - Prague Challengers Round 6
         const url = 'https://lichess.org/api/broadcast/round/' + broadcastRoundId + '.pgn';
         axios.get(url)
@@ -991,7 +1011,7 @@ export default function Follow() {
                     <div className='tournament-info-and-help'>
                         <div className='tournament-info'>
                             <h2>FIDE Candidates Tournament 2022</h2>
-                            <h3>Round 1</h3>
+                            <h3>Round 2</h3>
                         </div>
                         <button className='help'
                         >?

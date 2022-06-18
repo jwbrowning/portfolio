@@ -555,7 +555,7 @@ function Board(props) {
                 props.expand(props.bid);
             } : (e) => {ClickBoard(e)}}
             >
-                {gameResult != '*' ? <div className='result-overlay'>
+                {gameResult == '1-0' || gameResult == '1/2-1/2' || gameResult == '0-1' ? <div className='result-overlay'>
                     <h2 className='result'>{gameResult}</h2>
                 </div> : <></>}
                 <img className='no-drag half-second-transition'
@@ -674,7 +674,7 @@ function Board(props) {
                 drawChance={props.probs[1]}
                 blackChance={props.probs[2]}/>
                 <div className='result-buttons'
-                    style={gameResult != '*' ? {pointerEvents: 'none'} : {}}>
+                    style={gameResult == '1-0' || gameResult == '1/2-1/2' || gameResult == '0-1' ? {pointerEvents: 'none'} : {}}>
                     <button className={'small-button result-button black-result' + (props.selectedResult == '0-1' ? ' selected-result' : '')}
                     onClick={() => {props.blackButton(props.bid)}}>
                         <b>0 - 1</b>
