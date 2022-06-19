@@ -19,7 +19,7 @@ export default function Follow() {
 
     const onStockfishMsg = (event, fen, i, g, d) => {
         if (event.data.startsWith("info depth " + depth)) {
-            console.log(event.data)
+            // console.log(event.data)
             // console.log('iiiiiiii ' + i)
             // console.log('msg' + d);
             // console.log(d);
@@ -94,7 +94,7 @@ export default function Follow() {
 
     const getEval = (i, g, d) => {
 
-        // console.log('geteval' + d);
+        // console.log('geteval');
         // console.log(d);
         var c = new Chess();
         c.load_pgn(g.pgn);
@@ -583,32 +583,32 @@ export default function Follow() {
     const [game1, setGame1] = useState({
         pgn: '',
         eval: 0.2,
-        wClock: '1:30:00',
-        bClock: '1:30:00',
+        wClock: '2:00:00',
+        bClock: '2:00:00',
         ply: 0,
         material: 78,
     });
     const [game2, setGame2] = useState({
         pgn: '',
         eval: 0.2,
-        wClock: '1:30:00',
-        bClock: '1:30:00',
+        wClock: '2:00:00',
+        bClock: '2:00:00',
         ply: 0,
         material: 78,
     });
     const [game3, setGame3] = useState({
         pgn: '',
         eval: 0.2,
-        wClock: '1:30:00',
-        bClock: '1:30:00',
+        wClock: '2:00:00',
+        bClock: '2:00:00',
         ply: 0,
         material: 78,
     });
     const [game4, setGame4] = useState({
         pgn: '',
         eval: 0.2,
-        wClock: '1:30:00',
-        bClock: '1:30:00',
+        wClock: '2:00:00',
+        bClock: '2:00:00',
         ply: 0,
         material: 78,
     });
@@ -622,9 +622,9 @@ export default function Follow() {
         if (res == '1-0' || res == '1/2-1/2' || res == '0-1') {
             setChosenResults({
                 res1: 'x',
-                res2: 'x',
-                res3: 'x',
-                res4: 'x',
+                res2: chosenResults.res2,
+                res3: chosenResults.res3,
+                res4: chosenResults.res4,
             })
             if (res == '1-0') {
                 setChances1([1,0,0]);
@@ -644,10 +644,10 @@ export default function Follow() {
         var cR = chosenResults;
         if (res == '1-0' || res == '1/2-1/2' || res == '0-1') {
             setChosenResults({
-                res1: 'x',
+                res1: chosenResults.res1,
                 res2: 'x',
-                res3: 'x',
-                res4: 'x',
+                res3: chosenResults.res3,
+                res4: chosenResults.res4,
             })
             if (res == '1-0') {
                 setChances2([1,0,0]);
@@ -668,10 +668,10 @@ export default function Follow() {
         var cR = chosenResults;
         if (res == '1-0' || res == '1/2-1/2' || res == '0-1') {
             setChosenResults({
-                res1: 'x',
-                res2: 'x',
+                res1: chosenResults.res1,
+                res2: chosenResults.res2,
                 res3: 'x',
-                res4: 'x',
+                res4: chosenResults.res4,
             })
             if (res == '1-0') {
                 setChances3([1,0,0]);
@@ -692,9 +692,9 @@ export default function Follow() {
         var cR = chosenResults;
         if (res == '1-0' || res == '1/2-1/2' || res == '0-1') {
             setChosenResults({
-                res1: 'x',
-                res2: 'x',
-                res3: 'x',
+                res1: chosenResults.res1,
+                res2: chosenResults.res2,
+                res3: chosenResults.res3,
                 res4: 'x',
             })
             if (res == '1-0') {
@@ -847,6 +847,55 @@ export default function Follow() {
         ReadProbs();
     }, []);
 
+    const [temp1, setTemp1] = useState({
+        pgn: '',
+        eval: 0.2,
+        wClock: '2:00:00',
+        bClock: '2:00:00',
+        ply: 0,
+        material: 78,
+    });
+    const [temp2, setTemp2] = useState({
+        pgn: '',
+        eval: 0.2,
+        wClock: '2:00:00',
+        bClock: '2:00:00',
+        ply: 0,
+        material: 78,
+    });
+    const [temp3, setTemp3] = useState({
+        pgn: '',
+        eval: 0.2,
+        wClock: '2:00:00',
+        bClock: '2:00:00',
+        ply: 0,
+        material: 78,
+    });
+    const [temp4, setTemp4] = useState({
+        pgn: '',
+        eval: 0.2,
+        wClock: '2:00:00',
+        bClock: '2:00:00',
+        ply: 0,
+        material: 78,
+    });
+
+    useEffect(() => {
+        if (temp1.pgn.includes('1.') && temp1.pgn.length > game1.pgn.length) getEval(0, temp1, probData)
+    }, [temp1])
+
+    useEffect(() => {
+        if (temp2.pgn.includes('1.') && temp2.pgn.length > game2.pgn.length) getEval(1, temp2, probData)
+    }, [temp2])
+
+    useEffect(() => {
+        if (temp3.pgn.includes('1.') && temp3.pgn.length > game3.pgn.length) getEval(2, temp3, probData)
+    }, [temp3])
+
+    useEffect(() => {
+        if (temp4.pgn.includes('1.') && temp4.pgn.length > game4.pgn.length) getEval(3, temp4, probData)
+    }, [temp4])
+
     const setGame = (i, pgn, e, wC, bC, p, m, d) => {
         var g = {
             pgn: pgn,
@@ -858,16 +907,17 @@ export default function Follow() {
         }
         // console.log('setgame')
         // console.log(d);
-        if (pgn.includes('1.')) getEval(i, g, d)
-        // if (i == 0) {
-        //     setGame1(g);
-        // } else if (i == 1) {
-        //     setGame2(g);
-        // } else if (i == 2) {
-        //     setGame3(g);
-        // } else if (i == 3) {
-        //     setGame4(g);
-        // }
+        if (pgn.includes('1.')) {
+            if (i == 0) {
+                setTemp1(g);
+            } else if (i == 1) {
+                setTemp2(g);
+            } else if (i == 2) {
+                setTemp3(g);
+            } else if (i == 3) {
+                setTemp4(g);
+            }
+        } 
     }
 
     function fetchAPIData(d) {
@@ -898,8 +948,8 @@ export default function Follow() {
                                     c.load_pgn(curPgn);
                                     var comments = c.get_comments();
                                     var curEval = 0.2;
-                                    var curWClock = '1:30:00';
-                                    var curBClock = '1:30:00';
+                                    var curWClock = '2:00:00';
+                                    var curBClock = '2:00:00';
                                     for (var k = 0; k < comments.length; k++) {
                                         // console.log(comments[k].comment)
                                         var comment = comments[k].comment;
