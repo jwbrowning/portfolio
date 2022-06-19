@@ -661,7 +661,7 @@ export default function Follow() {
 
     useEffect(() => {
         stockfish3.terminate();
-        stockfish2.terminate();
+        // stockfish2.terminate();
         var c = new Chess();
         c.load_pgn(game3.pgn);
         var res = c.header().Result;
@@ -685,7 +685,7 @@ export default function Follow() {
 
     useEffect(() => {
         stockfish4.terminate();
-        stockfish2.terminate();
+        // stockfish2.terminate();
         var c = new Chess();
         c.load_pgn(game4.pgn);
         var res = c.header().Result;
