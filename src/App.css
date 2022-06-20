@@ -164,12 +164,17 @@ nav {
 .nav-links {
   width: 50%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
   list-style: none;
-
+  
   text-decoration: none;
-  font-size: 18px;
+  font-size: 16px;
+}
+.nav-links h2{
+  padding: 5px;
+  font-size: 16px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .ascii-art {
@@ -1167,4 +1172,58 @@ td {
 
 .half-second-transition {
   transition-duration: .5s;
+}
+
+
+.about {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 32px;
+  color: var(--text-hover);
+  padding-bottom: 32px;
+}
+.about h2 {
+  color: var(--accent);
+  font-size: xx-large;
+  text-align: center;
+}
+.about h4 {
+  font-size: large;
+  width: 100%;
+  text-align: center;
+}
+.about h3 {
+  font-size: x-large;
+  text-align: left;
+  width: 100%;
+  padding-left: 10%;
+  padding-right: 10%;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+.about h5 {
+  font-size: larger;
+  text-align: left;
+  width: 100%;
+  padding-left: 10%;
+  padding-right: 10%;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+.about p {
+  color: var(--text);
+  text-align: left;
+  width: 100%;
+  padding-left: 10%;
+  padding-right: 10%;
+  margin-bottom: 8px;
+  font-size: medium;
+}
+.general-link {
+  font-size: medium;
+  margin: 0;
+  padding: 0;
 }

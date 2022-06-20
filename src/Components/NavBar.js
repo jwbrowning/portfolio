@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import HomePage from './home'
 import FollowPage from './follow'
 import OpeningsPage from './openings'
+import AboutPage from './about'
 
 function NavBar() {
 
@@ -23,13 +24,16 @@ function NavBar() {
                     <h2>Chess Assess</h2>
                     <ul className='nav-links'>
                         <li>
-                            <Link to='/'>Home</Link>
+                            <Link to='/'><h2>Home</h2></Link>
                         </li>
                         <li>
-                            <Link to='follow'>Follow Tournaments</Link>
+                            <Link to='about'><h2>About</h2></Link>
                         </li>
                         <li>
-                            <Link to='openings'>Opening Trainer</Link>
+                            <Link to='follow'><h2>Follow Tournaments</h2></Link>
+                        </li>
+                        <li>
+                            <Link to='openings'><h2>Opening Trainer</h2></Link>
                         </li>
                     </ul>
                     <button style={{padding: '10px'}}
@@ -46,6 +50,7 @@ function NavBar() {
                 </nav>
                 <Routes>
                     <Route path='/' element={<HomePage />} />
+                    <Route path='about' element={<AboutPage />} />
                     <Route path='follow' element={<FollowPage />} />
                     <Route path='openings' element={<OpeningsPage />} />
                 </Routes>

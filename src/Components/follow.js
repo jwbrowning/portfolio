@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Chess } from 'chess.js';
 import ReactGA from 'react-ga';
 
-import probabilities from '../probabilities4.txt';
+import probabilities from '../probabilities.txt';
 
 import Board from './Board';
 import StandingsRow from './StandingsRow';
@@ -14,6 +14,39 @@ let stockfish3 = new Worker('/stockfish.js');
 let stockfish4 = new Worker('/stockfish.js');
 
 export default function Follow() {
+
+
+    // SET THIS STUFF BEFORE EACH ROUND -------------------
+    const scores = [
+        1.0,
+        1.5,
+        2.0,
+        2.0,
+        1.5,
+        1.5,
+        1.0,
+        1.5,
+    ]
+    const games = [
+        ['Rapport', 'Nakamura'],
+        ['Nepo', 'Firouzja'],
+        ['Duda', 'Radjabov'],
+        ['Ding', 'Caruana'],
+    ]
+    const [chances1, setChances1] = useState([
+        0.15688988318776423, 0.6889728247785043, 0.15413729203039822
+    ]);
+    const [chances2, setChances2] = useState([
+        0.1653638511944265, 0.667017376767957, 0.16761877203428313
+    ]);
+    const [chances3, setChances3] = useState([
+        0.21956789030203527, 0.6458268047311922, 0.13467185779452964
+    ]);
+    const [chances4, setChances4] = useState([
+        0.23996357087909212, 0.655545026485796, 0.10449140263177861
+    ]);
+    // DONT FORGET TO PUT PROBABILITIES FROM SIMS IN probabilities.txt
+    //-----------------------------------------------------
 
     const depth = 18;
 
@@ -148,7 +181,7 @@ export default function Follow() {
 
     
     const comingSoon = false;
-    const N = 1000;
+    const N = 10000;
 
     const playerNames = [
         'Ding',
@@ -178,17 +211,6 @@ export default function Follow() {
         }
         // return 0;
     }
-
-    const scores = [
-        0.5,
-        1.0,
-        1.5,
-        1.5,
-        1.0,
-        1.0,
-        0.5,
-        1.0,
-    ]
 
     const setProbStuff = (text) => {
         var data = [];
@@ -250,12 +272,6 @@ export default function Follow() {
         return null;
     }
 
-    const round = [
-        ['Ding', 'Rapport'],
-        ['Caruana', 'Duda'],
-        ['Radjabov', 'Nepo'],
-        ['Firouzja', 'Nakamura'],
-    ]
 
     const getPgn = (i) => {
         if (i == 0) {
@@ -272,8 +288,8 @@ export default function Follow() {
     const GetScore = (i, cR) => {
         var name = playerNames[i];
         var score = scores[i];
-        for (var j = 0; j < round.length; j++) {
-            if (round[j][0] == name) {
+        for (var j = 0; j < games.length; j++) {
+            if (games[j][0] == name) {
                 var c = new Chess();
                 c.load_pgn(getPgn(j));
                 var res = c.header().Result;
@@ -285,7 +301,7 @@ export default function Follow() {
                 } else {
                     return score;
                 }
-            } else if (round[j][1] == name) {
+            } else if (games[j][1] == name) {
                 var c = new Chess();
                 c.load_pgn(getPgn(j));
                 var res = c.header().Result;
@@ -707,30 +723,12 @@ export default function Follow() {
         }
     }, [game4])
 
-    const games = [
-        ['Ding', 'Rapport'],
-        ['Caruana', 'Duda'],
-        ['Radjabov', 'Nepo'],
-        ['Firouzja', 'Nakamura'],
-    ]
     // const [chances, setChances] = useState([
     //     [ 0.20251337885273374, 0.6346508440327967, 0.16283577711113612, ],
     //     [ 0.22558674341741725, 0.6556564272338700, 0.11875682934537940, ],
     //     [ 0.19171620911416837, 0.7281317625217543, 0.08015202836074407, ],
     //     [ 0.15384638103212306, 0.7060438028844119, 0.14010981608013173, ],
     // ]);
-    const [chances1, setChances1] = useState([
-        0.19803180983892157, 0.692732771985707, 0.10923541817203808
-    ]);
-    const [chances2, setChances2] = useState([
-        0.2681917524016877, 0.6436415460556867, 0.0881000348726258
-    ]);
-    const [chances3, setChances3] = useState([
-        0.172763951534608, 0.6569372546919356, 0.17029879377012297
-    ]);
-    const [chances4, setChances4] = useState([
-        0.25863575002521966, 0.6011777680808893, 0.14018648189055768
-    ]);
 
     useEffect(() => {
         var getst = GetStandings(probData, chosenResults);
