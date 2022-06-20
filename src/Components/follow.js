@@ -923,6 +923,7 @@ export default function Follow() {
         broadcastRoundId = 'LsFeKWZU' // candidates round 1
         broadcastRoundId = 'sylFQGas' // candidates round 2
         broadcastRoundId = 'oe2udItH' // candidates round 3
+        broadcastRoundId = '0QuWnLkU' // candidates round 4
         
         // broadcastRoundId = 'wrKZuojo' // test - Prague Challengers Round 6
         const url = 'https://lichess.org/api/broadcast/round/' + broadcastRoundId + '.pgn';
