@@ -105,8 +105,9 @@ export default function Follow() {
     };
 
     const convertEvaluation = (ev, turn) => {
+        // console.log(ev)
         // if (ev.startsWith('M')) {
-        //     ev = `M${ev.substring(1)}`
+        //     ev = ev.substring(1) + '000'
         // }
         if (turn === 'b' && !ev.startsWith('M')) {
             if (ev.startsWith('-')) {
@@ -115,10 +116,15 @@ export default function Follow() {
                 ev = `-${ev}`;
             }
         }
-        if (ev.startsWith('M')) {
+        if (turn === 'b' && ev.startsWith('M')) {
             ev = ev.substring(1) + '000';
-            return ev
-        } else if (ev.startsWith('M')) {
+            if (ev.startsWith('-')) {
+                ev = ev.substring(1);
+            } else {
+                ev = `-${ev}`;
+            }
+        }
+        if (ev.startsWith('M')) {
             ev = ev.substring(1) + '000';
             return ev
         }
