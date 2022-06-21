@@ -18,32 +18,32 @@ export default function Follow() {
 
     // SET THIS STUFF BEFORE EACH ROUND -------------------
     const scores = [
-        1.0,
-        1.5,
-        2.0,
-        2.0,
-        1.5,
-        1.5,
-        1.0,
-        1.5,
+        1.5, // Ding
+        1.5, // Firouzja
+        2.5, // Caruana
+        3.0, // Nepo
+        2.0, // Rapport
+        2.0, // Nakamura
+        1.5, // Radjabov
+        2.0, // Duda
     ]
     const games = [
-        ['Rapport', 'Nakamura'],
-        ['Nepo', 'Firouzja'],
-        ['Duda', 'Radjabov'],
-        ['Ding', 'Caruana'],
+        ['Caruana', 'Rapport'],
+        ['Radjabov', 'Ding'],
+        ['Firouzja', 'Duda'],
+        ['Nakamura', 'Nepo'],
     ]
     const [chances1, setChances1] = useState([
-        0.15688988318776423, 0.6889728247785043, 0.15413729203039822
+        0.18964295064420653, 0.6633961371495847, 0.14696091220287558
     ]);
     const [chances2, setChances2] = useState([
-        0.1653638511944265, 0.667017376767957, 0.16761877203428313
+        0.1684518884991993, 0.6297328405509246, 0.20177214594654283
     ]);
     const [chances3, setChances3] = useState([
-        0.21956789030203527, 0.6458268047311922, 0.13467185779452964
+        0.3353121734800859, 0.5539670614652522, 0.11066826505132887
     ]);
     const [chances4, setChances4] = useState([
-        0.23996357087909212, 0.655545026485796, 0.10449140263177861
+        0.1479992177652498, 0.6678442257503902, 0.1842318204810264
     ]);
     // DONT FORGET TO PUT PROBABILITIES FROM SIMS IN probabilities.txt
     //-----------------------------------------------------
@@ -930,6 +930,7 @@ export default function Follow() {
         broadcastRoundId = 'sylFQGas' // candidates round 2
         broadcastRoundId = 'oe2udItH' // candidates round 3
         broadcastRoundId = '0QuWnLkU' // candidates round 4
+        broadcastRoundId = '1ZAF8srK' // candidates round 5
         
         // broadcastRoundId = 'wrKZuojo' // test - Prague Challengers Round 6
         const url = 'https://lichess.org/api/broadcast/round/' + broadcastRoundId + '.pgn';
@@ -1069,7 +1070,7 @@ export default function Follow() {
                     <div className='tournament-info-and-help'>
                         <div className='tournament-info'>
                             <h2>FIDE Candidates Tournament 2022</h2>
-                            <h3>Round 3</h3>
+                            <h3>Round 5</h3>
                         </div>
                         <button className='help'
                         >?
