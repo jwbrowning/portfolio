@@ -8,8 +8,11 @@ export default function StandingsRow(props) {
             ori = props.original[i].winChance;
         }
     }
+    // console.log('original:')
+    // console.log(props.original)
+    // console.log(props.maxGap)
 
-    const x = Math.max(3, props.maxGap);
+    const x = Math.max(5, props.maxGap);
     const g_d = props.winChance > ori ? Math.floor((16 / x) * Math.min(x, props.winChance - ori)) : 0;
     const r_d = props.winChance < ori ? Math.floor((16 / x) * Math.min(x, ori - props.winChance)) : 0;
 

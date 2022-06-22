@@ -355,11 +355,11 @@ button:active .button-icon2 {
   width: 878px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   /* align-items:stretch; */
   /* padding: 50px; */
   margin: 0 auto;
-  margin-top: 16px;
+  margin-top: 24px;
   margin-bottom: 16px;
   /* margin:50px; */
   /* background-color: var(--light-background); */
@@ -400,7 +400,7 @@ button:active .button-icon2 {
   height: 100%;
   /* border: 3px solid red; */
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   margin: 0 auto;
 }
 .games-and-standings-container:hover {
@@ -410,7 +410,7 @@ button:active .button-icon2 {
 }
 
 .standings-container {
-  margin: 28px;
+  margin: 16px;
   background-color: var(--light-background);
   border: 3px solid var(--accent);
   width: 256px;
@@ -472,7 +472,7 @@ td {
   /* align-items: center; */
   /* border: 5px solid var(--accent); */
   margin: 0 auto;
-  margin: 20px;
+  margin: 8px;
   /* margin-top: 32px; */
 }
 .tournament-games-container:hover {

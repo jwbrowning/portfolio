@@ -403,7 +403,7 @@ export default function Follow() {
         for (var i = 0; i < s.length; i++) {
             for (var j = 0; j < oS.length; j++) {
                 if (s[i].name == oS[j].name) {
-                    var gap = Math.abs(s[i].winChance - oS[i].winChance)
+                    var gap = Math.abs(s[i].winChance - oS[j].winChance)
                     if (gap > maxGap) {
                         maxGap = gap;
                     }
