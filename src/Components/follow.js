@@ -956,6 +956,9 @@ export default function Follow() {
                                     var curEval = 0.2;
                                     var curWClock = '2:00:00';
                                     var curBClock = '2:00:00';
+                                    var clks = 0;
+                                    var lastClock = '2:00:00';
+                                    var prevClock = '2:00:00';
                                     for (var k = 0; k < comments.length; k++) {
                                         // console.log(comments[k].comment)
                                         var comment = comments[k].comment;
@@ -966,10 +969,15 @@ export default function Follow() {
                                         if (comment.includes('clk')) {
                                             var e = comment.indexOf('clk');
                                             var clk = comment.substring(e + 4, comment.indexOf(']', e));
-                                            if (k % 2 == 0) {
-                                                curWClock = clk;
+                                            prevClock = lastClock;
+                                            lastClock = clk;
+                                            var cc = new Chess(comments[k].fen);
+                                            if (cc.turn() === 'b') {
+                                                curWClock = lastClock;
+                                                curBClock = prevClock;
                                             } else {
-                                                curBClock = clk;
+                                                curWClock = prevClock;
+                                                curBClock = lastClock;
                                             }
                                         }
                                     }
