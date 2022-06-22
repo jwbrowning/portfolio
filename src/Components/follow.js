@@ -17,33 +17,41 @@ export default function Follow() {
 
 
     // SET THIS STUFF BEFORE EACH ROUND -------------------
+    const round = 6;
+    const broadcastRoundId = 'yF4JxPcn'; 
+    // 'LsFeKWZU' // candidates round 1
+    // 'sylFQGas' // candidates round 2
+    // 'oe2udItH' // candidates round 3
+    // '0QuWnLkU' // candidates round 4
+    // '1ZAF8srK' // candidates round 5
+    // 'yF4JxPcn' // candidates round 6
     const scores = [
-        1.5, // Ding
-        1.5, // Firouzja
-        2.5, // Caruana
-        3.0, // Nepo
-        2.0, // Rapport
-        2.0, // Nakamura
-        1.5, // Radjabov
-        2.0, // Duda
+        2.0, // Ding
+        2.0, // Firouzja
+        3.0, // Caruana
+        3.5, // Nepo
+        2.5, // Rapport
+        2.5, // Nakamura
+        2.0, // Radjabov
+        2.5, // Duda
     ]
     const games = [
-        ['Caruana', 'Rapport'],
-        ['Radjabov', 'Ding'],
-        ['Firouzja', 'Duda'],
-        ['Nakamura', 'Nepo'],
+        ['Radjabov', 'Rapport'],
+        ['Firouzja', 'Caruana'],
+        ['Nakamura', 'Ding'],
+        ['Nepo', 'Duda'],
     ]
     const [chances1, setChances1] = useState([
-        0.18964295064420653, 0.6633961371495847, 0.14696091220287558
+        0.18037225010179495, 0.6247686083863869, 0.1948591415084849
     ]);
     const [chances2, setChances2] = useState([
-        0.1684518884991993, 0.6297328405509246, 0.20177214594654283
+        0.15951079880859956, 0.6384194403844141, 0.20206976080365308
     ]);
     const [chances3, setChances3] = useState([
-        0.3353121734800859, 0.5539670614652522, 0.11066826505132887
+        0.18900164885195375, 0.6439632513296801, 0.16703509981503284
     ]);
     const [chances4, setChances4] = useState([
-        0.1479992177652498, 0.6678442257503902, 0.1842318204810264
+        0.19051581965771952, 0.6696762840661074, 0.13987400916213485
     ]);
     // DONT FORGET TO PUT PROBABILITIES FROM SIMS IN probabilities.txt
     //-----------------------------------------------------
@@ -925,12 +933,6 @@ export default function Follow() {
     }
 
     function fetchAPIData(d) {
-        var broadcastRoundId = ''; 
-        broadcastRoundId = 'LsFeKWZU' // candidates round 1
-        broadcastRoundId = 'sylFQGas' // candidates round 2
-        broadcastRoundId = 'oe2udItH' // candidates round 3
-        broadcastRoundId = '0QuWnLkU' // candidates round 4
-        broadcastRoundId = '1ZAF8srK' // candidates round 5
         
         // broadcastRoundId = 'wrKZuojo' // test - Prague Challengers Round 6
         const url = 'https://lichess.org/api/broadcast/round/' + broadcastRoundId + '.pgn';
@@ -1078,7 +1080,7 @@ export default function Follow() {
                     <div className='tournament-info-and-help'>
                         <div className='tournament-info'>
                             <h2>FIDE Candidates Tournament 2022</h2>
-                            <h3>Round 5</h3>
+                            <h3>{'Round ' + round}</h3>
                         </div>
                         <button className='help'
                         >?
