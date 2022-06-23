@@ -10,7 +10,7 @@
   --light-background: #5d564d;
   --glow-color: rgba(253, 202, 152, 0.605);
   --hue: 0deg;
-  --sat: 100;
+  --sat: 100%;
 }
 
 /* :root {
@@ -74,7 +74,7 @@
 
 body {
   background-color: var(--background);
-  filter: hue-rotate(var(--hue));
+  filter: hue-rotate(var(--hue)) saturate(var(--sat));
   transition-duration: .5s;
 }
 

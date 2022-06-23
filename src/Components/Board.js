@@ -672,7 +672,8 @@ function Board(props) {
                 eval={props.eval}
                 whiteChance={props.probs[0]}
                 drawChance={props.probs[1]}
-                blackChance={props.probs[2]}/>
+                blackChance={props.probs[2]}
+                depth={props.depth}/>
                 <div className='result-buttons'
                     style={gameResult == '1-0' || gameResult == '1/2-1/2' || gameResult == '0-1' ? {pointerEvents: 'none'} : {}}>
                     <button className={'small-button result-button black-result' + (props.selectedResult == '0-1' ? ' selected-result' : '')}

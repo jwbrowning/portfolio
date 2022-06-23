@@ -56,14 +56,25 @@ export default function Follow() {
     // DONT FORGET TO PUT PROBABILITIES FROM SIMS IN probabilities.txt
     //-----------------------------------------------------
 
-    const depth = 18;
+    const depth = 30;
+
+    const [depth1, setDepth1] = useState(30);
+    const [depth2, setDepth2] = useState(30);
+    const [depth3, setDepth3] = useState(30);
+    const [depth4, setDepth4] = useState(30);
 
     const onStockfishMsg = (event, fen, i, g, d) => {
-        if (event.data.startsWith("info depth " + depth)) {
+        // console.log(event.data)
+        if (event.data.startsWith("info depth ")) {
             // console.log(event.data)
             // console.log('iiiiiiii ' + i)
             // console.log('msg' + d);
             // console.log(d);
+            const ind = event.data.indexOf("info depth ");
+            const sp = event.data.indexOf(" ", ind + 11);
+            const dep = Number(event.data.substring(ind + 11, sp));
+            if (dep < 10) return;
+
             var messageEvalType;
             var message = event.data.split(" ");
             const chess = new Chess();
@@ -94,20 +105,28 @@ export default function Follow() {
             updateChances(i, newG, d);
             if (i == 0) {
                 setGame1(newG);
-                // stockfish1.terminate();
-                // stockfish1.onmessage = () => {};
+                setDepth1(dep);
+                if (event.data.startsWith("info depth " + depth)) {
+                    stockfish1.terminate();
+                }
             } else if (i == 1) {
                 setGame2(newG);
-                // stockfish2.terminate();
-                // stockfish2.onmessage = () => {};
+                setDepth2(dep);
+                if (event.data.startsWith("info depth " + depth)) {
+                    stockfish2.terminate();
+                }
             } else if (i == 2) {
                 setGame3(newG);
-                // stockfish3.terminate();
-                // stockfish3.onmessage = () => {};
+                setDepth3(dep);
+                if (event.data.startsWith("info depth " + depth)) {
+                    stockfish3.terminate();
+                }
             } else if (i == 3) {
                 setGame4(newG);
-                // stockfish4.terminate();
-                // stockfish4.onmessage = () => {};
+                setDepth4(dep);
+                if (event.data.startsWith("info depth " + depth)) {
+                    stockfish4.terminate();
+                }
             }
         }
     };
@@ -644,7 +663,7 @@ export default function Follow() {
     });
 
     useEffect(() => {
-        stockfish1.terminate();
+        // stockfish1.terminate();
         var c = new Chess();
         c.load_pgn(game1.pgn);
         var res = c.header().Result;
@@ -667,7 +686,7 @@ export default function Follow() {
     }, [game1])
 
     useEffect(() => {
-        stockfish2.terminate();
+        // stockfish2.terminate();
         var c = new Chess();
         c.load_pgn(game2.pgn);
         var res = c.header().Result;
@@ -690,7 +709,7 @@ export default function Follow() {
     }, [game2])
 
     useEffect(() => {
-        stockfish3.terminate();
+        // stockfish3.terminate();
         // stockfish2.terminate();
         var c = new Chess();
         c.load_pgn(game3.pgn);
@@ -714,7 +733,7 @@ export default function Follow() {
     }, [game3])
 
     useEffect(() => {
-        stockfish4.terminate();
+        // stockfish4.terminate();
         // stockfish2.terminate();
         var c = new Chess();
         c.load_pgn(game4.pgn);
@@ -779,8 +798,6 @@ export default function Follow() {
         
         var r1 = getPlayerRating(games[i][0]);
         var r2 = getPlayerRating(games[i][1]);
-        r1 = 2750;
-        r2 = 2750;
         var wC = g.wClock;
         var c1 = wC.indexOf(':');
         var c2 = wC.indexOf(':', c1+1);
@@ -1110,25 +1127,25 @@ export default function Follow() {
                                 whiteButton={whiteButton} blackButton={blackButton} drawButton={drawButton}
                                 whitePlayer={games[0][0]} blackPlayer={games[0][1]} eval={game1.eval} pgn={game1.pgn}
                                 whiteClock={game1.wClock} blackClock={game1.bClock}
-                                probs={chances1}/>
+                                probs={chances1} depth={depth1}/>
                             <Board type={boardTypes[1]} expand={expand} minimize={minimize} key={boardTypes[1] + '1' + game2.pgn.length}
                                 pieceSize={boardTypes[1]=='small-tournament' ? 16 : 48} bid={1} selectedResult={chosenResults.res2}
                                 whiteButton={whiteButton} blackButton={blackButton} drawButton={drawButton}
                                 whitePlayer={games[1][0]} blackPlayer={games[1][1]} eval={game2.eval} pgn={game2.pgn}
                                 whiteClock={game2.wClock} blackClock={game2.bClock}
-                                probs={chances2}/>
+                                probs={chances2} depth={depth2}/>
                             <Board type={boardTypes[2]} expand={expand} minimize={minimize} key={boardTypes[2] + '2' + game3.pgn.length}
                                 pieceSize={boardTypes[2]=='small-tournament' ? 16 : 48} bid={2} selectedResult={chosenResults.res3}
                                 whiteButton={whiteButton} blackButton={blackButton} drawButton={drawButton}
                                 whitePlayer={games[2][0]} blackPlayer={games[2][1]} eval={game3.eval} pgn={game3.pgn}
                                 whiteClock={game3.wClock} blackClock={game3.bClock}
-                                probs={chances3}/>
+                                probs={chances3} depth={depth3}/>
                             <Board type={boardTypes[3]} expand={expand} minimize={minimize} key={boardTypes[3] + '3' + game4.pgn.length}
                                 pieceSize={boardTypes[3]=='small-tournament' ? 16 : 48} bid={3} selectedResult={chosenResults.res4}
                                 whiteButton={whiteButton} blackButton={blackButton} drawButton={drawButton}
                                 whitePlayer={games[3][0]} blackPlayer={games[3][1]} eval={game4.eval} pgn={game4.pgn}
                                 whiteClock={game4.wClock} blackClock={game4.bClock}
-                                probs={chances4}/>
+                                probs={chances4} depth={depth4}/>
                         </div>
                         <div className='standings-container'>
                             {/* <h2>Standings</h2> */}

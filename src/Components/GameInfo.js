@@ -61,7 +61,7 @@ function GameInfo(props) {
                 <h3>{props.whitePlayer + ' - ' + props.blackPlayer}</h3>
             </div>
             <div className="game-eval-info">
-                <h4 className="bar-label">Eval</h4>
+                <h4 className="bar-label">{'Eval (depth ' + props.depth + ')'}</h4>
                 <div className="eval-bar-container">
                     <div className="eval-bar white-eval-bar" style={{...whiteEvalBar}}><b>{props.eval >= 0 ? props.eval.toFixed(2) : ''}</b></div>
                     <div className="eval-bar black-eval-bar" style={{...blackEvalBar}}><b>{props.eval < 0 ? props.eval.toFixed(2) : ''}</b></div>
