@@ -17,41 +17,42 @@ export default function Follow() {
 
 
     // SET THIS STUFF BEFORE EACH ROUND -------------------
-    const round = 6;
-    const broadcastRoundId = 'yF4JxPcn'; 
+    const broadcastRoundId = 'OFBhwamI'; 
     // 'LsFeKWZU' // candidates round 1
     // 'sylFQGas' // candidates round 2
     // 'oe2udItH' // candidates round 3
     // '0QuWnLkU' // candidates round 4
     // '1ZAF8srK' // candidates round 5
     // 'yF4JxPcn' // candidates round 6
+    // 'OFBhwamI' // candidates round 7
+    const round = 7;
     const scores = [
-        2.0, // Ding
+        2.5, // Ding
         2.0, // Firouzja
-        3.0, // Caruana
-        3.5, // Nepo
-        2.5, // Rapport
-        2.5, // Nakamura
-        2.0, // Radjabov
+        4.0, // Caruana
+        4.5, // Nepo
+        3.0, // Rapport
+        3.0, // Nakamura
+        2.5, // Radjabov
         2.5, // Duda
     ]
     const games = [
-        ['Radjabov', 'Rapport'],
-        ['Firouzja', 'Caruana'],
-        ['Nakamura', 'Ding'],
-        ['Nepo', 'Duda'],
+        ['Rapport', 'Nepo'],
+        ['Duda', 'Nakamura'],
+        ['Ding', 'Firouzja'],
+        ['Caruana', 'Radjabov'],
     ]
     const [chances1, setChances1] = useState([
-        0.18037225010179495, 0.6247686083863869, 0.1948591415084849
+        0.16881749699895915, 0.6865555995303064, 0.14462690346740104
     ]);
     const [chances2, setChances2] = useState([
-        0.15951079880859956, 0.6384194403844141, 0.20206976080365308
+        0.21796112578418908, 0.5506254155371293, 0.23141345867534835
     ]);
     const [chances3, setChances3] = useState([
-        0.18900164885195375, 0.6439632513296801, 0.16703509981503284
+        0.29564546625724686, 0.5314931623434014, 0.17286137139601843
     ]);
     const [chances4, setChances4] = useState([
-        0.19051581965771952, 0.6696762840661074, 0.13987400916213485
+        0.29812224907326473, 0.5932083973277659, 0.10866935359563604
     ]);
     // DONT FORGET TO PUT PROBABILITIES FROM SIMS IN probabilities.txt
     //-----------------------------------------------------
