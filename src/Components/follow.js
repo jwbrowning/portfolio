@@ -17,7 +17,7 @@ export default function Follow() {
 
 
     // SET THIS STUFF BEFORE EACH ROUND -------------------
-    const broadcastRoundId = 'OFBhwamI'; 
+    const broadcastRoundId = 'fsvj5GFW'; 
     // 'LsFeKWZU' // candidates round 1
     // 'sylFQGas' // candidates round 2
     // 'oe2udItH' // candidates round 3
@@ -25,38 +25,40 @@ export default function Follow() {
     // '1ZAF8srK' // candidates round 5
     // 'yF4JxPcn' // candidates round 6
     // 'OFBhwamI' // candidates round 7
-    const round = 7;
+    // 'fsvj5GFW' // candidates round 8
+    const round = 8;
     const scores = [
-        2.5, // Ding
-        2.0, // Firouzja
-        4.0, // Caruana
-        4.5, // Nepo
+        3.0, // Ding
+        2.5, // Firouzja
+        5.0, // Caruana
+        5.5, // Nepo
         3.0, // Rapport
-        3.0, // Nakamura
+        3.5, // Nakamura
         2.5, // Radjabov
-        2.5, // Duda
+        3.0, // Duda
     ]
     const games = [
-        ['Rapport', 'Nepo'],
-        ['Duda', 'Nakamura'],
-        ['Ding', 'Firouzja'],
-        ['Caruana', 'Radjabov'],
+        ['Rapport', 'Duda'],
+        ['Nepo', 'Ding'],
+        ['Nakamura', 'Caruana'],
+        ['Firouzja', 'Radjabov'],
     ]
     const [chances1, setChances1] = useState([
-        0.16881749699895915, 0.6865555995303064, 0.14462690346740104
+        0.2803739072269185, 0.5397291260832893, 0.17989696668779237
     ]);
     const [chances2, setChances2] = useState([
-        0.21796112578418908, 0.5506254155371293, 0.23141345867534835
+        0.24250328375711064, 0.5885112252747811, 0.1689854909661083
     ]);
     const [chances3, setChances3] = useState([
-        0.29564546625724686, 0.5314931623434014, 0.17286137139601843
+        0.14873246431927595, 0.6581188290046375, 0.1931487066740865
     ]);
     const [chances4, setChances4] = useState([
-        0.29812224907326473, 0.5932083973277659, 0.10866935359563604
+        0.3319554492617708, 0.5284364513751021, 0.1396080993611273
     ]);
     // DONT FORGET TO PUT PROBABILITIES FROM SIMS IN probabilities.txt
     //-----------------------------------------------------
 
+    const N = 10000;
     const depth = 30;
 
     const [depth1, setDepth1] = useState(30);
@@ -215,7 +217,6 @@ export default function Follow() {
 
     
     const comingSoon = false;
-    const N = 10000;
 
     const playerNames = [
         'Ding',
