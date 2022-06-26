@@ -4,6 +4,7 @@ import { Chess } from 'chess.js';
 import ReactGA from 'react-ga';
 
 import probabilities from '../probabilities.txt';
+import probabilities2 from '../probabilities2.txt';
 
 import Board from './Board';
 import StandingsRow from './StandingsRow';
@@ -17,7 +18,7 @@ export default function Follow() {
 
 
     // SET THIS STUFF BEFORE EACH ROUND -------------------
-    const broadcastRoundId = 'fsvj5GFW'; 
+    const broadcastRoundId = 'pk9gRSMB'; 
     // 'LsFeKWZU' // candidates round 1
     // 'sylFQGas' // candidates round 2
     // 'oe2udItH' // candidates round 3
@@ -26,34 +27,35 @@ export default function Follow() {
     // 'yF4JxPcn' // candidates round 6
     // 'OFBhwamI' // candidates round 7
     // 'fsvj5GFW' // candidates round 8
-    const round = 8;
+    // 'pk9gRSMB' // candidates round 9
+    const round = 9;
     const scores = [
-        3.0, // Ding
-        2.5, // Firouzja
+        3.5, // Ding
+        3.0, // Firouzja
         5.0, // Caruana
-        5.5, // Nepo
-        3.0, // Rapport
-        3.5, // Nakamura
-        2.5, // Radjabov
+        6.0, // Nepo
+        4.0, // Rapport
+        4.5, // Nakamura
+        3.0, // Radjabov
         3.0, // Duda
     ]
     const games = [
-        ['Rapport', 'Duda'],
-        ['Nepo', 'Ding'],
-        ['Nakamura', 'Caruana'],
-        ['Firouzja', 'Radjabov'],
+        ['Firouzja', 'Rapport'],
+        ['Radjabov', 'Nakamura'],
+        ['Caruana', 'Nepo'],
+        ['Ding', 'Duda'],
     ]
     const [chances1, setChances1] = useState([
-        0.2803739072269185, 0.5397291260832893, 0.17989696668779237
+        0.27606379231595934, 0.5833207873931306, 0.1406154202889101
     ]);
     const [chances2, setChances2] = useState([
-        0.24250328375711064, 0.5885112252747811, 0.1689854909661083
+        0.1775268722298006, 0.6537071958446475, 0.16876593192355197
     ]);
     const [chances3, setChances3] = useState([
-        0.14873246431927595, 0.6581188290046375, 0.1931487066740865
+        0.2028194263316034, 0.661140994173797, 0.13603957949259946
     ]);
     const [chances4, setChances4] = useState([
-        0.3319554492617708, 0.5284364513751021, 0.1396080993611273
+        0.32058672736785726, 0.5583195245476735, 0.12109374808246924
     ]);
     // DONT FORGET TO PUT PROBABILITIES FROM SIMS IN probabilities.txt
     //-----------------------------------------------------
@@ -267,13 +269,14 @@ export default function Follow() {
         setProbData(data);
         setStandings(GetStandings(data));
         apiTimeout = setTimeout(() => {
+            clearTimeout(apiTimeout);
             fetchAPIData(data)
         }, 1);
     }
 
     const ReadProbs = () => {
         // console.log('read probs')
-        fetch(probabilities)
+        fetch((winP ? probabilities : probabilities2))
             .then(r => r.text())
             .then(text => setProbStuff(text))
     };
@@ -952,7 +955,7 @@ export default function Follow() {
     }
 
     function fetchAPIData(d) {
-        
+        // console.log('making api request')
         // broadcastRoundId = 'wrKZuojo' // test - Prague Challengers Round 6
         const url = 'https://lichess.org/api/broadcast/round/' + broadcastRoundId + '.pgn';
         axios.get(url)
@@ -1079,6 +1082,16 @@ export default function Follow() {
         })
     }
 
+    const [winP, setWinP] = useState(true);
+    // const WinPercentClick = () => {
+    //     const newWinP = !winP;
+    //     setOriginalStandings([]);
+    //     setWinP(newWinP);
+    // }
+    // useEffect(() => {
+    //     ReadProbs();
+    // }, [winP])
+
     return (
         <div>
             {!comingSoon ? 
@@ -1156,7 +1169,8 @@ export default function Follow() {
                                 <tr>
                                     <th>Player</th>
                                     <th>Score</th>
-                                    <th>Win%</th>
+                                    {/* <th className='clickable-th' onClick={WinPercentClick}>{winP ? 'Win%' : 'Top2%'}</th> */}
+                                    <th>{winP ? 'Win%' : 'Top2%'}</th>
                                 </tr>
                                 {standings
                                 .sort((a,b) => {return b.winChance - a.winChance})
