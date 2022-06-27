@@ -18,7 +18,7 @@ export default function Follow() {
 
 
     // SET THIS STUFF BEFORE EACH ROUND -------------------
-    const broadcastRoundId = 'pk9gRSMB'; 
+    const broadcastRoundId = 'FWJYzJJJ'; 
     // 'LsFeKWZU' // candidates round 1
     // 'sylFQGas' // candidates round 2
     // 'oe2udItH' // candidates round 3
@@ -28,34 +28,39 @@ export default function Follow() {
     // 'OFBhwamI' // candidates round 7
     // 'fsvj5GFW' // candidates round 8
     // 'pk9gRSMB' // candidates round 9
-    const round = 9;
+    // 'FWJYzJJJ' // candidates round 10
+    
+    const round = 10;
+
     const scores = [
-        3.5, // Ding
-        3.0, // Firouzja
-        5.0, // Caruana
-        6.0, // Nepo
+        4.5, // Ding
+        4.0, // Firouzja
+        5.5, // Caruana
+        6.5, // Nepo
         4.0, // Rapport
         4.5, // Nakamura
-        3.0, // Radjabov
+        4.0, // Radjabov
         3.0, // Duda
     ]
+
     const games = [
-        ['Firouzja', 'Rapport'],
-        ['Radjabov', 'Nakamura'],
-        ['Caruana', 'Nepo'],
-        ['Ding', 'Duda'],
+        ['Rapport', 'Ding'],
+        ['Duda', 'Caruana'],
+        ['Nepo', 'Radjabov'],
+        ['Nakamura', 'Firouzja'],
     ]
+
     const [chances1, setChances1] = useState([
-        0.27606379231595934, 0.5833207873931306, 0.1406154202889101
+        0.1924691707525604, 0.6524079639232969, 0.15518450532214245
     ]);
     const [chances2, setChances2] = useState([
-        0.1775268722298006, 0.6537071958446475, 0.16876593192355197
+        0.14384707542623004, 0.6494431497936402, 0.2067097747781299
     ]);
     const [chances3, setChances3] = useState([
-        0.2028194263316034, 0.661140994173797, 0.13603957949259946
+        0.2948492102922199, 0.6078264820258037, 0.09732430767997653
     ]);
     const [chances4, setChances4] = useState([
-        0.32058672736785726, 0.5583195245476735, 0.12109374808246924
+        0.19844919388930837, 0.6207100981598834, 0.1807750479488084
     ]);
     // DONT FORGET TO PUT PROBABILITIES FROM SIMS IN probabilities.txt
     //-----------------------------------------------------
@@ -111,25 +116,25 @@ export default function Follow() {
             if (i == 0) {
                 setGame1(newG);
                 setDepth1(dep);
-                if (event.data.startsWith("info depth " + depth)) {
+                if (event.data.startsWith("info depth " + depth) || g.pgn.includes('1-0') || g.pgn.includes('1/2-1/2') || g.pgn.includes('0-1')) {
                     stockfish1.terminate();
                 }
             } else if (i == 1) {
                 setGame2(newG);
                 setDepth2(dep);
-                if (event.data.startsWith("info depth " + depth)) {
+                if (event.data.startsWith("info depth " + depth) || g.pgn.includes('1-0') || g.pgn.includes('1/2-1/2') || g.pgn.includes('0-1')) {
                     stockfish2.terminate();
                 }
             } else if (i == 2) {
                 setGame3(newG);
                 setDepth3(dep);
-                if (event.data.startsWith("info depth " + depth)) {
+                if (event.data.startsWith("info depth " + depth) || g.pgn.includes('1-0') || g.pgn.includes('1/2-1/2') || g.pgn.includes('0-1')) {
                     stockfish3.terminate();
                 }
             } else if (i == 3) {
                 setGame4(newG);
                 setDepth4(dep);
-                if (event.data.startsWith("info depth " + depth)) {
+                if (event.data.startsWith("info depth " + depth) || g.pgn.includes('1-0') || g.pgn.includes('1/2-1/2') || g.pgn.includes('0-1')) {
                     stockfish4.terminate();
                 }
             }
@@ -249,7 +254,7 @@ export default function Follow() {
         // return 0;
     }
 
-    const setProbStuff = (text) => {
+    const setProbStuff = (text, doApiTimeout) => {
         var data = [];
         var lines = text.split('\n');
         for (var i = 0; i < lines.length; i++) {
@@ -268,17 +273,21 @@ export default function Follow() {
         }
         setProbData(data);
         setStandings(GetStandings(data));
-        apiTimeout = setTimeout(() => {
-            clearTimeout(apiTimeout);
-            fetchAPIData(data)
-        }, 1);
+
+        if (doApiTimeout) {
+            console.log('its null')
+            apiTimeout = setTimeout(() => {
+                clearTimeout(apiTimeout);
+                fetchAPIData(data)
+            }, 1);
+        }
     }
 
-    const ReadProbs = () => {
+    const ReadProbs = (doApiTimeout=true) => {
         // console.log('read probs')
         fetch((winP ? probabilities : probabilities2))
             .then(r => r.text())
-            .then(text => setProbStuff(text))
+            .then(text => setProbStuff(text, doApiTimeout))
     };
 
     const [probData, setProbData] = useState([]);
@@ -876,7 +885,7 @@ export default function Follow() {
     }
 
     const [apiFailed, setApiFailed] = useState(0);
-    var apiTimeout;
+    var apiTimeout = null;
     useEffect(() => {
         ReadProbs();
     }, []);
@@ -955,7 +964,7 @@ export default function Follow() {
     }
 
     function fetchAPIData(d) {
-        // console.log('making api request')
+        console.log('making api request')
         // broadcastRoundId = 'wrKZuojo' // test - Prague Challengers Round 6
         const url = 'https://lichess.org/api/broadcast/round/' + broadcastRoundId + '.pgn';
         axios.get(url)
@@ -1083,14 +1092,14 @@ export default function Follow() {
     }
 
     const [winP, setWinP] = useState(true);
-    // const WinPercentClick = () => {
-    //     const newWinP = !winP;
-    //     setOriginalStandings([]);
-    //     setWinP(newWinP);
-    // }
-    // useEffect(() => {
-    //     ReadProbs();
-    // }, [winP])
+    const WinPercentClick = () => {
+        const newWinP = !winP;
+        // setOriginalStandings([]);
+        setWinP(newWinP);
+    }
+    useEffect(() => {
+        ReadProbs(false);
+    }, [winP])
 
     return (
         <div>
@@ -1169,8 +1178,11 @@ export default function Follow() {
                                 <tr>
                                     <th>Player</th>
                                     <th>Score</th>
-                                    {/* <th className='clickable-th' onClick={WinPercentClick}>{winP ? 'Win%' : 'Top2%'}</th> */}
-                                    <th>{winP ? 'Win%' : 'Top2%'}</th>
+                                    <th className='clickable-th' onClick={WinPercentClick}>
+                                        {winP ? 'Win%' : 'Top2%'}
+                                        <span className='tooltiptext'>{'change to ' + (winP ? 'Top2%' : 'Win%')}</span>
+                                    </th>
+                                    {/* <th>{winP ? 'Win%' : 'Top2%'}</th> */}
                                 </tr>
                                 {standings
                                 .sort((a,b) => {return b.winChance - a.winChance})

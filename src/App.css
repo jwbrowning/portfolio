@@ -1089,6 +1089,40 @@ td {
   visibility: visible;
 }
 
+.clickable-th .tooltiptext {
+  visibility: hidden;
+  pointer-events: none;
+  width: 120px;
+  background-color: var(--dark-background);
+  color: var(--text);
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  font-size: large;
+
+  border: 2px solid var(--accent);
+
+  position: absolute;
+  z-index: 1;
+}
+.clickable-th:hover .tooltiptext {
+  visibility: visible;
+  pointer-events: none;
+  width: 100px;
+  background-color: var(--dark-background);
+  color: var(--text);
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  font-size: medium;
+
+  border: 2px solid var(--accent);
+
+  position: absolute;
+  transform: translate(-75%, -120%);
+  z-index: 1;
+}
+
 
 .help {
   position: absolute;
