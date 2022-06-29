@@ -18,7 +18,7 @@ export default function Follow() {
 
 
     // SET THIS STUFF BEFORE EACH ROUND -------------------
-    const broadcastRoundId = 'FWJYzJJJ'; 
+    const broadcastRoundId = '16iH8elQ'; 
     // 'LsFeKWZU' // candidates round 1
     // 'sylFQGas' // candidates round 2
     // 'oe2udItH' // candidates round 3
@@ -29,38 +29,39 @@ export default function Follow() {
     // 'fsvj5GFW' // candidates round 8
     // 'pk9gRSMB' // candidates round 9
     // 'FWJYzJJJ' // candidates round 10
+    // '16iH8elQ' // candidates round 11
     
-    const round = 10;
+    const round = 11;
 
     const scores = [
-        4.5, // Ding
+        5.5, // Ding
         4.0, // Firouzja
         5.5, // Caruana
-        6.5, // Nepo
+        7.0, // Nepo
         4.0, // Rapport
-        4.5, // Nakamura
-        4.0, // Radjabov
-        3.0, // Duda
+        5.5, // Nakamura
+        4.5, // Radjabov
+        4.0, // Duda
     ]
 
     const games = [
-        ['Rapport', 'Ding'],
-        ['Duda', 'Caruana'],
-        ['Nepo', 'Radjabov'],
-        ['Nakamura', 'Firouzja'],
+        ['Nakamura', 'Rapport'],
+        ['Firouzja', 'Nepo'],
+        ['Radjabov', 'Duda'],
+        ['Caruana', 'Ding'],
     ]
 
     const [chances1, setChances1] = useState([
-        0.1924691707525604, 0.6524079639232969, 0.15518450532214245
+        0.2508991100790873, 0.6013697338878334, 0.14773115603107934
     ]);
     const [chances2, setChances2] = useState([
-        0.14384707542623004, 0.6494431497936402, 0.2067097747781299
+        0.21260146088220758, 0.6281784619857981, 0.15922007712999436
     ]);
     const [chances3, setChances3] = useState([
-        0.2948492102922199, 0.6078264820258037, 0.09732430767997653
+        0.20128633461597992, 0.6688417324824875, 0.12987193289953272
     ]);
     const [chances4, setChances4] = useState([
-        0.19844919388930837, 0.6207100981598834, 0.1807750479488084
+        0.1907777865659202, 0.6043243493070344, 0.20489786412504543
     ]);
     // DONT FORGET TO PUT PROBABILITIES FROM SIMS IN probabilities.txt
     //-----------------------------------------------------
