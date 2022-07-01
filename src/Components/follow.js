@@ -18,7 +18,7 @@ export default function Follow() {
 
 
     // SET THIS STUFF BEFORE EACH ROUND -------------------
-    const broadcastRoundId = 'ZfmMC2Gh'; 
+    const broadcastRoundId = 'oIi8sTms'; 
     // 'LsFeKWZU' // candidates round 1
     // 'sylFQGas' // candidates round 2
     // 'oe2udItH' // candidates round 3
@@ -31,38 +31,39 @@ export default function Follow() {
     // 'FWJYzJJJ' // candidates round 10
     // '16iH8elQ' // candidates round 11
     // 'ZfmMC2Gh' // candidates round 12
+    // 'oIi8sTms' // candidates round 13
     
-    const round = 12;
+    const round = 13;
 
     const scores = [
         6.5, // Ding
-        4.0, // Firouzja
-        5.5, // Caruana
-        8.0, // Nepo
-        4.5, // Rapport
-        6.0, // Nakamura
-        5.0, // Radjabov
-        4.5, // Duda
+        4.5, // Firouzja
+        6.0, // Caruana
+        8.5, // Nepo
+        5.0, // Rapport
+        6.5, // Nakamura
+        6.0, // Radjabov
+        5.0, // Duda
     ]
 
     const games = [
-        ['Rapport', 'Caruana'],
-        ['Ding', 'Radjabov'],
-        ['Duda', 'Firouzja'],
-        ['Nepo', 'Nakamura'],
+        ['Nepo', 'Rapport'],
+        ['Nakamura', 'Duda'],
+        ['Firouzja', 'Ding'],
+        ['Radjabov', 'Caruana'],
     ]
 
     const [chances1, setChances1] = useState([
-        0.1861111479769778, 0.6853561854579109, 0.1285943065631111
+        0.25664637942003227, 0.626519235134125, 0.11683438544384275
     ]);
     const [chances2, setChances2] = useState([
-        0.31825340344172093, 0.5653461515856348, 0.11640044497064436
+        0.27508605611500614, 0.610053024295904, 0.11486091958708985
     ]);
     const [chances3, setChances3] = useState([
-        0.15379055330859578, 0.6397480238949292, 0.20646142279447505
+        0.16420121206964397, 0.7023194568806066, 0.1334793310477496
     ]);
     const [chances4, setChances4] = useState([
-        0.268217964143367, 0.6263381470830567, 0.1055068687715763
+        0.1602927553157812, 0.6926357091564953, 0.1470715355257237
     ]);
     // DONT FORGET TO PUT PROBABILITIES FROM SIMS IN probabilities.txt
     //-----------------------------------------------------
