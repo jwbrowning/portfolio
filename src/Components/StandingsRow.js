@@ -29,11 +29,13 @@ export default function StandingsRow(props) {
         color: props.doColor ? (g_d > 0 ? '#' + g + 'f' + '4' : r_d > 0 ? '#' + 'f' + r + '4' : '#ff4') : '#fff',
     }
 
+    const decimals = props.winChance >= 100.0 ? 1 : 2
+
     return (
         <tr >
             <td style={{...col}}><b>{props.name}</b></td>
             <td style={{...col}}><b>{props.score}</b></td>
-            <td style={{...col}}><b>{props.winChance.toFixed(2)}%</b></td>
+            <td style={{...col}}><b>{props.winChance.toFixed(decimals)}%</b></td>
         </tr>
     );
 }

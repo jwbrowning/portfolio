@@ -18,7 +18,7 @@ export default function Follow() {
 
 
     // SET THIS STUFF BEFORE EACH ROUND -------------------
-    const broadcastRoundId = '16iH8elQ'; 
+    const broadcastRoundId = 'ZfmMC2Gh'; 
     // 'LsFeKWZU' // candidates round 1
     // 'sylFQGas' // candidates round 2
     // 'oe2udItH' // candidates round 3
@@ -30,38 +30,39 @@ export default function Follow() {
     // 'pk9gRSMB' // candidates round 9
     // 'FWJYzJJJ' // candidates round 10
     // '16iH8elQ' // candidates round 11
+    // 'ZfmMC2Gh' // candidates round 12
     
-    const round = 11;
+    const round = 12;
 
     const scores = [
-        5.5, // Ding
+        6.5, // Ding
         4.0, // Firouzja
         5.5, // Caruana
-        7.0, // Nepo
-        4.0, // Rapport
-        5.5, // Nakamura
-        4.5, // Radjabov
-        4.0, // Duda
+        8.0, // Nepo
+        4.5, // Rapport
+        6.0, // Nakamura
+        5.0, // Radjabov
+        4.5, // Duda
     ]
 
     const games = [
-        ['Nakamura', 'Rapport'],
-        ['Firouzja', 'Nepo'],
-        ['Radjabov', 'Duda'],
-        ['Caruana', 'Ding'],
+        ['Rapport', 'Caruana'],
+        ['Ding', 'Radjabov'],
+        ['Duda', 'Firouzja'],
+        ['Nepo', 'Nakamura'],
     ]
 
     const [chances1, setChances1] = useState([
-        0.2508991100790873, 0.6013697338878334, 0.14773115603107934
+        0.1861111479769778, 0.6853561854579109, 0.1285943065631111
     ]);
     const [chances2, setChances2] = useState([
-        0.21260146088220758, 0.6281784619857981, 0.15922007712999436
+        0.31825340344172093, 0.5653461515856348, 0.11640044497064436
     ]);
     const [chances3, setChances3] = useState([
-        0.20128633461597992, 0.6688417324824875, 0.12987193289953272
+        0.15379055330859578, 0.6397480238949292, 0.20646142279447505
     ]);
     const [chances4, setChances4] = useState([
-        0.1907777865659202, 0.6043243493070344, 0.20489786412504543
+        0.268217964143367, 0.6263381470830567, 0.1055068687715763
     ]);
     // DONT FORGET TO PUT PROBABILITIES FROM SIMS IN probabilities.txt
     //-----------------------------------------------------
@@ -273,10 +274,9 @@ export default function Follow() {
             data.push([key, val])
         }
         setProbData(data);
-        setStandings(GetStandings(data));
+        setStandings(GetStandings(data, chosenResults));
 
         if (doApiTimeout) {
-            console.log('its null')
             apiTimeout = setTimeout(() => {
                 clearTimeout(apiTimeout);
                 fetchAPIData(data)
@@ -965,7 +965,7 @@ export default function Follow() {
     }
 
     function fetchAPIData(d) {
-        console.log('making api request')
+        // console.log('making api request')
         // broadcastRoundId = 'wrKZuojo' // test - Prague Challengers Round 6
         const url = 'https://lichess.org/api/broadcast/round/' + broadcastRoundId + '.pgn';
         axios.get(url)
