@@ -18,7 +18,7 @@ export default function Follow() {
 
 
     // SET THIS STUFF BEFORE EACH ROUND -------------------
-    const broadcastRoundId = 'oIi8sTms'; 
+    const broadcastRoundId = 'ZA07lchF'; 
     // 'LsFeKWZU' // candidates round 1
     // 'sylFQGas' // candidates round 2
     // 'oe2udItH' // candidates round 3
@@ -32,43 +32,44 @@ export default function Follow() {
     // '16iH8elQ' // candidates round 11
     // 'ZfmMC2Gh' // candidates round 12
     // 'oIi8sTms' // candidates round 13
+    // 'ZA07lchF' // candidates round 14
     
-    const round = 13;
+    const round = 14;
 
     const scores = [
-        6.5, // Ding
-        4.5, // Firouzja
-        6.0, // Caruana
-        8.5, // Nepo
-        5.0, // Rapport
-        6.5, // Nakamura
-        6.0, // Radjabov
+        7.0, // Ding
+        5.0, // Firouzja
+        6.5, // Caruana
+        9.0, // Nepo
+        5.5, // Rapport
+        7.5, // Nakamura
+        6.5, // Radjabov
         5.0, // Duda
     ]
 
     const games = [
-        ['Nepo', 'Rapport'],
-        ['Nakamura', 'Duda'],
-        ['Firouzja', 'Ding'],
-        ['Radjabov', 'Caruana'],
+        ['Rapport', 'Radjabov'],
+        ['Caruana', 'Firouzja'],
+        ['Ding', 'Nakamura'],
+        ['Duda', 'Nepo'],
     ]
 
     const [chances1, setChances1] = useState([
-        0.25664637942003227, 0.626519235134125, 0.11683438544384275
+        0.23466566724939456, 0.6473620483532273, 0.1179722843953783
     ]);
     const [chances2, setChances2] = useState([
-        0.27508605611500614, 0.610053024295904, 0.11486091958708985
+        0.24391905313766132, 0.6488927550214011, 0.10718819183893763
     ]);
     const [chances3, setChances3] = useState([
-        0.16420121206964397, 0.7023194568806066, 0.1334793310477496
+        0.2586836675621616, 0.6397994594552858, 0.10151687298055272
     ]);
     const [chances4, setChances4] = useState([
-        0.1602927553157812, 0.6926357091564953, 0.1470715355257237
+        0.15867367582238695, 0.6901139190656111, 0.151212405110002
     ]);
     // DONT FORGET TO PUT PROBABILITIES FROM SIMS IN probabilities.txt
     //-----------------------------------------------------
 
-    const N = 10000;
+    const N = 1000;
     const depth = 30;
 
     const [depth1, setDepth1] = useState(30);
@@ -1102,6 +1103,9 @@ export default function Follow() {
     useEffect(() => {
         ReadProbs(false);
     }, [winP])
+    useEffect(() => {
+        setWinP(false);
+    }, [])
 
     return (
         <div>
@@ -1187,7 +1191,7 @@ export default function Follow() {
                                     {/* <th>{winP ? 'Win%' : 'Top2%'}</th> */}
                                 </tr>
                                 {standings
-                                .sort((a,b) => {return b.winChance - a.winChance})
+                                .sort((a,b) => {return (b.winChance + b.score / 1000) - (a.winChance + a.score / 1000)})
                                 .map((row) => (
                                     <StandingsRow
                                         key={row.key}
