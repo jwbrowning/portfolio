@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactGA from 'react-ga';
-import NavBar from './Components/NavBar';
 import Portfolio from './Components/Portfolio';
 
 import './App.css';
