@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactGA from 'react-ga';
 import NavBar from './Components/NavBar';
+import Portfolio from './Components/Portfolio';
 
 import './App.css';
 
@@ -11,7 +12,7 @@ ReactGA.initialize(TRACKING_ID);
 function App() {
   return(
     <div className='app'>
-      <NavBar />
+      <Portfolio />
     </div>
   );
 }
