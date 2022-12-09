@@ -87,7 +87,7 @@ function Portfolio() {
                         Hey, I'm Johnathan! Thanks for checking out my portfolio page.
                     </p><p className='desc-pg'>
                         I'm currently a student at The Ohio State University and I'll be graduating with 
-                        a Bachelor of Science in <b><i><u>Computer Science and Engineering</u></i></b>, with a specialization in <b><i><u>Computer Graphics and Game Design</u></i></b> in <b><i><u>December 2022</u></i></b>.
+                        a Bachelor of Science in <b><i><u>Computer Science and Engineering</u></i></b>, with a specialization in <b><i><u>Computer Graphics and Game Design</u></i></b> in <b><i><u>May 2023</u></i></b>.
                     </p><p className='desc-pg'>
                         I have a passion for <b><i><u>Game Development</u></i></b> and love programming all kinds of projects. 
                         Outside of programming, I enjoy chess, football, poker! I could talk about each for hours. 
