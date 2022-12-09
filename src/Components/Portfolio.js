@@ -31,7 +31,11 @@ var leufDesc = "A mobile football manager game published on iOS and Android with
 
 var zeldaDesc = "A re-creation of the original Legend of Zelda game's first dungeon, done for a project course at Ohio State. I was out group of 5's unofficial leader: I lead our meetings, helped others with programming and class structure, and often filled in many different areas of the project. I also implemented an awesome dynamic lighting feature that was not in the original game."
 
-var atcDesc = "This is a game currently in development as part of my final semester Capstone Course at Ohio State. I'm the leader and scrum master of our team of 5. The idea for the game is to combine a serious, tense game environment with a silly, goofy character and control system. We think this juxtaposition will lead to a humorous and fun end product. We're implementing inverse-kinematic, Gang-Beast-like controls and using them for sword combat and placing the character in a procedurally generated map of random floating islands with enemies to kill. I'm super excited to see this project through to completion!"
+// var atcDesc = "This is a game currently in development as part of my final semester Capstone Course at Ohio State. I'm the leader and scrum master of our team of 5. The idea for the game is to combine a serious, tense game environment with a silly, goofy character and control system. We think this juxtaposition will lead to a humorous and fun end product. We're implementing inverse-kinematic, Gang-Beast-like controls and using them for sword combat and placing the character in a procedurally generated map of random floating islands with enemies to kill. I'm super excited to see this project through to completion!"
+var atcDesc = [
+    "This is my senior year Capstone project at Ohio State. I was the Leader and Scrum Master of our group of 5 as we set out to develop a game from scratch throughout the course of a semester. I learned a lot after a summer observing and taking part in stand-up meetings with a Game Dev team at Age of Learning, and I was able to apply what I learned there to make sure meetings ran smoothly. I strived to create an environment where everyone felt comfortable giving input and communicating with each other.",
+    // "The idea for the game was to combine a serious, scary game environment with a silly, goofy character and control system. This juxtaposition lead to a humorous and fun end product that we are all proud of. We implemented many technical features throughout the course of the semester, including procedural floating island-generation, an inverse-kinematic, Gang-Beasts-like control system, along with a complex Active Ragdoll to give the main character a hilarious, physically-animated look. Take a look at our game's trailer and technical poster to see more!"
+]
 
 var aaDesc = "I had the great pleasure of interning at Age of Learning over this past summer, working on Adventure Academy, an MMO (massively multiplayer online game) aimed at education for kids aged 8-13. I had the opportunity to work closely with a team of professional developers, sit in and participate in technical discussions and meetings, and learn what the workflow is like on such a large project with many moving parts."
 
@@ -39,7 +43,7 @@ function Portfolio() {
 
     return (
         <div className='Portfolio'>
-            <h1>Projects by Johnathan Browning</h1>
+            <h1>Projects and Stuff by Johnathan Browning</h1>
             <div className='desc-stuff element-stuff'>
                 <img className='aboutme-image no-drag'
                     src={SkydivingPic}
@@ -95,38 +99,38 @@ function Portfolio() {
             </div>
 
             <PortfolioElement
-            bkgsrc={ChessAssessPNG}
-            src={ChessAssessGIF}
-            title={"Chess Assess"}
-            subtitle={"React | JavaScript | HTML | CSS"}
-            desc={chessAssessDesc}
-            link={"https://chessassess.com/"}
-            />
-
-            <PortfolioElement
             bkgsrc={cgPic}
             src={aaPic}
-            title={"Age of Learning Internship"}
+            title={"Adventure Academy (Internship)"}
             subtitle={"Unity | C#"}
-            desc={aaDesc}
+            desc={[aaDesc]}
             />
 
             <PortfolioElement
             bkgsrc={atcBkg}
-            src={atcPic}
+            vid={"JChD1lu5chY"}
             title={"Above the Clouds"}
             subtitle={"Unity | C#"}
             desc={atcDesc}
-            link={"https://github.com/MateoMatado/CSE5912_Team3"}
+            link={"https://docs.google.com/presentation/d/e/2PACX-1vQzF60rTPMMj5Ltqx357EYp8KcPtATdzU9j9n9n54TPmbe-U0MiELcYtMJc7hn-7Q/pub?start=false&loop=false&delayms=3000"}
             />
 
             <PortfolioElement
             bkgsrc={LEUFBkg}
-            src={LEUFPic}
+            vid={"EcxWRxjut5M"}
             title={"Light 'Em Up Football"}
             subtitle={"Unity | C#"}
-            desc={leufDesc}
+            desc={[leufDesc]}
             link={"https://apps.apple.com/us/app/light-em-up-football/id1549307517"}
+            />
+
+            <PortfolioElement
+            bkgsrc={ChessAssessPNG}
+            src={ChessAssessGIF}
+            title={"Chess Assess"}
+            subtitle={"React | JavaScript | HTML | CSS"}
+            desc={[chessAssessDesc]}
+            link={"https://chessassess.com/"}
             />
 
             <PortfolioElement
@@ -134,7 +138,7 @@ function Portfolio() {
             src={ZeldaGIF}
             title={"Legend of Zelda Re-Creation"}
             subtitle={"C# | Monogame"}
-            desc={zeldaDesc}
+            desc={[zeldaDesc]}
             link={"https://github.com/jwbrowning/ZeldaProject3902"}
             />
 
@@ -143,7 +147,7 @@ function Portfolio() {
             src={FootballPic}
             title={"NFL Simulations"}
             subtitle={"C# | Python"}
-            desc={footballDesc}
+            desc={[footballDesc]}
             link={""}
             />
         </div>

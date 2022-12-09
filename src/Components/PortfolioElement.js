@@ -22,10 +22,22 @@ function PortfolioElement(props) {
                 }}>
                     <div className='element-stuff'>
                         {/* <div className='element-image'> */}
-                            <img className='element-image no-drag'
+                            {
+                                props.src ? 
+                                <img className='element-image no-drag'
                                 src={props.src}
                                 height='40%'
-                                width='40%'/>
+                                width='40%'
+                                />
+                                :
+                                <iframe className='no-drag'
+                                src={"https://www.youtube.com/embed/" + props.vid}
+                                title='Youtube video player'
+                                height='70%'
+                                width='40%'
+                                allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscrope; picture-in-picture'
+                                />
+                            }
                         {/* </div> */}
                         <div className='element-desc'>
                             <div className='titles'>
@@ -44,9 +56,9 @@ function PortfolioElement(props) {
                                 // });
                             }} className='element-link' target="_blank" rel="noopener noreferrer" href={props.link}>{props.link}</a>
                             </h3> : <></>}
-                            <p>
-                                {props.desc}
-                            </p>
+                            {props.desc.map((item, i) => {
+                                return <p>{item}</p>
+                            })}
                         </div>
                     </div>
                 </div>
