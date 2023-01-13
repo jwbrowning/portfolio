@@ -41,6 +41,10 @@ var aaDesc = "I had the great pleasure of interning at Age of Learning over this
 
 function Portfolio() {
 
+    useEffect(() => {
+        ReactGA.pageview(window.location.pathname + window.location.search);
+    }, []);
+
     return (
         <div className='Portfolio'>
             <h1>Projects and Stuff by Johnathan Browning</h1>
@@ -63,24 +67,24 @@ function Portfolio() {
                     {/* </h3>
                     <h3 className='element-link'> */}
                     {'\n\n'}<a onClick={() => {
-                        // ReactGA.event({
-                        //     category: 'Home',
-                        //     action: 'Clicked Twitter Link'
-                        // });
+                        ReactGA.event({
+                            category: 'About Me',
+                            action: 'Clicked LinkedIn Link'
+                        });
                     }} className='element-link' target="_blank" rel="noopener noreferrer" href={"https://www.linkedin.com/in/johnathan-browning/"}>{"LinkedIn"}</a>
                     {'\n\n'}<a onClick={() => {
-                        // ReactGA.event({
-                        //     category: 'Home',
-                        //     action: 'Clicked Twitter Link'
-                        // });
+                        ReactGA.event({
+                            category: 'About Me',
+                            action: 'Clicked Github Link'
+                        });
                     }} className='element-link' target="_blank" rel="noopener noreferrer" href={"https://github.com/jwbrowning"}>{"Github"}</a>
                     {/* </h3>
                     <h3 className='element-link'> */}
                     {'\n\n'}<a onClick={() => {
-                        // ReactGA.event({
-                        //     category: 'Home',
-                        //     action: 'Clicked Twitter Link'
-                        // });
+                        ReactGA.event({
+                            category: 'About Me',
+                            action: 'Clicked Twitter Link'
+                        });
                     }} className='element-link' target="_blank" rel="noopener noreferrer" href={"https://twitter.com/JBrowningIndie"}>{"Twitter"}</a>
                     </h3>
                     <p className='desc-pg'>

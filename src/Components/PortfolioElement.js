@@ -50,10 +50,10 @@ function PortfolioElement(props) {
                             </div>
                             {props.link != "" ? <h3 className='element-link'>
                             {'\n\n'}<a onClick={() => {
-                                // ReactGA.event({
-                                //     category: 'Home',
-                                //     action: 'Clicked Twitter Link'
-                                // });
+                                ReactGA.event({
+                                    category: 'Portfolio Element',
+                                    action: 'Clicked Link in ' + props.title
+                                });
                             }} className='element-link' target="_blank" rel="noopener noreferrer" href={props.link}>{props.link}</a>
                             </h3> : <></>}
                             {props.desc.map((item, i) => {
