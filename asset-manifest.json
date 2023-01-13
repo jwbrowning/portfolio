@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.c8df7231.css",
-    "main.js": "/static/js/main.02059580.js",
+    "main.js": "/static/js/main.81c5f7c5.js",
     "static/js/787.1ed0c42c.chunk.js": "/static/js/787.1ed0c42c.chunk.js",
     "static/media/cg.png": "/static/media/cg.1ada762eb25da427251c.png",
     "static/media/leuf2.png": "/static/media/leuf2.dac92b7779933a59d1bd.png",
@@ -18,11 +18,11 @@
     "static/media/leuf.jpg": "/static/media/leuf.972394f9abd6f4478053.jpg",
     "index.html": "/index.html",
     "main.c8df7231.css.map": "/static/css/main.c8df7231.css.map",
-    "main.02059580.js.map": "/static/js/main.02059580.js.map",
+    "main.81c5f7c5.js.map": "/static/js/main.81c5f7c5.js.map",
     "787.1ed0c42c.chunk.js.map": "/static/js/787.1ed0c42c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c8df7231.css",
-    "static/js/main.02059580.js"
+    "static/js/main.81c5f7c5.js"
   ]
 }
