@@ -1,11 +1,11 @@
 :root {
-  --accent: #31dc31;
+  --accent: #3bc05a;
   --piece-background: rgba(80, 255, 106, 0.722);
   --square-background: rgba(0, 255, 26, 0.478);
   --text: rgb(198, 198, 198);
   --text-hover: rgb(255, 255, 255);
   --text2: rgb(0, 0, 0);
-  --background: #000000;
+  --background: rgb(53, 58, 56);
   --dark-background: #1c211c;
   --light-background: #4d5d4e;
   --glow-color: rgba(152, 253, 155, 0.605);
@@ -85,7 +85,7 @@ h1 {
   text-align: center;
   font-size: calc(var(--unit) * 4.5);
   font-family: Arial, Helvetica, sans-serif;
-  color: var(--text-hover);
+  color: var(--accent);
   padding: calc(var(--unit) * 4.0);
   transition-duration: .5s;
 }
@@ -97,7 +97,7 @@ h2 {
   text-align: left;
   font-size: calc(var(--unit) * 3.0);
   font-family: Arial, Helvetica, sans-serif;
-  color: var(--text-hover);
+  color: var(--accent);
   /* padding: calc(var(--unit) * 4.0); */
 }
 h2:hover {
@@ -129,13 +129,14 @@ p {
   margin-right: 2%;
   margin-bottom: 2%;
   border: calc(var(--unit) * .2) solid rgb(255, 255, 255);
+  border: calc(var(--unit) * .2) solid var(--accent);
   transition-duration: .5s;
 }
 .portfolio-element:hover {
   box-shadow: calc(var(--unit) * .0) calc(var(--unit) * .0) calc(var(--unit) * 1.6) calc(var(--unit) * 1.6) rgba(255, 255, 255, 0.24);
   /* width: 110%; */
   height: 110%;
-  border: calc(var(--unit) * .2) solid var(--accent);
+  /* cursor:pointer; */
 }
 
 .background-image {
@@ -172,7 +173,7 @@ p {
   /* align-items: center; */
   /* width: 300%; */
   /* padding: 5%; */
-  width: 40%;
+  width: 35%;
   height: auto;
   /* display: block; */
   align-items: center;
@@ -188,7 +189,7 @@ p {
   /* border: calc(var(--unit) * .2) solid rgb(37, 0, 201); */
 }
 .element-desc:hover {
-  box-shadow: calc(var(--unit) * .0) calc(var(--unit) * .0) calc(var(--unit) * 1.6) calc(var(--unit) * 1.6) rgba(255, 255, 255, 0.24);
+  /* box-shadow: calc(var(--unit) * .0) calc(var(--unit) * .0) calc(var(--unit) * 1.6) calc(var(--unit) * 1.6) rgba(255, 255, 255, 0.24); */
 }
 
 .titles {
@@ -214,20 +215,25 @@ p {
 .element-link:hover {
   color:rgb(34, 92, 174);
 }
+.element-link def {
+  margin-right: 2%;
+}
 
 .desc-pg {
   margin-bottom: calc(var(--unit) * .5);
 }
 
 .aboutme-image {
-  border-radius: 5%;
+  /* border-radius: 5%; */
   width: 50%;
   margin-right: 2%;
   height: auto;
   /* margin: calc(var(--unit) * 2.0); */
+  border: calc(var(--unit) * .3) solid var(--accent);
+  transition-duration: .5s;
 }
 .aboutme-image:hover {
-  /* box-shadow: calc(var(--unit) * .0) calc(var(--unit) * .0) calc(var(--unit) * 1.6) calc(var(--unit) * 1.6) rgba(255, 255, 255, 0.24); */
+  box-shadow: calc(var(--unit) * .0) calc(var(--unit) * .0) calc(var(--unit) * 1.6) calc(var(--unit) * 1.6) rgba(255, 255, 255, 0.24);
 }
 
 /* .list {

@@ -17,7 +17,7 @@ function PortfolioElement(props) {
                 <div style={{
                     width: '100%',
                     height: '100%',
-                    backgroundColor: 'rgba(0,0,0,.8)',
+                    backgroundColor: 'rgba(0,0,0,.75)',
                     // padding: '5%'
                 }}>
                     <div className='element-stuff'>
@@ -48,6 +48,17 @@ function PortfolioElement(props) {
                                     {props.subtitle}
                                 </h3>
                             </div>
+                            <h3 className='element-link'>
+                            {props.links != undefined ? props.links.map((item, i) => {
+                                return <def>{'\n\n'}<a onClick={() => {
+                                    ReactGA.event({
+                                        category: 'Portfolio Element',
+                                        action: 'Clicked ' + props.title + " " + item.text + " link"
+                                    });
+                                }} className='element-link' target="_blank" rel="noopener noreferrer" href={item.url}>{item.text}</a>
+                                </def>
+                            }) : <></>}
+                            </h3>
                             {props.link != "" ? <h3 className='element-link'>
                             {'\n\n'}<a onClick={() => {
                                 ReactGA.event({

@@ -21,6 +21,15 @@ import atcBkg from '../Images/atcislands.png';
 import aaPic from '../Images/aa.jpg';
 import cgPic from '../Images/cg.png';
 
+import ld52Pic from '../Images/LD52Menu.png';
+import ld52Bkg from '../Images/LD52Background.png';
+
+import jamsPic from '../Images/JamsPic.png';
+import jamsBkg from '../Images/JamsBkg.png';
+
+import shadersGif from '../Images/shaders.gif';
+import shadersBkg from '../Images/shaderbkg.png';
+
 import SkydivingPic from '../Images/skydiving.jpg';
 
 var chessAssessDesc = "A chess website I made for training and following tournaments. It gained some traction during the FIDE Candidates Tournament 2022 held in June 2022. The site allowed spectators to follow the games live while getting updated predictions for how likely each result of the game was. On top of this, every move, each player's percentage chance of winning the tournament was updated live.\nThe site also hosts a unique opening trainer which has received positive feedback from many serious chess players and learners. I plan on adding more chess related projects to the site in the near future."
@@ -37,7 +46,13 @@ var atcDesc = [
     // "The idea for the game was to combine a serious, scary game environment with a silly, goofy character and control system. This juxtaposition lead to a humorous and fun end product that we are all proud of. We implemented many technical features throughout the course of the semester, including procedural floating island-generation, an inverse-kinematic, Gang-Beasts-like control system, along with a complex Active Ragdoll to give the main character a hilarious, physically-animated look. Take a look at our game's trailer and technical poster to see more!"
 ]
 
-var aaDesc = "I had the great pleasure of interning at Age of Learning over this past summer, working on Adventure Academy, an MMO (massively multiplayer online game) aimed at education for kids aged 8-13. I had the opportunity to work closely with a team of professional developers, sit in and participate in technical discussions and meetings, and learn what the workflow is like on such a large project with many moving parts."
+var aaDesc = "I had the great pleasure of interning at Age of Learning over this past summer, working on Adventure Academy, an MMO (massively multiplayer online game) aimed at education for kids aged 8-13. I had the opportunity to work closely with a team of talented professional developers, sit in and participate in technical discussions and meetings, and learn what the workflow is like on such a large project with many moving parts."
+
+var ld52Desc = "A recent game jam I participated in with a group of friends with a different talents/backgrounds. We had 72 hours to create a game based on the theme \"Harvest\". I implemented an inventory system that allows the player to pick up objects and organize them in his inventory. I also created systems for cutscenes and dialogue, which were used for a beginning tutorial scene."
+
+var jamsDesc = "I love participating in game jams! I won't go into too much detail here, but you can check them out using the Link above! Jams are a great way for me to experiment with new tools, learn new things about game development techniques, and gain teamwork experience. Above all, with such strict deadlines and time pressure, game jams allow me to better learn to estimate and manage time wisely."
+
+var shaderDesc = "I started playing around with shaders when I took a graduate level Real Time Rendering course at Ohio State. I love experimenting with different shading techniques to create awesome results. Most of the time I'm working with Unity's Shader Graph, but I've also done some coding with HLSL."
 
 function Portfolio() {
 
@@ -66,18 +81,20 @@ function Portfolio() {
                     <h3 className='element-link'>
                     {/* </h3>
                     <h3 className='element-link'> */}
-                    {'\n\n'}<a onClick={() => {
+                    <def>{'\n\n'}<a onClick={() => {
                         ReactGA.event({
                             category: 'About Me',
                             action: 'Clicked LinkedIn Link'
                         });
                     }} className='element-link' target="_blank" rel="noopener noreferrer" href={"https://www.linkedin.com/in/johnathan-browning/"}>{"LinkedIn"}</a>
+                    </def><def>
                     {'\n\n'}<a onClick={() => {
                         ReactGA.event({
                             category: 'About Me',
                             action: 'Clicked Github Link'
                         });
                     }} className='element-link' target="_blank" rel="noopener noreferrer" href={"https://github.com/jwbrowning"}>{"Github"}</a>
+                    </def><def>
                     {/* </h3>
                     <h3 className='element-link'> */}
                     {'\n\n'}<a onClick={() => {
@@ -86,14 +103,15 @@ function Portfolio() {
                             action: 'Clicked Twitter Link'
                         });
                     }} className='element-link' target="_blank" rel="noopener noreferrer" href={"https://twitter.com/JBrowningIndie"}>{"Twitter"}</a>
+                    </def>
                     </h3>
                     <p className='desc-pg'>
                         Hey, I'm Johnathan! Thanks for checking out my portfolio page.
                     </p><p className='desc-pg'>
                         I'm currently a student at The Ohio State University and I'll be graduating with 
-                        a Bachelor of Science in <b><i><u>Computer Science and Engineering</u></i></b>, with a specialization in <b><i><u>Computer Graphics and Game Design</u></i></b> in <b><i><u>May 2023</u></i></b>.
+                        a Bachelor of Science in <b><i>Computer Science and Engineering</i></b>, with a specialization in <b><i>Computer Graphics and Game Design</i></b> in <b><i>May 2023</i></b>.
                     </p><p className='desc-pg'>
-                        I have a passion for <b><i><u>Game Development</u></i></b> and love programming all kinds of projects. 
+                        I have a passion for <b><i>Game Development</i></b> and love programming all kinds of projects. 
                         Outside of programming, I enjoy chess, football, poker! I could talk about each for hours. 
                         Feel free to reach out to me via email, Twitter, or LinkedIn!
                     </p><p className='desc-pg'>
@@ -116,7 +134,16 @@ function Portfolio() {
             title={"Above the Clouds"}
             subtitle={"Unity | C#"}
             desc={atcDesc}
-            link={"https://docs.google.com/presentation/d/e/2PACX-1vQzF60rTPMMj5Ltqx357EYp8KcPtATdzU9j9n9n54TPmbe-U0MiELcYtMJc7hn-7Q/pub?start=false&loop=false&delayms=3000"}
+            links={[
+                {
+                    url: "https://docs.google.com/presentation/d/e/2PACX-1vQzF60rTPMMj5Ltqx357EYp8KcPtATdzU9j9n9n54TPmbe-U0MiELcYtMJc7hn-7Q/pub?start=false&loop=false&delayms=3000",
+                    text: "Technical Poster"
+                },
+                {
+                    url: "https://github.com/jwbrowning/AboveTheClouds-code-samples",
+                    text: "Code Samples"
+                }
+            ]}
             />
 
             <PortfolioElement
@@ -125,7 +152,15 @@ function Portfolio() {
             title={"Light 'Em Up Football"}
             subtitle={"Unity | C#"}
             desc={[leufDesc]}
-            link={"https://apps.apple.com/us/app/light-em-up-football/id1549307517"}
+            links={[
+                {
+                    url: "https://play.google.com/store/apps/details?id=com.SkidGames.LightEmUpFootball&hl=en_US&gl=US",
+                    text: "Google Play"
+                },
+                {
+                    url: "https://github.com/jwbrowning/LightEmUpFootball-code-samples",
+                    text: "Code Samples"                }
+            ]}
             />
 
             <PortfolioElement
@@ -134,7 +169,16 @@ function Portfolio() {
             title={"Chess Assess"}
             subtitle={"React | JavaScript | HTML | CSS"}
             desc={[chessAssessDesc]}
-            link={"https://chessassess.com/"}
+            links={[
+                {
+                    url: "https://chessassess.com/",
+                    text: "chessassess.com"
+                },
+                {
+                    url: "https://github.com/jwbrowning/chess-assess",
+                    text: "Source Code"
+                }
+            ]}
             />
 
             <PortfolioElement
@@ -143,7 +187,52 @@ function Portfolio() {
             title={"Legend of Zelda Re-Creation"}
             subtitle={"C# | Monogame"}
             desc={[zeldaDesc]}
-            link={"https://github.com/jwbrowning/ZeldaProject3902"}
+            links={[
+                {
+                    url: "https://github.com/jwbrowning/ZeldaProject3902",
+                    text: "Source Code"
+                }
+            ]}
+            />
+
+            <PortfolioElement
+            bkgsrc={shadersBkg}
+            src={shadersGif}
+            title={"Shaders"}
+            subtitle={"Unity Shader Graph | HLSL"}
+            desc={[shaderDesc]}
+            />
+
+            <PortfolioElement
+            bkgsrc={ld52Bkg}
+            src={ld52Pic}
+            title={"Ludum Dare 52"}
+            subtitle={"C# | Unity | GIT"}
+            desc={[ld52Desc]}
+            links={[
+                {
+                    url: "https://ldjam.com/events/ludum-dare/52/completely-normal-garbageman-simulator",
+                    text: "Game Link"
+                },
+                {
+                    url: "https://github.com/jwbrowning/GarbageSimulator-code-samples",
+                    text: "Code Samples"
+                }
+            ]}
+            />
+
+            <PortfolioElement
+            bkgsrc={jamsBkg}
+            src={jamsPic}
+            title={"Game Jams"}
+            subtitle={"C# | Unity | GIT | More"}
+            desc={[ld52Desc]}
+            links={[
+                {
+                    url: "https://sundancekid1019.itch.io/",
+                    text: "Link to my Games"
+                }
+            ]}
             />
 
             <PortfolioElement
