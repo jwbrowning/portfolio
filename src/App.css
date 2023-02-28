@@ -175,6 +175,7 @@ p {
   /* padding: 5%; */
   width: 35%;
   height: auto;
+  max-height: 100%;
   /* display: block; */
   align-items: center;
   /* padding-left: calc(var(--unit) * 2.5);
