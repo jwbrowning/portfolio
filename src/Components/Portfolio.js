@@ -112,7 +112,7 @@ function Portfolio() {
                         a Bachelor of Science in <b><i>Computer Science and Engineering</i></b>, with a specialization in <b><i>Computer Graphics and Game Design</i></b> in <b><i>May 2023</i></b>.
                     </p><p className='desc-pg'>
                         I have a passion for <b><i>Game Development</i></b> and love programming all kinds of projects. 
-                        Outside of programming, I enjoy chess, football, poker! I could talk about each for hours. 
+                        Outside of programming, I enjoy chess, football, and poker! I could talk about each for hours. 
                         Feel free to reach out to me via email, Twitter, or LinkedIn!
                     </p><p className='desc-pg'>
                         Below are some of the projects I'm most proud of.
