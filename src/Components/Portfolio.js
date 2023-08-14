@@ -32,11 +32,19 @@ import shadersBkg from '../Images/shaderbkg.png';
 
 import SkydivingPic from '../Images/skydiving.jpg';
 
+import RomeGIF from '../Images/RomeGameTestGIF.gif'
+import RomeBackground from '../Images/RomeGameBackgroundScreenshot.png'
+
+import worldCupGIF from '../Images/ChessAssessWorldCupPicks3.gif'
+import worldCupBackground from '../Images/ChessAssessWorldCupTable.png'
+
+var romeGameDesc = "My latest and current project, a solo-developed game made in Unreal Engine 5. You play the role of a senator in an ancient, Rome-like republic, debating on legislation while trying to prevent the republic from collapsing. I am continuing to learn and enhance my skills in UI-development, with gameplay heavily focused on an intuitive, easy-to-understand UI debate system. The game really comes to life with the unique shader style with post-process materials created in Unreal Engine's Material Graph editor as well as C++."
+
 var chessAssessDesc = "A chess website I made for training and following tournaments. It gained some traction during the FIDE Candidates Tournament 2022 held in June 2022. The site allowed spectators to follow the games live while getting updated predictions for how likely each result of the game was. On top of this, every move, each player's percentage chance of winning the tournament was updated live.\nThe site also hosts a unique opening trainer which has received positive feedback from many serious chess players and learners. I plan on adding more chess related projects to the site in the near future."
 
 var footballDesc = "A program that simulates NFL games based on past team and player stats. It takes into account injuries, snap percentages, target shares, and more to simulate games and predict results. Right now it's close to rivaling Vegas lines in prediction accuracy, and is continually improving."
 
-var leufDesc = "A mobile football manager game published on iOS and Android with thousands of downloads and positive reviews. The game fits a unique niche in football mobile games, giving the player complete control over their team. You can draft players, sign free agents, draw plays, and control your players in games."
+var leufDesc = "A mobile football manager game published on iOS and Android with thousands of downloads and positive reviews. The game fits a unique niche in football mobile games, giving the player complete control over their team. Its user-friendly UI systems allow you draft players, sign free agents, draw plays, and control your players in games."
 
 var zeldaDesc = "A re-creation of the original Legend of Zelda game's first dungeon, done for a project course at Ohio State. I was out group of 5's unofficial leader: I lead our meetings, helped others with programming and class structure, and often filled in many different areas of the project. I also implemented an awesome dynamic lighting feature that was not in the original game."
 
@@ -46,13 +54,15 @@ var atcDesc = [
     // "The idea for the game was to combine a serious, scary game environment with a silly, goofy character and control system. This juxtaposition lead to a humorous and fun end product that we are all proud of. We implemented many technical features throughout the course of the semester, including procedural floating island-generation, an inverse-kinematic, Gang-Beasts-like control system, along with a complex Active Ragdoll to give the main character a hilarious, physically-animated look. Take a look at our game's trailer and technical poster to see more!"
 ]
 
-var aaDesc = "I had the great pleasure of interning at Age of Learning over this past summer, working on Adventure Academy, an MMO (massively multiplayer online game) aimed at education for kids aged 8-13. I had the opportunity to work closely with a team of talented professional developers, sit in and participate in technical discussions and meetings, and learn what the workflow is like on such a large project with many moving parts."
+var aaDesc = "I had the great pleasure of interning at Age of Learning last summer, working on Adventure Academy, an MMO (massively multiplayer online game) aimed at education for kids aged 8-13. I had the opportunity to work closely with a team of talented professional developers, sit in and participate in technical discussions and meetings, and learn what the workflow is like on such a large project with many moving parts."
 
 var ld52Desc = "A recent game jam I participated in with a group of friends with a different talents/backgrounds. We had 72 hours to create a game based on the theme \"Harvest\". I implemented an inventory system that allows the player to pick up objects and organize them in his inventory. I also created systems for cutscenes and dialogue, which were used for a beginning tutorial scene."
 
 var jamsDesc = "I love participating in game jams! I won't go into too much detail here, but you can check them out using the Link above! Jams are a great way for me to experiment with new tools, learn new things about game development techniques, and gain teamwork experience. Above all, with such strict deadlines and time pressure, game jams allow me to better learn to estimate and manage time wisely."
 
-var shaderDesc = "I started playing around with shaders when I took a graduate level Real Time Rendering course at Ohio State. I love experimenting with different shading techniques to create awesome results. Most of the time I'm working with Unity's Shader Graph, but I've also done some coding with HLSL."
+var shaderDesc = "I started playing around with shaders when I took a graduate level Real Time Rendering course at Ohio State. I love experimenting with different shading techniques to create awesome results. Most of the time I'm working with Unity's Shader Graph and Unreal Engine's Material Graph, but I've also done some coding with C++ and HLSL."
+
+var worldCupDesc = "A recent addition to my chess website that tracks one of my favorite chess events, the FIDE World Cup - a giant 200+ player knockout tournament. I created an interactive bracket that allows users to track each player's chances of reaching each tournament round, as well as make picks for themselves to see how different results affect everyone's chances."
 
 function Portfolio() {
 
@@ -62,7 +72,7 @@ function Portfolio() {
 
     return (
         <div className='Portfolio'>
-            <h1>Projects and Stuff by Johnathan Browning</h1>
+            <h1>Projects by Johnathan Browning</h1>
             <div className='desc-stuff element-stuff'>
                 <img className='aboutme-image no-drag'
                     src={SkydivingPic}
@@ -108,11 +118,11 @@ function Portfolio() {
                     <p className='desc-pg'>
                         Hey, I'm Johnathan! Thanks for checking out my portfolio page.
                     </p><p className='desc-pg'>
-                        I'm currently a student at The Ohio State University and I'll be graduating with 
-                        a Bachelor of Science in <b><i>Computer Science and Engineering</i></b>, with a specialization in <b><i>Computer Graphics and Game Design</i></b> in <b><i>May 2023</i></b>.
+                        In May I graduated from The Ohio State University with my
+                        Bachelor's of Science in <b><i>Computer Science and Engineering</i></b>, with a specialization in <b><i>Computer Graphics and Game Design</i></b>.
                     </p><p className='desc-pg'>
                         I have a passion for <b><i>Game Development</i></b> and love programming all kinds of projects. 
-                        Outside of programming, I enjoy chess, football, and poker! I could talk about each for hours. 
+                        Outside of programming, I enjoy chess, football, poker, history, and stats! I could talk about each for hours. 
                         Feel free to reach out to me via email, Twitter, or LinkedIn!
                     </p><p className='desc-pg'>
                         Below are some of the projects I'm most proud of.
@@ -121,11 +131,11 @@ function Portfolio() {
             </div>
 
             <PortfolioElement
-            bkgsrc={cgPic}
-            src={aaPic}
-            title={"Adventure Academy (Internship)"}
-            subtitle={"Unity | C#"}
-            desc={[aaDesc]}
+                bkgsrc={RomeBackground}
+                src={RomeGIF}
+                title={"Roman Senate Debate Game"}
+                subtitle={"Unreal Engine | C++"}
+                desc={[romeGameDesc]}
             />
 
             <PortfolioElement
@@ -164,34 +174,61 @@ function Portfolio() {
             />
 
             <PortfolioElement
-            bkgsrc={ChessAssessPNG}
-            src={ChessAssessGIF}
-            title={"Chess Assess"}
-            subtitle={"React | JavaScript | HTML | CSS"}
-            desc={[chessAssessDesc]}
-            links={[
-                {
-                    url: "https://chessassess.com/",
-                    text: "chessassess.com"
-                },
-                {
-                    url: "https://github.com/jwbrowning/chess-assess",
-                    text: "Source Code"
-                }
-            ]}
+            bkgsrc={cgPic}
+            src={aaPic}
+            title={"Adventure Academy (Internship)"}
+            subtitle={"Unity | C#"}
+            desc={[aaDesc]}
             />
 
             <PortfolioElement
             bkgsrc={ZeldaBkg}
             src={ZeldaGIF}
             title={"Legend of Zelda Re-Creation"}
-            subtitle={"C# | Monogame"}
+            subtitle={"C# | Monogame | GIT"}
             desc={[zeldaDesc]}
             links={[
                 {
                     url: "https://github.com/jwbrowning/ZeldaProject3902",
                     text: "Source Code"
                 }
+            ]}
+            />
+
+            <PortfolioElement
+            bkgsrc={FootballBkg}
+            src={FootballPic}
+            title={"NFL Simulations"}
+            subtitle={"C++ | C# | Python"}
+            desc={[footballDesc]}
+            link={""}
+            />
+
+            <PortfolioElement
+            bkgsrc={ChessAssessPNG}
+            src={ChessAssessGIF}
+            title={"Chess Assess"}
+            subtitle={"React | Node.js | JavaScript | HTML | CSS"}
+            desc={[chessAssessDesc]}
+            links={[
+                {
+                    url: "https://chessassess.com/",
+                    text: "chessassess.com"
+                },
+            ]}
+            />
+
+            <PortfolioElement
+            bkgsrc={worldCupBackground}
+            src={worldCupGIF}
+            title={"FIDE World Cup Bracket"}
+            subtitle={"React | JavaScript | HTML | CSS"}
+            desc={[worldCupDesc]}
+            links={[
+                {
+                    url: "https://chessassess.com/follow",
+                    text: "Bracket"
+                },
             ]}
             />
 
@@ -225,23 +262,14 @@ function Portfolio() {
             bkgsrc={jamsBkg}
             src={jamsPic}
             title={"Game Jams"}
-            subtitle={"C# | Unity | GIT | More"}
-            desc={[ld52Desc]}
+            subtitle={"Unreal Engine | Unity | C++ | C# | GIT | More"}
+            desc={[jamsDesc]}
             links={[
                 {
                     url: "https://sundancekid1019.itch.io/",
                     text: "Link to my Games"
                 }
             ]}
-            />
-
-            <PortfolioElement
-            bkgsrc={FootballBkg}
-            src={FootballPic}
-            title={"NFL Simulations"}
-            subtitle={"C# | Python"}
-            desc={[footballDesc]}
-            link={""}
             />
         </div>
     )

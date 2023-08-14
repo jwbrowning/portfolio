@@ -1,17 +1,21 @@
 :root {
-  --accent: #3bc05a;
-  --piece-background: rgba(80, 255, 106, 0.722);
+  --accent: #5eff00;
+  --text-hili: rgba(190, 255, 146, 0.722);
   --square-background: rgba(0, 255, 26, 0.478);
   --text: rgb(198, 198, 198);
   --text-hover: rgb(255, 255, 255);
   --text2: rgb(0, 0, 0);
-  --background: rgb(53, 58, 56);
+  --background: rgb(38, 39, 36);
   --dark-background: #1c211c;
-  --light-background: #4d5d4e;
+  --light-background: #364137;
   --glow-color: rgba(152, 253, 155, 0.605);
   --hue: 0deg;
   --sat: 100%;
   --unit: 1.3vmin;
+}
+
+b {
+  color: var(--text-hili);
 }
 
 /* :root {
@@ -125,6 +129,7 @@ p {
   justify-content: space-evenly;
   align-items: center;
   /* flex-direction: column; */
+  width: 95vw;
   margin-left: 2%;
   margin-right: 2%;
   margin-bottom: 2%;
