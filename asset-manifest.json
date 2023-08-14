@@ -1,8 +1,9 @@
 {
   "files": {
-    "main.css": "/static/css/main.5936060f.css",
-    "main.js": "/static/js/main.b42fea70.js",
+    "main.css": "/static/css/main.3632f865.css",
+    "main.js": "/static/js/main.a77b2639.js",
     "static/js/787.1ed0c42c.chunk.js": "/static/js/787.1ed0c42c.chunk.js",
+    "static/media/RomeGameTestGIF.gif": "/static/media/RomeGameTestGIF.4dc00a012d143e1187f6.gif",
     "static/media/shaders.gif": "/static/media/shaders.7525ba205cbdd0ec916c.gif",
     "static/media/cg.png": "/static/media/cg.1ada762eb25da427251c.png",
     "static/media/leuf2.png": "/static/media/leuf2.dac92b7779933a59d1bd.png",
@@ -13,22 +14,25 @@
     "static/media/JamsBkg.png": "/static/media/JamsBkg.6d1ab8b2c3745e1b524a.png",
     "static/media/LD52Menu.png": "/static/media/LD52Menu.952478c9641e8a7a19a0.png",
     "static/media/chessassess_pic.png": "/static/media/chessassess_pic.7c6a4ad5f0d42a70049e.png",
+    "static/media/RomeGameBackgroundScreenshot.png": "/static/media/RomeGameBackgroundScreenshot.ebea03e9d728f1dd01c3.png",
     "static/media/atc.png": "/static/media/atc.c617b673811e8b8c8010.png",
     "static/media/football.png": "/static/media/football.cd87c2ca6a5a1982c178.png",
     "static/media/skydiving.jpg": "/static/media/skydiving.d1daf070199e6611af65.jpg",
+    "static/media/ChessAssessWorldCupPicks3.gif": "/static/media/ChessAssessWorldCupPicks3.b85975c3f2d48214b6ad.gif",
     "static/media/LD52Background.png": "/static/media/LD52Background.b2d631f55629645012a4.png",
     "static/media/atcislands.png": "/static/media/atcislands.866d773c7b55fc17a5cb.png",
+    "static/media/ChessAssessWorldCupTable.png": "/static/media/ChessAssessWorldCupTable.64ee3a289a5f32bf9713.png",
     "static/media/aa.jpg": "/static/media/aa.5ccd02ccaba743262619.jpg",
     "static/media/zeldabackground.jpg": "/static/media/zeldabackground.e78c0388928f5f3f0995.jpg",
     "static/media/footballbackground.jpeg": "/static/media/footballbackground.8bb47fe61d659d481d5f.jpeg",
     "static/media/leuf.jpg": "/static/media/leuf.972394f9abd6f4478053.jpg",
     "index.html": "/index.html",
-    "main.5936060f.css.map": "/static/css/main.5936060f.css.map",
-    "main.b42fea70.js.map": "/static/js/main.b42fea70.js.map",
+    "main.3632f865.css.map": "/static/css/main.3632f865.css.map",
+    "main.a77b2639.js.map": "/static/js/main.a77b2639.js.map",
     "787.1ed0c42c.chunk.js.map": "/static/js/787.1ed0c42c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5936060f.css",
-    "static/js/main.b42fea70.js"
+    "static/css/main.3632f865.css",
+    "static/js/main.a77b2639.js"
   ]
 }
