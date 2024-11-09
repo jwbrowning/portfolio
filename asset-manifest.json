@@ -1,9 +1,10 @@
 {
   "files": {
-    "main.css": "/static/css/main.3632f865.css",
-    "main.js": "/static/js/main.a77b2639.js",
+    "main.css": "/static/css/main.ed42f5f5.css",
+    "main.js": "/static/js/main.bbd0f9e7.js",
     "static/js/787.1ed0c42c.chunk.js": "/static/js/787.1ed0c42c.chunk.js",
     "static/media/RomeGameTestGIF.gif": "/static/media/RomeGameTestGIF.4dc00a012d143e1187f6.gif",
+    "static/media/fbsgif.gif": "/static/media/fbsgif.695a1afab2e7821cfe4b.gif",
     "static/media/shaders.gif": "/static/media/shaders.7525ba205cbdd0ec916c.gif",
     "static/media/cg.png": "/static/media/cg.1ada762eb25da427251c.png",
     "static/media/leuf2.png": "/static/media/leuf2.dac92b7779933a59d1bd.png",
@@ -22,17 +23,20 @@
     "static/media/LD52Background.png": "/static/media/LD52Background.b2d631f55629645012a4.png",
     "static/media/atcislands.png": "/static/media/atcislands.866d773c7b55fc17a5cb.png",
     "static/media/ChessAssessWorldCupTable.png": "/static/media/ChessAssessWorldCupTable.64ee3a289a5f32bf9713.png",
+    "static/media/CandidatesBackground.png": "/static/media/CandidatesBackground.a3b6497b1e23c3f0ef94.png",
     "static/media/aa.jpg": "/static/media/aa.5ccd02ccaba743262619.jpg",
+    "static/media/CandidatesGraph.png": "/static/media/CandidatesGraph.231e23b2c2a652701836.png",
     "static/media/zeldabackground.jpg": "/static/media/zeldabackground.e78c0388928f5f3f0995.jpg",
     "static/media/footballbackground.jpeg": "/static/media/footballbackground.8bb47fe61d659d481d5f.jpeg",
     "static/media/leuf.jpg": "/static/media/leuf.972394f9abd6f4478053.jpg",
+    "static/media/fbsbkg.png": "/static/media/fbsbkg.8beb1840e8e89977439f.png",
     "index.html": "/index.html",
-    "main.3632f865.css.map": "/static/css/main.3632f865.css.map",
-    "main.a77b2639.js.map": "/static/js/main.a77b2639.js.map",
+    "main.ed42f5f5.css.map": "/static/css/main.ed42f5f5.css.map",
+    "main.bbd0f9e7.js.map": "/static/js/main.bbd0f9e7.js.map",
     "787.1ed0c42c.chunk.js.map": "/static/js/787.1ed0c42c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3632f865.css",
-    "static/js/main.a77b2639.js"
+    "static/css/main.ed42f5f5.css",
+    "static/js/main.bbd0f9e7.js"
   ]
 }
