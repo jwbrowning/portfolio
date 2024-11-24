@@ -1,17 +1,17 @@
 :root {
-  --accent: #7fff35;
-  --text-hili: rgba(190, 255, 146, 0.722);
-  --square-background: rgba(0, 255, 26, 0.478);
+  --accent: #1cff95;
+  --text-hili: rgba(146, 255, 195, 0.722);
+  --square-background: rgba(0, 255, 106, 0.478);
   --text: rgb(198, 198, 198);
   --text-hover: rgb(255, 255, 255);
   --text2: rgb(0, 0, 0);
-  --background: rgb(38, 39, 36);
-  --dark-background: #1c211c;
-  --light-background: #364137;
-  --glow-color: rgba(152, 253, 155, 0.605);
+  --background: rgb(36, 39, 38);
+  --dark-background: #1c211e;
+  --light-background: #36413a;
+  --glow-color: rgba(152, 253, 191, 0.605);
   --hue: 0deg;
   --sat: 100%;
-  --unit: 1.3vmin;
+  --unit: 1.3vmin; 
 }
 
 b {

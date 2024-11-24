@@ -38,6 +38,12 @@ import RomeBackground from '../Images/RomeGameBackgroundScreenshot.png'
 import worldCupGIF from '../Images/ChessAssessWorldCupPicks3.gif'
 import worldCupBackground from '../Images/ChessAssessWorldCupTable.png'
 
+import candidatesPic from '../Images/CandidatesGraph.png'
+import candidatesBackground from '../Images/CandidatesBackground.png'
+
+import fbsGif from '../Images/fbsgif.gif'
+import fbsBkg from '../Images/fbsbkg.png'
+
 var romeGameDesc = "My latest and current project, a solo-developed game made in Unreal Engine 5. You play the role of a senator in an ancient, Rome-like republic, debating on legislation while trying to prevent the republic from collapsing. I am continuing to learn and enhance my skills in UI-development, with gameplay heavily focused on an intuitive, easy-to-understand UI debate system. The game really comes to life with the unique shader style with post-process materials created in Unreal Engine's Material Graph editor as well as C++."
 
 var chessAssessDesc = "A chess website I made for training and following tournaments. It gained some traction during the FIDE Candidates Tournament 2022 held in June 2022. The site allowed spectators to follow the games live while getting updated predictions for how likely each result of the game was. On top of this, every move, each player's percentage chance of winning the tournament was updated live.\nThe site also hosts a unique opening trainer which has received positive feedback from many serious chess players and learners. I plan on adding more chess related projects to the site in the near future."
@@ -62,7 +68,11 @@ var jamsDesc = "I love participating in game jams! I won't go into too much deta
 
 var shaderDesc = "I started playing around with shaders when I took a graduate level Real Time Rendering course at Ohio State. I love experimenting with different shading techniques to create awesome results. Most of the time I'm working with Unity's Shader Graph and Unreal Engine's Material Graph, but I've also done some coding with C++ and HLSL."
 
-var worldCupDesc = "A recent addition to my chess website that tracks one of my favorite chess events, the FIDE World Cup - a giant 200+ player knockout tournament. I created an interactive bracket that allows users to track each player's chances of reaching each tournament round, as well as make picks for themselves to see how different results affect everyone's chances."
+var worldCupDesc = "A 2023 addition to my chess website that tracks one of my favorite chess events, the FIDE World Cup - a giant 200+ player knockout tournament. I created an interactive bracket that allows users to track each player's chances of reaching each tournament round, as well as make picks for themselves to see how different results affect everyone's chances."
+
+var candidatesDesc = "The most recent addition to my chess website that tracked the 2024 FIDE Candidates Tournament, which determined who would challenge the reigning World Champion for the title. For this tournament, I graphed each player's chance of winning the tournament over time for the entire tournament, updating the probabilities live, every move. I also tracked the most critical moves of each round and for the whole tournament by tracking how much the probabilities changed each move."
+
+var fbsDesc = "One of my more recent prototypes exploring networking solutions in Unity: A 1 vs 1 multiplayer football strategy game where you create your own plays and make real time strategic decisions at the line of scrimmage. More info and updates coming soon..."
 
 function Portfolio() {
 
@@ -118,7 +128,9 @@ function Portfolio() {
                     <p className='desc-pg'>
                         Hey, I'm Johnathan! Thanks for checking out my portfolio page.
                     </p><p className='desc-pg'>
-                        In May I graduated from The Ohio State University with my
+                        I'm currently working as a <b><i>Software Engineer</i></b> specializing in <b><i>Unity Development</i></b>.
+                    </p><p className='desc-pg'>
+                        I graduated from The Ohio State University in May 2023 with my
                         Bachelor's of Science in <b><i>Computer Science and Engineering</i></b>, with a specialization in <b><i>Computer Graphics and Game Design</i></b>.
                     </p><p className='desc-pg'>
                         I have a passion for <b><i>Game Development</i></b> and love programming all kinds of projects. 
@@ -130,12 +142,20 @@ function Portfolio() {
                 </div>
             </div>
 
-            <PortfolioElement
+            {/* <PortfolioElement
                 bkgsrc={RomeBackground}
                 src={RomeGIF}
                 title={"Roman Senate Debate Game"}
                 subtitle={"Unreal Engine | C++"}
                 desc={[romeGameDesc]}
+            /> */}
+
+            <PortfolioElement
+            bkgsrc={fbsBkg}
+            src={fbsGif}
+            title={"Multiplayer Football Strategy Game"}
+            subtitle={"Unity | C#"}
+            desc={[fbsDesc]}
             />
 
             <PortfolioElement
@@ -182,29 +202,6 @@ function Portfolio() {
             />
 
             <PortfolioElement
-            bkgsrc={ZeldaBkg}
-            src={ZeldaGIF}
-            title={"Legend of Zelda Re-Creation"}
-            subtitle={"C# | Monogame | GIT"}
-            desc={[zeldaDesc]}
-            links={[
-                {
-                    url: "https://github.com/jwbrowning/ZeldaProject3902",
-                    text: "Source Code"
-                }
-            ]}
-            />
-
-            <PortfolioElement
-            bkgsrc={FootballBkg}
-            src={FootballPic}
-            title={"NFL Simulations"}
-            subtitle={"C++ | C# | Python"}
-            desc={[footballDesc]}
-            link={""}
-            />
-
-            <PortfolioElement
             bkgsrc={ChessAssessPNG}
             src={ChessAssessGIF}
             title={"Chess Assess"}
@@ -226,10 +223,47 @@ function Portfolio() {
             desc={[worldCupDesc]}
             links={[
                 {
-                    url: "https://chessassess.com/follow",
+                    url: "https://www.chessassess.com/worldcup",
                     text: "Bracket"
                 },
             ]}
+            />
+
+            <PortfolioElement
+            bkgsrc={candidatesBackground}
+            src={candidatesPic}
+            title={"FIDE Candidates Tournament 2024"}
+            subtitle={"React | JavaScript | HTML | CSS"}
+            desc={[candidatesDesc]}
+            links={[
+                {
+                    url: "https://www.chessassess.com/candidates",
+                    text: "Candidates Page"
+                },
+            ]}
+            />
+
+            <PortfolioElement
+            bkgsrc={ZeldaBkg}
+            src={ZeldaGIF}
+            title={"Legend of Zelda Re-Creation"}
+            subtitle={"C# | Monogame | GIT"}
+            desc={[zeldaDesc]}
+            links={[
+                {
+                    url: "https://github.com/jwbrowning/ZeldaProject3902",
+                    text: "Source Code"
+                }
+            ]}
+            />
+
+            <PortfolioElement
+            bkgsrc={FootballBkg}
+            src={FootballPic}
+            title={"NFL Simulations"}
+            subtitle={"C++ | C# | Python"}
+            desc={[footballDesc]}
+            link={""}
             />
 
             <PortfolioElement

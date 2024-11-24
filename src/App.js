@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactGA from 'react-ga';
 import Portfolio from './Components/Portfolio';
+import ChessPortfolio from './Components/ChessPortfolio';
+import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 
 import './App.css';
 
@@ -11,7 +13,12 @@ ReactGA.initialize(TRACKING_ID);
 function App() {
   return(
     <div className='app'>
-      <Portfolio />
+      <Router>
+        <Routes>
+          <Route path='/' element={<Portfolio />} />
+          <Route path='/chess' element={<ChessPortfolio />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
